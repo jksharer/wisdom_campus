@@ -1,0 +1,35 @@
+<%= render 'shared/notice' %>
+<div id="procedure-name">
+	<strong>流程名称:</strong>
+  <%= @procedure.name %> |
+  <%= link_to ' 编辑', edit_procedure_path(@procedure), remote: true %>
+</div>
+<div class="top-links">
+	<%= link_to '添加步骤', new_step_path(procedure_id: @procedure.id), remote: true %> |
+	<%= link_to '返回', procedures_path, remote: true %>	
+</div>
+<div id="steps">
+	<table class="table table-bordered">
+		<thead>
+			<tr>
+				<th>顺序</th>
+				<th>审批人</th>
+				<th></th>
+				<th></th>	
+			</tr>
+		</thead>
+		<tbody>
+			<% @procedure.steps.sort { |a,b| a.view_order <=> b.view_order }.each do |step| %>
+				<tr>
+					<td><%= step.view_order %></td>
+					<td><%= step.user.username %></td>
+					<td><%= link_to "Edit", edit_step_path(step), remote: true %></td>
+					<td><%= link_to 'Destroy', step, method: :delete, remote: true,
+	          				data: { confirm: 'Are you sure?' } %>
+	        </td>
+				</tr>
+			<% end %>
+		</tbody>
+	</table>	
+</div>
+<div id="new-step" class="col-sm-6"></div>  

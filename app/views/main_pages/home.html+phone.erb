@@ -1,0 +1,23 @@
+<ul class="table-view">
+  <li class="table-view-cell">
+    <a class="navigate-right" href="/announcements" data-transition="slide-in">
+    	<span class="icon icon-sound"></span>
+      <span class="badge"><%= @announcements.size %></span>
+      通知公告
+    </a>
+  </li>
+  <li class="table-view-cell">
+    <a class="navigate-right">
+      <span class="icon icon-pages"></span>
+      <span class="badge"><%= @being_reviews.size %></span>
+      流程审批
+    </a>
+  </li>
+  <li class="table-view-cell">
+    <a class="navigate-right">
+      <span class="icon icon-forward"></span>
+      <span class="badge"><%= @projects.size %></span>
+      项目进度
+    </a>
+  </li>
+</ul>

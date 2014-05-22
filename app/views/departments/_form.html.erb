@@ -1,0 +1,33 @@
+<%= link_to '返回', departments_path, remote: true %> | 
+<a href="#">清空</a>
+<%= form_for(@department, remote: true, html: { class: "form-horizontal", role: "form" }) do |f| %>
+  <%= render 'shared/error_messages', object: f.object %>
+
+  <div class="form-group">
+    <%= f.label :name, "部门名称", class: "col-sm-2 control-label" %>
+    <div class="col-sm-8">
+      <%= f.text_field :name, class: "form-control" %>
+    </div>  
+  </div>
+
+  <div class="form-group">
+    <%= f.label :description, "部门描述", class: "col-sm-2 control-label" %>
+    <div class="col-sm-8">
+      <%= f.text_field :description, class: "form-control" %>
+    </div>  
+  </div>
+
+  <div class="form-group">
+    <%= f.label :parent_department_id, "上级部门", class: "col-sm-2 control-label" %>
+    <div class="col-sm-8">
+      <%= f.select(:parent_department_id, options_for_select(Department.all.map { |dept| [dept.name, dept.id] }),
+        { prompt: "选择部门或机构" }, { class: "form-control" }) %>
+    </div>  
+  </div>
+
+  <div class="form-group">
+    <div class="col-sm-offset-2 col-sm-2">
+      <%= f.submit "保  存", class: "btn btn-large btn-primary" %>
+    </div>
+  </div>
+<% end %>    

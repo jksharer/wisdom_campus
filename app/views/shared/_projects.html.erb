@@ -1,0 +1,43 @@
+<%= image_tag("my_announcements.gif",alt: "工程项目监控") %>
+<span class="head">工程项目监控</span>
+<hr>
+<div class="table-responsive">
+<table class="table table-bordered border-striped ">
+  <thead>
+    <tr>
+      <th>工程/项目</th>
+      <th>状态</th>
+      <th>负责人</th>
+      <th>优先级</th>
+      <th>需要完成时间</th>
+      <th>实时监控</th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @projects.each do |project| %>
+      <% if project.status == "delay" %>
+          <tr class="danger">  
+        <% elsif project.status == "normal" %>
+          <tr class="success">
+        <% else %>  
+          <tr>    
+        <% end %>
+      
+        <td><%= link_to project.name, project %></td>
+        <% if project.status == "delay" %>
+          <td style="background-color: red">  
+        <% elsif %>
+          <td>
+        <% end %>
+          <%= state_format(project.status) %>
+        </td>
+        <td><%= project.user.username %></td>
+        <td><%= state_format(project.priority) %></td>
+        <td><%= project.end_date %></td>
+        <td><%= link_to "视频监控" %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+</div>

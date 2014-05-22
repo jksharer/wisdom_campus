@@ -1,0 +1,38 @@
+<%= form_for(@role, remote: true, html: { class: "form-horizontal", role: "form" }) do |f| %>
+  <%= render 'shared/error_messages', object: f.object %>
+
+  <div class="form-group">
+    <%= f.label :name, "角色名称", class: "col-sm-2 control-label" %>
+    <div class="col-sm-8">
+      <%= f.text_field :name, class: "form-control" %>  
+    </div>
+  </div>
+
+  <div class="form-group">
+    <%= f.label :menus_of_role, "功能权限:", class: "col-sm-2 control-label" %>
+    <div class=" col-sm-10">
+      <% @menus.each do |menu| %>
+        <div class="all_menus">
+          <%= check_box_tag "menus_of_role[]", menu.id, 
+            @role.menus.include?(menu) %>
+          <%= label_tag menu.name %>  
+          <% if menu.has_kids? %>
+            <hr>
+            <div class="sub_menus">
+              <% menu.sub_menus.each do |sub_menu| %>
+                <%= check_box_tag "menus_of_role[]", sub_menu.id,
+                  @role.menus.include?(sub_menu) %>
+                <%= label_tag sub_menu.name %>
+              <% end %>
+            </div>
+            <hr>
+          <% end %>
+        </div>  
+      <% end %>  
+    </div>
+  </div>
+
+  <div class="col-sm-offset-2 col-sm-4">
+    <%= f.submit "保  存", class: "btn btn-large btn-primary" %>
+  </div>
+<% end %>

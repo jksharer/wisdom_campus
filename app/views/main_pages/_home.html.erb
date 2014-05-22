@@ -1,0 +1,30 @@
+<div class="row">
+	<div class="col-md-7">
+		<div class="row">
+			<div class="col-md-12">
+				<%= render 'shared/my_announcements' %>		
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-md-12">
+				<%= render 'shared/projects' %>		
+			</div>
+		</div>
+	</div>
+
+	<div class="col-md-5">
+		<div class="row">
+			<div class="col-md-12">
+				<p><%= current_user.agency.name %></p>
+				<p><%= current_user.username %></p>
+				<P><%= current_user.roles.map { |role| role.name }.join(',') %></P>
+				<p><%= current_user.department.nil?? "" : current_user.department.name %></p>		
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-md-12">
+				<%= render 'shared/my_reviews' %>		
+			</div>
+		</div>	
+	</div>		
+</div>

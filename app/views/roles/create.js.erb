@@ -1,0 +1,5 @@
+<% if @role.errors.any? %>
+	$( "div#content" ).html("<%= escape_javascript(render('roles/new')) %>")
+<% else %>
+	$( "div#content" ).html("<%= escape_javascript(render('roles/index')) %>")
+<% end %>	

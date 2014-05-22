@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html>
+	<head>
+	  <title>学生综合行为评价系统</title>
+	  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+	  <%= stylesheet_link_tag    "application", media: "all", "data-turbolinks-track" =>true %>
+	  <%= javascript_include_tag "application", "data-turbolinks-track" => true %>
+	  <%= javascript_include_tag "custom", "data-turbolinks-track" => true %>
+	  <%= csrf_meta_tags %>
+	</head>
+	<body>
+		<%= render 'layouts/header' %>
+		<div class="container <%= controller.controller_name %>">
+			<div class="row">
+				<!-- 左侧边导航 -->
+				<div class="col-md-2" id="side">
+					<%= render 'layouts/side' %>	
+				</div>
+
+				<!-- 内容区 -->
+				<div class="col-md-10" id="content">
+						<%= render 'shared/notice' %>
+						<%= yield %>	
+				</div>
+			</div>
+		</div>	
+	</body>
+</html>

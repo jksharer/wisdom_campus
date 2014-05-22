@@ -1,0 +1,75 @@
+<p>
+  <strong>公告名称:</strong>
+  <%= @announcement.name %>
+</p>
+
+<p>
+  <strong>发布人:</strong>
+  <%= @announcement.user.username %>
+</p>
+
+<p>
+  <strong>状态:</strong>
+  <%= state_format(@announcement.workflow_state) %>
+</p>
+<P>
+  <% if @announcement.workflow_state == "new" %>
+      <strong>创建时间：</strong><%= time_format(@announcement.created_at) %>
+    <% elsif @announcement.workflow_state == "being_reviewed" %>
+      <strong>发起时间：</strong><%= time_format(@announcement.updated_at) %>
+    <% end %>  
+</P>
+
+<p>
+  <strong>公告内容:</strong>
+  <%= @announcement.content %>
+</p>
+
+<% if @announcement.user == current_user && @announcement.new? %>
+	<%= button_to "提交审批", handle_workflow_path(id: @announcement.id, event: "submit!"),
+    remote: true, class: "btn btn-large btn-primary col-sm-2" %>
+<% elsif @announcement.being_reviewed? %>
+  <table class="table">
+    <thead>
+      <tr>
+        <th>次序</th>
+        <th>审批人</th>
+        <th>状态</th>
+        <th></th>
+        <th>评语</th>
+        <th></th>
+      </tr>
+    </thead>
+    <tbody>
+      <% @reviews.each do |review| %>
+        <tr>
+          <td><%= review.step.view_order %></td>
+          <td><%= review.step.user.username %></td>
+          <td>
+            <%= state_format(review.state) %>
+          </td>
+          <td>
+            <% if review.step.user == current_user && review.state == "current_review" %>
+              <%= link_to '同意', handle_review_path(id: @announcement.id, 
+                review: review.id, judge: "accepted"), remote: true %> | 
+              <%= link_to '拒绝', handle_review_path(id: @announcement.id, 
+                review: review.id, judge: "rejected"), remote: true %>
+            <% end %>
+            <%= review.accepted?? time_format_min(review.updated_at.getlocal) : "" %>
+          </td>
+          <td><%= review.comment %></td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+<% elsif @announcement.user == current_user && @announcement.accepted? %>
+	<p>审核已经通过，公告已正式发布！</p>
+<% elsif @announcement.user == current_user && @announcement.rejected? %>
+	<p>审核已被拒绝，请修改并重新发起审批！</p>
+	<%= button_to "重新提交审批", handle_workflow_path(id: @announcement.id, event: "resubmit!"),
+    remote: true %>
+<% end %>
+<% if @announcement.current_state == "new" %>
+  <%= link_to 'Edit', edit_announcement_path(@announcement), remote: true %> | 
+<% end %>
+<%= link_to 'Back', announcements_path, remote: true %>

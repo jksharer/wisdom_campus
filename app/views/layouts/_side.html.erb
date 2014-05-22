@@ -1,0 +1,10 @@
+<ul class="nav nav-pills nav-stacked"> 
+	<% if !@two_level_menus.nil? %>
+		<% @two_level_menus.each do |menu| %>
+			<li>
+				<%= link_to menu.name, "#{menu.url}?menu_id=#{menu.id}", remote: true,
+					class: "two_level", id: "/#{menu.controller}" %>
+			</li>
+		<% end %>
+	<% end %>	
+</ul>

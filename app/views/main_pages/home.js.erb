@@ -1,0 +1,4 @@
+$("div#content").html('<%= escape_javascript(render("main_pages/home")) %>')
+<% if params[:parent] %>
+	$("div#side").html('<%= j render("layouts/side") %>')
+<% end %>

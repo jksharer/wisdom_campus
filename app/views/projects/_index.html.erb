@@ -1,0 +1,47 @@
+<h1>所有工程/项目</h1>
+
+<%= link_to '新工程/项目', new_project_path, class: "btn btn-large btn-primary" %>
+<table class="table table-bordered border-striped ">
+  <thead>
+    <tr>
+      <th>工程/项目</th>
+      <th>当前状态</th>
+      <th>负责人</th>
+      <th>描述</th>
+      <th>优先级</th>
+      <th>开始时间</th>
+      <th>需要完成时间</th>
+      <th>最新进展</th>
+      <th>实时监控</th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @projects.each do |project| %>
+      <% if project.status == "delay" %>
+          <tr class="danger">  
+        <% elsif project.status == "normal" %>
+          <tr class="success">
+        <% else %>  
+          <tr>    
+        <% end %>
+      
+        <td><%= link_to project.name, project %></td>
+        <% if project.status == "delay" %>
+          <td style="background-color: red">  
+        <% elsif %>
+          <td>
+        <% end %>
+          <%= state_format(project.status) %>
+        </td>
+        <td><%= project.user.username %></td>
+        <td><%= project.description %></td>
+        <td><%= state_format(project.priority) %></td>
+        <td><%= project.start_date %></td>
+        <td><%= project.end_date %></td>
+        <td></td>
+        <td><%= link_to "视频监控" %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>

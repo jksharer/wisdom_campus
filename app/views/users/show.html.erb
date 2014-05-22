@@ -1,0 +1,23 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>用户名:</strong>
+  <%= @user.username %>
+</p>
+
+<p>
+  <strong>所在机构:</strong>
+  <%= @user.agency.name %>
+</p>
+
+<p>
+  <strong>所在部门:</strong>
+  <%= current_user.department.nil?? "" : current_user.department.name %>
+</p>
+
+<p>
+  <strong>角色:</strong>
+  <%= current_user.roles.map { |role| role.name }.join(',') %>
+</p>
+
+<%= link_to "修改密码", edit_user_path(current_user) %>

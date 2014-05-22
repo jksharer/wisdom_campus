@@ -1,0 +1,45 @@
+<div class="top-links">
+  <%= link_to '新公告', new_announcement_path, remote: true, class: "btn btn-large btn-primary new_button", 
+    id: "new_button" %>
+  <%= link_to '所有公告', announcements_path, remote: true %> | 
+  <%= link_to '我发起的', announcements_url(:conditions => { :user_id => current_user }), remote: true %> |
+  <%= link_to '待审批', being_reviewed_path, remote: true %>  
+</div>
+
+<%= render 'shared/notice' %>
+
+<div id="announcements_table">
+  <table class="table">
+    <thead>
+      <tr>
+        <th>标题</th>
+        <th>发布人</th>
+        <th>公告内容</th>
+        <th><%= @scope == "all"? "发布时间" : (@scope == "mine"? "时间" : "发起时间") %></th>
+        <th></th>
+      </tr>
+    </thead>
+
+    <tbody>
+      <% @announcements.each do |announcement| %>
+        <tr>
+          <td><%= link_to announcement.name, announcement, remote: true %></td>
+          <td><%= announcement.user.username %></td>
+          <td><%= announcement.content.truncate(30) %></td>
+          <td><%= time_format(announcement.updated_at.getlocal) %></td>
+          <% if @scope == "mine" %>
+            <td><%= state_format(announcement.workflow_state) %></td>
+          <% end %>
+          <% if @scope == "mine" %>
+            <td>
+              <% if announcement.current_state == "new" %>
+                <%= link_to 'Edit', edit_announcement_path(announcement), remote: true %>  
+              <% end %>  
+            </td>
+          <% end %>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+  <%= will_paginate @announcements%>  
+</div>

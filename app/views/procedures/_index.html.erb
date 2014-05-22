@@ -1,0 +1,28 @@
+<div class="top-links">
+  <%= link_to '新增流程', new_procedure_path, :remote => true, :class => "btn btn-large btn-primary" %>  
+</div>
+<%= render 'shared/notice' %>
+<div id="procedure-content">
+  <table class="table">
+    <thead>
+      <tr>
+        <th>流程名称</th>
+        <th>流程步骤</th>
+        <th></th>
+        <th></th>
+      </tr>
+    </thead>
+
+    <tbody>
+      <% @procedures.each do |procedure| %>
+        <tr>
+          <td><%= link_to procedure.name, procedure, remote: true %></td>
+          <td><%= procedure.steps.map { |step| step.user.username }.join('->') %></td>
+          <td><%= link_to 'Edit', edit_procedure_path(procedure) %></td>
+          <td><%= link_to 'Destroy', procedure, method: :delete, 
+            data: { confirm: 'Are you sure?' } %></td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>  
+</div>

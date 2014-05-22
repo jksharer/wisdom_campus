@@ -1,0 +1,63 @@
+<%= link_to '返回', roles_path, remote: true %> |
+<a href="#">清空</a>
+<%= form_for(@user, remote: true, html: { class: "form-horizontal", role: "form" }) do |f| %>
+  <%= render 'shared/error_messages', object: f.object %>
+
+  <div class="form-group">
+    <%= f.label :username, "用户名", class: "col-sm-2 control-label" %>
+    <div class="col-sm-8">
+      <%= f.text_field :username, class: "form-control" %>  
+    </div>
+  </div>
+  
+  <div class="form-group">
+    <%= f.label :agency_id, "所属机构", class: "col-sm-2 control-label" %>
+    <div class="col-sm-8">
+      <%= label_tag :agency_id, current_user.agency.name, class: "form-control" %>
+    </div>
+  </div>
+
+  <div class="form-group">
+    <%= f.label :department, "所在部门", class: "col-sm-2 control-label" %>
+    <div class="col-sm-8">
+      <%= f.select(:department_id, options_for_select(
+          Department.where(agency: current_user.agency).map {|department| [department.name, department.id]}), 
+          { prompt: "选择部门" }, { class: "form-control" }) 
+      %>
+    </div>
+  </div>      
+
+  <div class="form-group">
+    <%= f.label :roles_of_user, "用户角色:", class: "col-sm-2 control-label" %>
+    <div class="all_roles col-sm-8">
+      <% Role.all.each do |role| %>
+        <%= check_box_tag "roles_of_user[]", role.id, 
+            @user.roles.include?(role) %>
+        <%= label_tag role.name %>      
+      <% end %>  
+    </div>
+  </div>  
+
+  <% if params[:from].nil? %>
+    <div class="form-group">
+      <%= f.label :password, "登陆密码", class: "col-sm-2 control-label" %>
+      <div class="col-sm-8">
+        <%= f.password_field :password, class: "form-control" %>
+      </div>
+    </div>
+
+    <div class="form-group">
+      <%= f.label :password_confirmation, "密码确认", class: "col-sm-2 control-label" %>
+      <div class="col-sm-8">
+        <%= f.password_field :password_confirmation, class: "form-control" %>
+      </div>
+    </div>
+  <% end %>
+  
+  <div class="form-group">
+    <label class="col-sm-2"></label>
+    <div class="col-sm-3">
+      <%= f.submit "保  存", class: "btn btn-large btn-primary" %>  
+    </div>
+  </div>
+<% end %>

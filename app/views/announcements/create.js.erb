@@ -1,0 +1,5 @@
+<% if @announcement.errors.any? %>
+	$( "div#announcements_table" ).html('<%= escape_javascript(render("announcements/form")) %>')
+<% else %>
+	$( "div#announcements_table" ).html('<%= escape_javascript(render("announcements/announcement")) %>')
+<% end %>	

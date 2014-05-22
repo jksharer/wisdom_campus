@@ -1,0 +1,78 @@
+<%= form_for(@project, html: { class: "form-horizontal", role: "form" }) do |f| %>
+  <%= render 'shared/error_messages', object: f.object %>
+  <div class="form-group">
+    <%= f.label :name, "工程/项目名称", class: "col-sm-2 control-label" %>
+    <div class="col-sm-10">
+      <%= f.text_field :name, class: "form-control" %>
+    </div>
+  </div>
+
+  <div class="form-group">
+    <%= f.label :user_id, "负责人", class: "col-sm-2 control-label" %>
+    <div class="col-sm-10">
+      <%= f.select(:user_id, options_for_select(
+      User.all.map { |user| [user.username, user.id] }),
+      {}, { class: "form-control" }) %>
+    </div>
+  </div>
+
+  <div class="form-group">
+    <%= f.label :description, "工程/项目描述", class: "col-sm-2 control-label" %>
+    <div class="col-sm-10">
+      <%= f.text_field :description, class: "form-control" %>  
+    </div>
+  </div>
+
+  <div class="form-group">
+    <%= f.label :department_id, "所属部门", class: "col-sm-2 control-label" %>
+    <div class="col-sm-10">
+      <%= f.select(:department_id, options_for_select(
+        Department.all.map { |dept| [dept.name, dept.id] }),
+        {}, { class: "form-control" }) %>  
+    </div>
+  </div>
+
+  <div class="form-group">
+    <%= f.label :priority, "优先级", class: "col-sm-2 control-label" %>
+    <div class="col-sm-10">
+      <div class="form-control" style="border:none;">
+        <% Project.priority.options.each do |priority| %>
+          <%= f.radio_button :priority, priority[1] %>
+          <span class="radio_text"><%= state_format(priority[1]) %></span>
+        <% end %>  
+      </div>  
+    </div>
+  </div>
+
+  <div class="form-group">
+    <%= f.label :start_date, "开始日期", class:"col-sm-2 control-label" %>
+    <div class="col-sm-10">
+      <%= f.text_field :start_date, class: "form-control datepicker", placeholder:"开始日期" %>  
+    </div>
+  </div>
+
+  <div class="form-group">
+    <%= f.label :end_date, "需要完成日期", class: "col-sm-2 control-label" %>
+    <div class="col-sm-10">
+      <%= f.text_field :end_date, class: "datepicker form-control" %>  
+    </div>
+  </div>
+
+  <div class="form-group">
+    <%= f.label :status, "当前状态", class: "col-sm-2 control-label" %>
+    <div class="col-sm-10">
+      <div class="form-control" style="border:none;">
+        <% Project.status.options.each do |status| %>
+          <%= f.radio_button :status, status[1] %>
+          <span class="radio_text"><%= state_format(status[1]) %></span>
+        <% end %>  
+      </div>
+    </div>
+  </div>
+  
+  <div class="form-group">
+    <div class="col-sm-offset-2 col-sm-10">
+      <%= f.submit "保  存", class: "btn btn-large btn-primary form-control" %>  
+    </div>
+  </div>
+<% end %>

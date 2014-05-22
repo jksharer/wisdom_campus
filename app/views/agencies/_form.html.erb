@@ -1,0 +1,35 @@
+<script type="text/javascript">
+  $(document).ready(function() {
+      $("a.reset").click(function(event) {
+        event.preventDefault();
+        $(':input','form')  
+         .not(':button, :submit, :reset, :hidden')  
+         .val('')  
+         .removeAttr('checked')  
+         .removeAttr('selected');  
+      });
+  });
+</script>
+<%= link_to "返回", agencies_path, remote: true %> |
+<a href="#" class="reset">清空</a>
+<%= form_for(@agency, remote: true, html: { class: "form-horizontal", role: "form" }) do |f| %>
+  <%= render 'shared/error_messages', object: f.object%>
+
+  <div class="form-group">
+    <%= f.label :name, "机构名称", class: "col-sm-2 control-label" %>
+    <div class="col-sm-8">
+      <%= f.text_field :name, class: 'form-control' %>  
+    </div>
+  </div>
+  
+  <div class="form-group">
+    <%= f.label :description, "描述", class: "col-sm-2 control-label" %>
+    <div class="col-sm-8">
+      <%= f.text_area :description, class: 'form-control', rows: 4 %>
+    </div>
+  </div>
+  
+  <div class="col-sm-offset-2 col-sm-2">
+    <%= f.submit "保  存", class: "btn btn-large btn-primary" %>    
+  </div>
+<% end %>

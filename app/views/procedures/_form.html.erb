@@ -1,0 +1,15 @@
+<%= link_to '返回', procedures_path, remote: true %> | 
+<a href="#">清空</a>
+<%= form_for(@procedure, remote: true, html: { class: "form-horizontal", role: "form" }) do |f| %>
+  <%= render 'shared/error_messages', object: f.object %>
+
+  <div class="form-group">
+    <%= f.label :name, "流程名称", class: "col-sm-2 control-label" %>
+    <div class="col-sm-8">
+    	<%= f.text_field :name, class: "form-control" %>
+    </div>
+  </div>
+  <div class="col-sm-offset-2 col-sm-4">
+    <%= f.submit "保  存", class: "btn btn-large btn-primary" %>
+  </div>
+<% end %>

@@ -1,0 +1,28 @@
+<%= render 'shared/notice' %>
+<%= link_to '新部门', new_department_path, :remote => true, :class => "btn btn-large btn-primary" %>
+<table class="table table-bordered" id="depts-table">
+  <thead>
+    <tr>
+      <th>部门名称</th>
+      <th>描述</th>
+      <th>所属机构</th>
+      <th>上级部门</th>
+      <th>子部门</th>
+      <th></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @departments.each do |department| %>
+      <tr>
+        <td><%= link_to department.name, edit_department_path(department), :remote => true %></td>
+        <td><%= department.description %></td>
+        <td><%= department.agency.name %></td>
+        <td><%= department.parent_department.nil?? "所属机构" : department.parent_department.name %></td>
+        <td><%= department.sub_departments.size %></td>
+        <td><%= link_to 'Destroy', department, method: :delete,  remote: true,
+          data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>

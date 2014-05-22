@@ -1,0 +1,24 @@
+<%= render 'shared/notice' %>
+<%= link_to "新机构", new_agency_path, :remote => true , :class => "btn btn-large btn-primary" %>  
+<table class="table table-striped table-hover">
+  <thead>
+    <tr>
+      <th>名称</th>
+      <th>描述</th>
+      <th>部门数量</th>
+      <th>用户数量</th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @agencies.each do |agency| %>
+      <tr>
+        <td><%= link_to agency.name, edit_agency_path(agency), :remote => true %></td>
+        <td><%= agency.description %></td>
+        <td><%= agency.departments.count %></td>
+        <td><%= agency.users.count %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+<%= will_paginate @agencies%>

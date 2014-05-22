@@ -1,0 +1,33 @@
+<%= render 'shared/notice' %>
+<div class="top-links">
+  <%= link_to '注册新用户', new_user_path, class: "btn btn-large btn-primary", remote: true %>  
+</div>
+
+<div id="users-table">
+  <table class="table table-hover">
+    <thead>
+      <tr>
+        <th>用户名</th>
+        <th>所属机构</th>
+        <th>部门</th>
+        <th>角色</th>
+        <th></th>
+      </tr>
+    </thead>
+
+    <tbody>
+      <% @users.each do |user| %>
+        <tr>
+          <td><%= link_to user.username, edit_user_path(id: user.id, from: "edit"), remote: true %></td>
+          <td><%= user.agency.name %></td>
+          <td><%= user.department.nil?? "" : user.department.name %></td>
+          <td>
+            <%= user.roles.map { |role| "#{role.name}" }.join(',') %>
+          </td>
+          <td><%= link_to 'Destroy', user, method: :delete, remote: true,
+            data: { confirm: 'Are you sure?' } %></td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+</div>

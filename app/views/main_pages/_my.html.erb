@@ -1,0 +1,25 @@
+<%= render 'shared/notice' %>
+<div>
+	<p>
+	  <strong>用户名:</strong>
+	  <%= @current_user.username %>
+	</p>
+
+	<p>
+	  <strong>所在机构:</strong>
+	  <%= @current_user.agency.name %>
+	</p>
+
+	<p>
+	  <strong>所在部门:</strong>
+	  <%= @current_user.department.nil?? "" : @current_user.department.name %>
+	</p>
+
+	<p>
+	  <strong>角色:</strong>
+	  <%= @current_user.roles.map { |role| role.name }.join(',') %>
+	</p>	
+</div>
+<div id="passwd-div" >
+	<%= link_to "修改密码", change_password_path, remote: true %>	
+</div>

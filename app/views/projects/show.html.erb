@@ -1,0 +1,42 @@
+<%= link_to '修改', edit_project_path(@project) %> |
+<%= link_to '删除', @project, method: :delete, data: { confirm: 'Are you sure?' } %> |
+<%= link_to '返回', projects_path %>
+<p>
+  <strong>工程/项目名称:</strong>
+  <%= @project.name %>
+</p>
+
+<p>
+  <strong>当前状态:</strong>
+  <%= @project.status %>
+</p>
+
+<p>
+  <strong>负责人:</strong>
+  <%= @project.user.username %>
+</p>
+
+<p>
+  <strong>描述:</strong>
+  <%= @project.description %>
+</p>
+
+<p>
+  <strong>所属部门:</strong>
+  <%= @project.department.name %>
+</p>
+
+<p>
+  <strong>优先级:</strong>
+  <%= @project.priority %>
+</p>
+
+<p>
+  <strong>开始时间:</strong>
+  <%= @project.start_date %>
+</p>
+
+<p>
+  <strong>需要完成时间:</strong>
+  <%= @project.end_date %>
+</p>

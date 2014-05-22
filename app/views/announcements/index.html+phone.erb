@@ -1,0 +1,13 @@
+<ul class="table-view">
+  <% @announcements.each do |announcement| %>
+    <li class="table-view-cell media">
+      <a class="navigate-right">
+        <img class="media-object pull-left" src="http://placehold.it/42x42">
+        <div class="media-body">
+          <%= announcement.name %>
+          <p><%= announcement.content %></p>
+        </div>
+      </a>
+    </li>
+  <% end %>
+</ul>  

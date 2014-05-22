@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+  <head>
+      <meta charset="utf-8">
+      <title>移动应用</title>
+      <meta name="viewport" content="initial-scale=1, maximum-scale=1, user-scalable=no">
+      <meta name="apple-mobile-web-app-capable" content="yes">
+      <meta name="apple-mobile-web-app-status-bar-style" content="black">
+      <%= csrf_meta_tags %>
+      <%= stylesheet_link_tag "application.mobile", media: "all", "data-turbolinks-track" => true %>
+      <%= javascript_include_tag "application.mobile", "data-turbolinks-track" => true %>
+  </head>
+  <body>
+    <header class="bar bar-nav">
+      <nav class="bar bar-tab">
+        <a class="tab-item active" href="/main_pages/home">
+          <span class="icon icon-home"></span>
+          <span class="tab-label">Home</span>
+        </a>
+        <a class="tab-item" href="/main_pages/home">
+          <span class="icon icon-person"></span>
+          <span class="tab-label">Profile</span>
+        </a>
+        <a class="tab-item" href="#">
+          <span class="icon icon-star-filled"></span>
+          <span class="tab-label">Favorites</span>
+        </a>
+        <a class="tab-item" href="#">
+          <span class="icon icon-search"></span>
+          <span class="tab-label">Search</span>
+        </a>
+        <a class="tab-item" href="#">
+          <span class="icon icon-gear"></span>
+          <span class="tab-label">Settings</span>
+        </a>
+      </nav>
+    </header>
+    <div class="content">
+      <%= yield %>
+    </div>
+  </body>
+</html>

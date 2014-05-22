@@ -1,0 +1,5 @@
+<% if params[:from] == "home" %>
+	$( "div#content" ).html('<%= escape_javascript(render("announcements/index")) %>')
+<% else %>
+	$( "div#announcements_table" ).html('<%= escape_javascript(render("announcements/announcement")) %>')
+<% end %>

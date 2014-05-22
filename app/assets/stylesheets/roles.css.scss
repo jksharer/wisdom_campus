@@ -1,0 +1,19 @@
+// Place all the styles related to the Roles controller here.
+// They will automatically be included in application.css.
+// You can use Sass (SCSS) here: http://sass-lang.com/
+.all_menus {
+	margin: 5px 10px 20px 0;
+}
+
+.sub_menus {
+	margin: 10px 20px;
+	label {
+		margin-right: 10px;
+	}
+}
+
+hr {
+	margin-top: 0;
+	margin-bottom: 0;
+	border: 1px solid #c8c8c8;
+}

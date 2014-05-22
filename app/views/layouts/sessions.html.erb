@@ -1,0 +1,14 @@
+<!DOCTYPE html>
+<html>
+	<head>
+	  <title>基于Rails的企业应用开发平台</title>
+	  <%= stylesheet_link_tag    "application", media: "all", "data-turbolinks-track" =>true %>
+	  <%= javascript_include_tag "application", "data-turbolinks-track" => true %>
+	  <%= csrf_meta_tags %>
+	</head>
+	<body class="<%= controller.controller_name %>">
+		<div id="login_page">
+			<%= yield %>
+		</div>
+	</body>
+</html>

@@ -1,0 +1,4 @@
+<% unless @content_page.nil? %>
+	alert("this is <%= @content_page %>")
+	$( "div#content" ).html('<%= escape_javascript(render("#{@content_page}")) %>')
+<% end %>
