@@ -1,0 +1,22 @@
+<%= link_to "返 回", class_roles_path, remote: true %>
+<%= form_for(@class_role, remote: true, html: { class: "form-horizontal", role: "form" }) do |f| %>
+  <%= render 'shared/error_messages', object: f.object %>
+
+  <div class="form-group">
+    <%= f.label :name, "角色名称",class: "col-sm-2 control-label" %>
+    <div class="col-sm-8">
+      <%= f.text_field :name, class: "form-control" %>  
+    </div>
+  </div>
+  <div class="form-group">
+    <%= f.label :description, "描  述",class: "col-sm-2 control-label" %>
+    <div class="col-sm-8">
+      <%= f.text_area :description, class: "form-control", rows: 3 %>
+    </div>  
+  </div>
+  <div class="form-group">
+    <div class="col-sm-offset-2 col-sm-2">
+      <%= f.submit "保 存", class: "btn btn-large btn-primary" %>  
+    </div>
+  </div>
+<% end %>

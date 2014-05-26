@@ -3,7 +3,7 @@ class MenusController < ApplicationController
   before_action :set_menu, only: [:show, :edit, :update, :destroy]
   
   def index
-    @menus = Menu.where(parent_menu_id: nil).order('display_order asc')
+    @menus = Menu.where(parent_menu_id: nil, agency: my_agency).order('display_order asc')
     respond_to do |format|
       format.js
       format.html
@@ -27,6 +27,7 @@ class MenusController < ApplicationController
 
   def create
     @menu = Menu.new(menu_params)
+    @menu.agency = my_agency
     respond_to do |format|
       if @menu.save
         format.js { 
@@ -48,7 +49,7 @@ class MenusController < ApplicationController
       if @menu.update(menu_params)
         format.js {
           @menus = Menu.where(parent_menu_id: nil).order('display_order asc') 
-          render 'new.js.erb' 
+          render 'index.js.erb' 
         }
         format.html { redirect_to menus_url, 
           notice: 'Menu was successfully updated.' }
@@ -86,7 +87,7 @@ class MenusController < ApplicationController
 
   private
     def set_menu
-      @menu = Menu.find(params[:id])
+      @menu = Menu.find_by(id: params[:id], agency: my_agency)
     end
 
     def menu_params

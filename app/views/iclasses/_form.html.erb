@@ -1,0 +1,34 @@
+<%= link_to "返 回", iclasses_path, remote: true %>
+<%= form_for(@iclass, remote: true, html: { class: "form-horizontal", role: "form" }) do |f| %>
+  <%= render 'shared/error_messages', object: f.object %>
+
+  <div class="form-group">
+    <%= f.label :name, "班级名称", class: "col-sm-2 control-label" %>
+    <div class="col-sm-8">
+      <%= f.text_field :name, class: "form-control" %>  
+    </div>
+  </div>
+
+  <div class="form-group">
+    <%= f.label :grade_id, "年级", class: "col-sm-2 control-label" %>
+    <div class="col-sm-8">
+      <% Grade.all.each do |grade| %>
+        <%= f.radio_button(:grade_id, grade.id) %>  
+        <%= f.label(:grade_id, grade.name) %>
+      <% end %>
+    </div>
+  </div>
+
+  <div class="form-group">
+    <%= f.label :header, "班主任", class: "col-sm-2 control-label" %>
+    <div class="col-sm-8">
+      <%= f.text_field :header, class: "form-control" %>  
+    </div>
+  </div>
+  
+  <div class="form-group">
+    <div class="col-sm-offset-2 col-sm-2">
+      <%= f.submit "保 存", class: "btn btn-large btn-primary" %>  
+    </div>
+  </div>
+<% end %>

@@ -1,0 +1,2 @@
+module ClassRolesHelper
+end

@@ -1,0 +1,22 @@
+<%= render 'shared/notice' %>
+<%= link_to '新类型 ', new_grade_path, remote: true, class: "btn btn-large btn-default" %>
+<table class="table">
+  <thead>
+    <tr>
+      <th>名称</th>
+      <th>描述</th>
+      <th></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @grades.each do |grade| %>
+      <tr>
+        <td><%= link_to grade.name, edit_grade_path(grade), remote: true %></td>
+        <td><%= grade.description %></td>
+        <td><%= link_to 'Destroy', grade, method: :delete, remote: true,
+          data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>

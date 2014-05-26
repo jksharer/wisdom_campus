@@ -30,7 +30,7 @@ class UsersController < ApplicationController
 
   def create
     @user = User.new(user_params)
-    @user.agency = current_user.agency
+    @user.agency = my_agency
     @user.role_ids = params[:roles_of_user]
     respond_to do |format|
       if @user.save

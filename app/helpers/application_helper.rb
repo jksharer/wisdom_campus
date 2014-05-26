@@ -2,6 +2,7 @@
 module ApplicationHelper
 	include SessionsHelper
 	include ProjectsHelper
+	include StudentsHelper
 
 	#初始化对象的审批流程
 	#每个审批有三个状态：

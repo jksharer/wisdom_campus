@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140516040715) do
+ActiveRecord::Schema.define(version: 20140526061941) do
 
   create_table "agencies", force: true do |t|
     t.string   "name"
@@ -19,7 +19,12 @@ ActiveRecord::Schema.define(version: 20140516040715) do
     t.integer  "higher_agency_id"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.integer  "school_type_id"
+    t.string   "address"
+    t.string   "header"
   end
+
+  add_index "agencies", ["school_type_id"], name: "index_agencies_on_school_type_id"
 
   create_table "announcements", force: true do |t|
     t.string   "name"
@@ -36,6 +41,20 @@ ActiveRecord::Schema.define(version: 20140516040715) do
   add_index "announcements", ["procedure_id"], name: "index_announcements_on_procedure_id"
   add_index "announcements", ["user_id"], name: "index_announcements_on_user_id"
 
+  create_table "class_roles", force: true do |t|
+    t.string   "name"
+    t.string   "description"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "class_roles_students", id: false, force: true do |t|
+    t.integer  "class_role_id"
+    t.integer  "student_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
   create_table "departments", force: true do |t|
     t.string   "name"
     t.string   "description"
@@ -47,6 +66,28 @@ ActiveRecord::Schema.define(version: 20140516040715) do
 
   add_index "departments", ["agency_id"], name: "index_departments_on_agency_id"
 
+  create_table "grades", force: true do |t|
+    t.string   "name"
+    t.integer  "school_type_id"
+    t.string   "description"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "grades", ["school_type_id"], name: "index_grades_on_school_type_id"
+
+  create_table "iclasses", force: true do |t|
+    t.string   "name"
+    t.integer  "grade_id"
+    t.string   "header"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.integer  "agency_id"
+  end
+
+  add_index "iclasses", ["agency_id"], name: "index_iclasses_on_agency_id"
+  add_index "iclasses", ["grade_id"], name: "index_iclasses_on_grade_id"
+
   create_table "menus", force: true do |t|
     t.string   "name"
     t.string   "url"
@@ -57,7 +98,10 @@ ActiveRecord::Schema.define(version: 20140516040715) do
     t.datetime "updated_at"
     t.string   "controller"
     t.string   "action"
+    t.integer  "agency_id"
   end
+
+  add_index "menus", ["agency_id"], name: "index_menus_on_agency_id"
 
   create_table "menus_roles", id: false, force: true do |t|
     t.integer  "menu_id"
@@ -74,7 +118,10 @@ ActiveRecord::Schema.define(version: 20140516040715) do
     t.string   "name"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.integer  "agency_id"
   end
+
+  add_index "procedures", ["agency_id"], name: "index_procedures_on_agency_id"
 
   create_table "projects", force: true do |t|
     t.string   "name"
@@ -109,6 +156,16 @@ ActiveRecord::Schema.define(version: 20140516040715) do
     t.string   "name"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.integer  "agency_id"
+  end
+
+  add_index "roles", ["agency_id"], name: "index_roles_on_agency_id"
+
+  create_table "school_types", force: true do |t|
+    t.string   "name"
+    t.string   "description"
+    t.datetime "created_at"
+    t.datetime "updated_at"
   end
 
   create_table "steps", force: true do |t|
@@ -121,6 +178,20 @@ ActiveRecord::Schema.define(version: 20140516040715) do
 
   add_index "steps", ["procedure_id"], name: "index_steps_on_procedure_id"
   add_index "steps", ["user_id"], name: "index_steps_on_user_id"
+
+  create_table "students", force: true do |t|
+    t.string   "sid"
+    t.string   "name"
+    t.integer  "gender",        limit: 255, default: 0
+    t.string   "photo_url"
+    t.integer  "iclass_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.integer  "class_role_id"
+  end
+
+  add_index "students", ["class_role_id"], name: "index_students_on_class_role_id"
+  add_index "students", ["iclass_id"], name: "index_students_on_iclass_id"
 
   create_table "users", force: true do |t|
     t.string   "username"

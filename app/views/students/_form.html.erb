@@ -1,0 +1,55 @@
+<%= link_to "返 回", iclasses_path, remote: true %>
+<%= form_for(@student, remote: true, html: { class: "form-horizontal", role: "form" }) do |f| %>
+  <%= render 'shared/error_messages', object: f.object %>
+
+  <div class="form-group">
+    <%= f.label :sid, "学 号",class: "col-sm-1 control-label" %>
+    <div class="col-sm-3">
+      <%= f.text_field :sid, class: "form-control" %>  
+    </div>
+
+    <%= f.label :photo_url, "照 片", class: "col-sm-1 control-label" %>
+    <div class="col-sm-3">
+      <%= f.text_field :photo_url, class: "form-control" %>
+    </div>
+  </div>
+
+  <div class="form-group">
+    <%= f.label :name, "姓 名",class: "col-sm-1 control-label" %>
+    <div class="col-sm-3">
+      <%= f.text_field :name, class: "form-control" %>
+    </div>
+
+    <%= f.label :gender, "性 别",class: "col-sm-1 control-label" %>
+    <div class="col-sm-3">
+      <% Student.genders.each do |key, value| %>  
+        <%= f.radio_button(:gender, key) %>  
+        <%= f.label(:gender, key) %>
+      <% end %>
+    </div>
+  </div>
+
+  <div class="form-group">
+    <%= f.label :iclass_id, "班 级",class: "col-sm-1 control-label" %>
+    <div class="col-sm-3">
+      <%= f.select(:iclass_id, options_for_select(Iclass.all.map { |c| [c.name, c.id] }, 
+        @student.iclass_id), { prompt: "选择班级" }, { class: "form-control" }) %>
+    </div>
+  </div>
+
+  <div class="form-group">
+    <%= f.label :class_roles, "班级角色",class: "col-sm-1 control-label" %>
+    <div class="col-sm-11">
+      <% ClassRole.all.each do |role| %>
+        <%= check_box_tag "class_roles[]", role.id, @student.class_roles.include?(role) %>  
+        <%= label_tag role.name %>
+      <% end %>
+    </div>
+  </div>
+
+  <div class="form-group">
+    <div class="col-sm-offset-1 col-sm-2">
+      <%= f.submit "保 存", class: "btn btn-large btn-primary" %>      
+    </div>
+  </div>
+<% end %>

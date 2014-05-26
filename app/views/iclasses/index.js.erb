@@ -1,0 +1,4 @@
+$("div#content").html('<%= j render("students/home") %>')
+<% if params[:parent] %>
+	$("div#side").html('<%= j render("layouts/side") %>')
+<% end %>

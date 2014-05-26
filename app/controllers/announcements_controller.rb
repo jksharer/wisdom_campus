@@ -30,9 +30,6 @@ class AnnouncementsController < ApplicationController
   #待审批通知公告
   def being_reviewed
     @announcements = needed_my_review("Announcement").paginate(page: params[:page], per_page: 10)
-    # @announcements = WillPaginate::Collection.create(params[:page], 10, @announcements.length) do |pager|
-    #   pager.replace @announcements
-    # end
     @scope = "being_reviewed"
     render 'index'
   end

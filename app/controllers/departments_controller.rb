@@ -3,7 +3,7 @@ class DepartmentsController < ApplicationController
   before_action :authorize
 
   def index
-    @departments = Department.order('name asc')
+    @departments = Department.where(agency: my_agency).order('name asc')
   end
 
   def show

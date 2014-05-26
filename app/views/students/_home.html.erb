@@ -1,0 +1,65 @@
+<script type="text/javascript">
+  $(document).ready(function(){
+    $("a.grade-tab").click(function(event){
+      $("a#".concat(this.id, "-link")).click();
+    });
+  });
+</script>
+<div class="top-links">
+  <%= link_to "学生中心", iclasses_path, remote: true %> |
+  <%= link_to "组织结构", iclasses_path, remote: true %> 
+  <%= link_to '添加新班级', new_iclass_path, remote: true, class: "btn btn-large btn-default right-button" %>
+  <%= link_to '添加新学生', new_student_path, remote: true, class: "btn btn-large btn-default right-button" %>  
+</div>
+<div id="class-content">  
+  <div class="tabbable">
+    <!-- 顶部年级导航条 -->
+    <ul class="nav nav-tabs">
+      <li class="active"><a href="#1" data-toggle="tab">全部</a></li>
+      <% @grades.each_with_index do |grade, index| %>
+        <li>
+          <a href="#<%= index+2 %>" data-toggle="tab" class="grade-tab" id="grade<%= grade.id %>">
+            <%= grade.name %></a>
+        </li>
+      <% end %>
+    </ul>
+    
+    <div class="tab-content">
+      <div class="tab-pane active" id="1">
+        <%= render partial: 'iclasses/iclasses' %>
+      </div>
+      
+      <% @grades.each_with_index do |grade, index| %>
+        <div class="tab-pane" id="<%= index+2 %>">
+          <div class="row">
+            
+            <div class="col-sm-1" id="class-nav">
+              <ul class="nav nav-list">
+                <li class="nav-header">
+                  <%= link_to grade.name, students_path(grade: grade.id), remote: true, id: "grade#{grade.id}-link" %>  
+                </li>
+                <% grade.iclasses.each_with_index do |iclass, index| %>
+                  <% if index == 0 %>
+                    <li class="active">
+                      <%= link_to iclass.name, students_path(iclass_id: iclass.id), remote: true %>
+                    </li>
+                  <% else %>
+                    <li>
+                      <%= link_to iclass.name, students_path(iclass_id: iclass.id), remote: true %>
+                    </li>
+                  <% end %>
+                <% end %>
+              </ul>    
+            </div>
+
+            <div class="col-sm-11" id="students-content">
+                
+            </div>
+
+          </div>
+        </div>  
+      <% end %>
+    </div>
+  </div>
+
+</div>

@@ -1,0 +1,24 @@
+<%= link_to "返 回", grades_path, remote: true %>
+<%= form_for(@grade, remote: true, html: { class: "form-horizontal", role: "form" }) do |f| %>
+  <%= render 'shared/error_messages', object: f.object %>
+
+  <div class="form-group">
+    <%= f.label :name, "名 称", class: "col-sm-2 control-label" %>
+    <div class="col-sm-8">
+      <%= f.text_field :name, class: "form-control" %>  
+    </div>
+  </div>
+
+  <div class="form-group">
+    <%= f.label :description, "描 述", class: "col-sm-2 control-label" %>
+    <div class="col-sm-8">
+      <%= f.text_field :description, class: "form-control" %>
+    </div>
+  </div>
+
+  <div class="form-group">
+    <div class="col-sm-offset-2 col-sm-2">
+      <%= f.submit "保 存", class: "btn btn-large btn-primary" %>
+    </div>
+  </div>
+<% end %>

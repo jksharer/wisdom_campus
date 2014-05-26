@@ -17,7 +17,7 @@
   <tbody>
     <% @menus.each do |menu| %>
       <tr class="one_level">
-        <td><%= link_to menu.name, edit_menu_path(menu), :remote => true %></td>
+        <td><%= link_to menu.name, edit_menu_path(menu), remote: true %></td>
         <td><%= menu.url %></td>
         <td><%= menu.controller %></td>
         <td><%= menu.action %></td>

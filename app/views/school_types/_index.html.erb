@@ -1,0 +1,22 @@
+<%= render 'shared/notice' %>
+<%= link_to '添加新类型', new_school_type_path, remote: true, class: "btn btn-large btn-default" %>
+<table class="table">
+  <thead>
+    <tr>
+      <th>名称</th>
+      <th>描述</th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @school_types.each do |school_type| %>
+      <tr>
+        <td><%= link_to school_type.name, edit_school_type_path(school_type) %></td>
+        <td><%= school_type.description %></td>
+        <td><%= link_to 'Destroy', school_type, method: :delete, remote: true,
+          data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>

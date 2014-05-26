@@ -3,7 +3,7 @@ class RolesController < ApplicationController
   before_action :authorize
 
   def index
-    @roles = Role.all
+    @roles = Role.where(agency: my_agency)
     respond_to do |format|
       format.js
       format.html
@@ -33,6 +33,7 @@ class RolesController < ApplicationController
   def create
     @role = Role.new(role_params)
     @role.menu_ids = params[:menus_of_role]
+    @role.agency = my_agency
     respond_to do |format|
       if @role.save
         format.js {
@@ -57,19 +58,16 @@ class RolesController < ApplicationController
         format.js {
           flash.now[:notice] = 'Role was successfully updated.'
           @roles = Role.all
-          render 'create'  
+          render 'create.js.erb'  
         }
         format.html { redirect_to roles_url, 
           notice: 'Role was successfully updated.' }
-        format.json { head :no_content }
       else
         format.js {
           @menus = Menu.where(parent_menu_id: nil).order('display_order asc')  
-          render 'create'
+          render 'create.js.erb'
         }
         format.html { render action: 'edit' }
-        format.json { render json: @role.errors, 
-          status: :unprocessable_entity }
       end
     end
   end
@@ -90,7 +88,7 @@ class RolesController < ApplicationController
 
   private
     def set_role
-      @role = Role.find(params[:id])
+      @role = Role.find_by(params[:id], agency: my_agency)
     end
 
     def role_params

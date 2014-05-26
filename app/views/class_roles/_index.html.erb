@@ -1,0 +1,22 @@
+<%= link_to "新角色", new_class_role_path, :remote => true , :class => "btn btn-large btn-default" %>  
+<table class="table">
+  <thead>
+    <tr>
+      <th>角色名称</th>
+      <th>角色描述</th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @class_roles.each do |class_role| %>
+      <tr>
+        <td><%= class_role.name %></td>
+        <td><%= class_role.description %></td>
+        <td><%= link_to 'Edit', edit_class_role_path(class_role), remote: true %></td>
+        <td><%= link_to 'Destroy', class_role, method: :delete, remote: true,
+          data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>

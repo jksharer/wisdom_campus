@@ -1,0 +1,28 @@
+<label>
+  共<%= current_user.agency.total_students %>位学生, <%= current_user.agency.iclasses.size %>个班级.
+</label>
+<table class="table" id="class-table">
+  <thead>
+    <tr>
+      <th>班级名称</th>
+      <th>年级</th>
+      <th>班主任</th>
+      <th>学生</th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @iclasses.each do |iclass| %>
+      <tr>
+        <td><%= iclass.name %></td>
+        <td><%= iclass.grade.name %></td>
+        <td><%= iclass.header %></td>
+        <td><%= iclass.students.size %></td>
+        <td><%= link_to 'Edit', edit_iclass_path(iclass), remote: true %></td>
+        <td><%= link_to 'Destroy', iclass, method: :delete, remote: true,
+          data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>

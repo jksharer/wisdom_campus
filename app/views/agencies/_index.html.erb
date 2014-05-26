@@ -1,24 +1,42 @@
 <%= render 'shared/notice' %>
-<%= link_to "新机构", new_agency_path, :remote => true , :class => "btn btn-large btn-primary" %>  
-<table class="table table-striped table-hover">
-  <thead>
-    <tr>
-      <th>名称</th>
-      <th>描述</th>
-      <th>部门数量</th>
-      <th>用户数量</th>
-    </tr>
-  </thead>
-
-  <tbody>
-    <% @agencies.each do |agency| %>
+<div class="top-links">
+  <%= link_to "所有学校", agencies_path, remote: true %> |
+  <%= link_to "学校类型", school_types_path, remote: true %> |    
+  <%= link_to "年级", grades_path, remote: true %> |
+  <%= link_to "班级角色", class_roles_path, remote: true %>
+</div>
+<div id="agency-content">
+  <%= link_to "新机构", new_agency_path, :remote => true , :class => "btn btn-large btn-default" %>  
+  <table class="table table-striped table-hover">
+    <thead>
       <tr>
-        <td><%= link_to agency.name, edit_agency_path(agency), :remote => true %></td>
-        <td><%= agency.description %></td>
-        <td><%= agency.departments.count %></td>
-        <td><%= agency.users.count %></td>
+        <th>学校名称</th>
+        <th>学校类型</th>
+        <th>校长</th>
+        <th>地址</th>
+        <th>班级数量</th>
+        <th>学生数量</th>
+        <th>描述</th>
+        <th>部门数量</th>
+        <th>用户数量</th>
       </tr>
-    <% end %>
-  </tbody>
-</table>
-<%= will_paginate @agencies%>
+    </thead>
+
+    <tbody>
+      <% @agencies.each do |agency| %>
+        <tr>
+          <td><%= link_to agency.name, edit_agency_path(agency), :remote => true %></td>
+          <td><%= agency.school_type.name %></td>
+          <td><%= agency.header %></td>
+          <td><%= agency.address %></td>
+          <td><%= agency.iclasses.size %></td>
+          <td><%= agency.total_students %></td>
+          <td><%= agency.description %></td>
+          <td><%= agency.departments.count %></td>
+          <td><%= agency.users.count %></td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+  <%= will_paginate @agencies%>  
+</div>

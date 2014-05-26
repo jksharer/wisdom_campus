@@ -34,9 +34,8 @@
   <div class="form-group">
     <%= f.label :parent_menu_id, "上级菜单", class: "col-sm-2 control-label" %>
     <div class="col-sm-8">
-      <%= f.select(:parent_menu_id, options_for_select(
-        Menu.all.map {|menu| [menu.name, menu.id] }),
-        {prompt: "根菜单"}, { class: "form-control" }) %>  
+      <%= f.select(:parent_menu_id, options_for_select(Menu.all.map {|menu| [menu.name, menu.id] }, @menu.parent_menu_id),
+        { prompt: "根菜单" }, { class: "form-control" }) %>  
     </div>
   </div>  
 

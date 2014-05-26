@@ -4,7 +4,7 @@ $backColor: rgb(55,155,215);
 $fontColor: #fff;
 
 html {
-  overflow-y: scroll;
+  
 }
 
 body {
@@ -149,4 +149,8 @@ input {
 
 .new_button {
 	float: right;
+}
+
+.right-button {
+	float: right;	
 }

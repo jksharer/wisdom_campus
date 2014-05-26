@@ -3,7 +3,7 @@ class ProceduresController < ApplicationController
   before_action :set_procedure, only: [:show, :edit, :update, :destroy]
 
   def index
-    @procedures = Procedure.all
+    @procedures = Procedure.where(agency: my_agency)
     respond_to do |format|
       format.js
       format.html
@@ -38,6 +38,7 @@ class ProceduresController < ApplicationController
 
   def create
     @procedure = Procedure.new(procedure_params)
+    @procedure.agency = current_user.agency
     respond_to do |format|
       if @procedure.save
         format.js { render 'show.js.erb' }
@@ -73,7 +74,7 @@ class ProceduresController < ApplicationController
 
   private
     def set_procedure
-      @procedure = Procedure.find(params[:id])
+      @procedure = Procedure.find_by(id: params[:id], agency: my_agency)
     end
 
     def procedure_params

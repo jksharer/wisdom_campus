@@ -8,8 +8,14 @@ module SessionsHelper
 
   # 获取当前已登陆用户
 	def current_user
-		@current_user ||= User.find_by(id: session[:user_id])
+		# @current_user ||= User.find_by(id: session[:user_id])
+    @current_user ||= User.find(session[:user_id])
 	end
+
+  # 获取用户所在的机构
+  def my_agency
+    return current_user.agency
+  end
 
   # 注销用户登陆，将session置为无效
 	def sign_out

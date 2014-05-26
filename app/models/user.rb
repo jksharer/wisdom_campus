@@ -1,4 +1,6 @@
 class User < ActiveRecord::Base
+  include SessionsHelper
+
   attr_accessor :for_updating           # 用于在更新用户信息时跳过密码验证
 
   has_secure_password
@@ -15,10 +17,6 @@ class User < ActiveRecord::Base
 
   has_and_belongs_to_many :roles, -> { uniq }, :join_table => 'users_roles'   # user和role的组合必须唯一
 
-  def updating_userinfo
-
-  end
-
   # 获取用户所拥有角色下的所有菜单权限
   def permissions
   	permissions = []
@@ -28,8 +26,9 @@ class User < ActiveRecord::Base
   	return permissions
   end
 
+  # 获取用户权限范围内的一级菜单
   def one_level_menus
-    Menu.where(parent_menu_id: nil).order('display_order asc').
+    Menu.where(parent_menu_id: nil, agency_id: self.agency_id).order('display_order asc').
       find_all { |menu| permissions.include?(menu) }
   end
 

@@ -23,3 +23,9 @@ function openNewWin(url, title) {
 		toolbar=no,menubar=no,scrollbars=yes, resizable=yes,location=no, status=no');   
 }
 
+function set_scroll(height) {
+	$("div#content").css({
+		"height":height,
+		"overflow-y":"auto"
+	});
+}

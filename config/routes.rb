@@ -1,16 +1,9 @@
 JkPlatform::Application.routes.draw do
   root 'main_pages#home'
 
-  resources :departments
-  resources :roles
-  resources :users
-  resources :menus
-  resources :agencies
   resources :sessions, only: [:new, :create, :destroy]
-  resources :announcements
-  resources :steps
-  resources :procedures
-  resources :projects
+  resources :departments, :roles, :users, :menus, :agencies, :announcements, :steps, :procedures, :projects
+  resources :class_roles, :students, :iclasses, :grades, :school_types
   
   match '/login',  to: 'sessions#new',        via: 'get'
   match '/logout', to: 'sessions#destroy',    via: 'delete'
@@ -27,7 +20,6 @@ JkPlatform::Application.routes.draw do
   match 'handle_review',      to: 'announcements#handle_review',   via: 'get'
   match 'being_reviewed',     to: 'announcements#being_reviewed',  via: 'get'
 
-  #Ajax
-  match '/get_submenus',      to: 'application#get_submenus',      via: 'get'
+  match '/students_home',     to: 'students#home',   via: 'get'
 
 end
