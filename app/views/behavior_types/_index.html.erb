@@ -2,7 +2,9 @@
 <div class="top-links">
   <%= link_to "行为类型", behavior_types_path, remote: true %> |
   <%= link_to "规则", "#", remote: true %>
-  <%= link_to "添加纪录", new_behavior_type_path, remote: true, class: "btn btn-large btn-default right-button" %>
+  <%= link_to new_behavior_type_path, remote: true, class: "btn btn-large btn-default right-button" do %>
+    <span class="glyphicon glyphicon-plus"></span> 添加纪录
+  <% end %>
 </div>
 <div id="rules-content">
   <table class="table">
@@ -21,8 +23,11 @@
           <td><%= link_to type.name, edit_behavior_type_path(type), remote: true %></td>
           <td><%= type.description %></td>
           <td><%= link_to type.score, edit_behavior_type_path(type), remote: true %></td>
-          <td><%= link_to 'Destroy', type, method: :delete, remote: true,
-            data: { confirm: 'Are you sure?' } %></td>
+          <td>
+            <%= link_to type, method: :delete, remote: true, data: { confirm: 'Are you sure?' } do %>
+              <span class="glyphicon glyphicon-remove"></span>     
+            <% end %>
+          </td>
         </tr>
       <% end %>
     </tbody>

@@ -1,7 +1,6 @@
 <%= image_tag("my_announcements.gif",alt: "我的公告") %>
 <span class="head">我的公告</span>
 <hr>
-<%= will_paginate @announcements, :previous_label => '&#8592; ', :next_label => '&#8594;' %>
 <div class="table-responsive">
 <table class="table table-bordered table-hover table-condensed">
   <thead>
@@ -16,9 +15,9 @@
   <tbody>
     <% @announcements.each do |announcement| %>
       <tr>
-        <td><%= link_to announcement.name, announcement %></td>
+        <td><%= link_to announcement.name, read_announcement_path(id: announcement.id), 
+          onclick: "var w = window.open(this.href); w.focus(); return false;" %></td>
         <td><%= announcement.user.username %></td>
-        <!-- <td><%= announcement.content.truncate(30) %></td> -->
         <td><%= time_format(announcement.updated_at.getlocal) %></td>
       </tr>
     <% end %>

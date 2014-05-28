@@ -1,4 +1,6 @@
-<%= link_to "返 回", iclasses_path, remote: true %>
+<%= link_to iclasses_path, remote: true do %>
+  <span class="glyphicon glyphicon-arrow-left"></span> 返 回
+<% end %>
 <%= form_for(@iclass, remote: true, html: { class: "form-horizontal", role: "form" }) do |f| %>
   <%= render 'shared/error_messages', object: f.object %>
 

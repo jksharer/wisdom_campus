@@ -118,6 +118,9 @@ div.container {
 	margin-top: 1em;
 	width: 100%;
 }
+div#side {
+	padding: 0 3px;
+}
 
 @mixin box_sizing {
   -moz-box-sizing: border-box;

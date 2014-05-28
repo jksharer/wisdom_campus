@@ -1,5 +1,7 @@
 <%= render 'shared/notice' %>
-<%= link_to '新 增', new_menu_path, remote: true, class: "btn btn-large btn-primary" %>
+<div class="top-links">
+  <%= render 'shared/new_button', path: new_menu_path, name: "新菜单" %>  
+</div>
 <table class="table table-hover table-responsive">
   <thead>
     <tr>
@@ -10,6 +12,7 @@
       <th>父级菜单</th>
       <th>状态</th>
       <th>排序</th>
+      <th>图标</th>
       <th></th>
     </tr>
   </thead>
@@ -24,19 +27,21 @@
         <td><%= menu.parent_menu.nil?? "根菜单" : menu.parent_menu.name %></td>
         <td><%= menu.status == 1? "启用" : "停用" %></td>
         <td><%= menu.display_order %></td>
+        <td><%= menu.icon %></td>
         <td><%= link_to 'Destroy', menu, method: :delete, remote: true,
           data: { confirm: 'Are you sure?' } %></td>
       </tr>
       <% if menu.has_kids? %>
         <% menu.sub_menus.each do |sub_menu| %>
           <tr class="two_level">
-            <td><%= link_to sub_menu.name, edit_menu_path(sub_menu), remote: true %></td>
+            <td><%= link_to "---#{sub_menu.name}", edit_menu_path(sub_menu), remote: true %></td>
             <td><%= sub_menu.url %></td>
             <td><%= sub_menu.controller %></td>
             <td><%= sub_menu.action %></td>
             <td><%= menu.name %></td>
             <td><%= sub_menu.status == 1? "启用" : "停用" %></td>
             <td><%= sub_menu.display_order %></td>
+            <td><%= sub_menu.icon %></td>
             <td><%= link_to 'Destroy', sub_menu, method: :delete, remote: true,
               data: { confirm: 'Are you sure?' } %></td>
           </tr>

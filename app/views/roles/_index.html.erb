@@ -1,5 +1,7 @@
 <%= render 'shared/notice' %>
-<%= link_to '新角色', new_role_path, remote: true, class: "btn btn-large btn-primary", id: "new_role" %>
+<div class="top-links">
+  <%= render 'shared/new_button', path: new_role_path, name: "新角色" %>  
+</div>
 <table class="table table-bordered">
   <thead>
     <tr>

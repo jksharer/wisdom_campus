@@ -91,6 +91,6 @@ class MenusController < ApplicationController
     end
 
     def menu_params
-      params.require(:menu).permit(:name, :url, :controller, :action, :parent_menu_id, :status, :display_order)
+      params.require(:menu).permit(:name, :url, :controller, :action, :parent_menu_id, :status, :display_order, :icon)
     end
 end

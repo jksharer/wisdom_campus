@@ -1,9 +1,11 @@
 <div class="top-links">
-  <%= link_to '新公告', new_announcement_path, remote: true, class: "btn btn-large btn-primary right-button", 
-    id: "new_button" %>
   <%= link_to '所有公告', announcements_path, remote: true %> | 
   <%= link_to '我发起的', announcements_url(:conditions => { :user_id => current_user }), remote: true %> |
   <%= link_to '待审批', being_reviewed_path, remote: true %>  
+  <%= link_to new_announcement_path, remote: true, class: "btn btn-large btn-primary right-button", 
+        id: "new_button" do %>
+    <span class="glyphicon glyphicon-plus"></span> 新公告
+  <% end %>  
 </div>
 
 <%= render 'shared/notice' %>

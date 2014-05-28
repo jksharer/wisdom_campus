@@ -4,12 +4,11 @@ class MainPagesController < ApplicationController
   before_action :authorize
 
   def home
-    # 取出所有已审批发布的公告
-    @announcements = Announcement.where(workflow_state: "accepted").order('created_at DESC').
-        page(params[:page]).per_page(8)
+    # 取出最新8条已审批发布的公告
+    @announcements = Announcement.where(workflow_state: "accepted").order('created_at DESC').limit(8)
 
     # 待审批公告
-    @being_reviews = needed_my_review("Announcement").paginate(page: params[:page], per_page: 5)
+    @being_reviews = needed_my_review("Announcement")
     
     # 最近5条违反秩序行为记录
     @behaviors = Behavior.where(agency: my_agency).order('created_at DESC').paginate(page: params[:page], per_page: 5)

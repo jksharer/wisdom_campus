@@ -3,7 +3,7 @@ class AnnouncementsController < ApplicationController
   require 'will_paginate/array'
 
   before_action :authorize
-  before_action :set_announcement, only: [ :show, :edit, :update, :destroy, 
+  before_action :set_announcement, only: [ :show, :edit, :update, :destroy, :read,
     :handle_workflow, :handle_review ]
 
   def index
@@ -41,9 +41,15 @@ class AnnouncementsController < ApplicationController
       @announcements = needed_my_review("Announcement").paginate(page: params[:page], per_page: 10)
     end
     respond_to do |format|
-      puts "#{params[:from]}"
       format.js
-      format.html
+      format.html 
+    end
+  end
+
+  def read
+    respond_to do |format|
+      format.js
+      format.html { render layout: 'new_tab' }
     end
   end
 

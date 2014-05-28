@@ -5,8 +5,9 @@
   <ul id="nav-left" class="nav nav-pills">
     <% current_user.one_level_menus.each do |parent| %>             
       <li>
-        
-        <%= link_to parent.name, "#{parent.url}?parent=#{parent.id}", remote: true %>
+        <%= link_to "#{parent.url}?parent=#{parent.id}", remote: true do %>
+          <span class="glyphicon glyphicon-<%= parent.icon %>"></span> <%= parent.name %>
+        <% end %>
       </li>
     <% end %>
   </ul>	

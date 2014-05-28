@@ -1,4 +1,6 @@
-<%= link_to '返回', roles_path, remote: true %> |
+<%= link_to users_path, remote: true do %>
+  <span class="glyphicon glyphicon-arrow-left"></span> 返 回
+<% end %> |
 <a href="#">清空</a>
 <%= form_for(@user, remote: true, html: { class: "form-horizontal", role: "form" }) do |f| %>
   <%= render 'shared/error_messages', object: f.object %>

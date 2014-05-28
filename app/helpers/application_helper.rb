@@ -3,6 +3,12 @@ module ApplicationHelper
 	include SessionsHelper
 	include ProjectsHelper
 	include StudentsHelper
+	include IclassesHelper
+
+	# 定义ajax方式的will_paginate
+	def paginate(collection, params= {})
+    will_paginate collection, params.merge(:renderer => RemoteLinkPaginationHelper::LinkRenderer)
+  end
 
 	#初始化对象的审批流程
 	#每个审批有三个状态：

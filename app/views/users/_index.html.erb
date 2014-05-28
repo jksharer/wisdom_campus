@@ -1,8 +1,7 @@
 <%= render 'shared/notice' %>
 <div class="top-links">
-  <%= link_to '注册新用户', new_user_path, class: "btn btn-large btn-primary", remote: true %>  
+  <%= render 'shared/new_button', path: new_user_path, name: "新用户" %>
 </div>
-
 <div id="users-table">
   <table class="table table-hover">
     <thead>

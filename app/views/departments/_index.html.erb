@@ -1,5 +1,7 @@
 <%= render 'shared/notice' %>
-<%= link_to '新部门', new_department_path, :remote => true, :class => "btn btn-large btn-primary" %>
+<%= link_to new_department_path, remote: true, class: "btn btn-large btn-default" do %>
+    <span class="glyphicon glyphicon-plus"></span> 新部门
+  <% end %>
 <table class="table table-bordered" id="depts-table">
   <thead>
     <tr>
@@ -20,8 +22,13 @@
         <td><%= department.agency.name %></td>
         <td><%= department.parent_department.nil?? "所属机构" : department.parent_department.name %></td>
         <td><%= department.sub_departments.size %></td>
-        <td><%= link_to 'Destroy', department, method: :delete,  remote: true,
-          data: { confirm: 'Are you sure?' } %></td>
+        <td>
+          <%= link_to edit_department_path(department), remote: true do %>
+            <span class="glyphicon glyphicon-edit"></span>  
+          <% end %>
+          <%= link_to department, method: :delete, remote: true, data: { confirm: 'Are you sure?' } do %>
+            <span class="glyphicon glyphicon-remove"></span>     
+          <% end %>
       </tr>
     <% end %>
   </tbody>

@@ -1,7 +1,16 @@
-<%= link_to '返 回', behaviors_path, remote: true %> |
-<%= link_to '修 改', edit_behavior_path(@behavior), remote: true %> |
-<%= link_to "打印确认单", behavior_print_path(id: @behavior.id), 
-      onclick: "var w = window.open(this.href); w.focus(); return false;" %>
+<%= link_to behaviors_path, remote: true do %>
+  <span class="glyphicon glyphicon-arrow-left"></span> 返 回
+<% end %> |
+<%= link_to edit_behavior_path(@behavior), remote: true do %> 
+  <span class="glyphicon glyphicon-edit"></span> 修 改
+<% end %> |
+<%= link_to @behavior, method: :delete, delete: true, data: { confirm: 'Are you sure?' } do %>
+  <span class="glyphicon glyphicon-off"></span> 设为无效
+<% end %> |
+<%= link_to behavior_print_path(id: @behavior.id), 
+      onclick: "var w = window.open(this.href); w.focus(); return false;" do %>
+  <span class="glyphicon glyphicon-print"></span> 打 印    
+<% end %>      
 <%= render 'shared/notice' %>
 <h1>学生行为记录单</h1>
 <div id="bevavior-info">
@@ -60,9 +69,13 @@
       </td>
     </tr>    
   </table>
-  <div class="col-sm-offset-5 col-sm-4">
-    <%= link_to "打印确认单", behavior_print_path(id: @behavior.id), class: "btn btn-large btn-default",
-      onclick: "var w = window.open(this.href); w.focus(); return false;" %>
-    <%= link_to "设为已确认", behavior_confirm_path(id: @behavior.id), class: "btn btn-large btn-default", remote: true, id: "confirm-button" %>
+  <div class="col-sm-offset-4 col-sm-6">
+    <%= link_to behavior_print_path(id: @behavior.id), class: "btn btn-large btn-default",
+        onclick: "var w = window.open(this.href); w.focus(); return false;" do %>
+      <span class="glyphicon glyphicon-print"></span> 打印确认单
+    <% end %>  
+    <%= link_to "<span class='glyphicon glyphicon-check'></span> 设为已确认".html_safe, 
+                behavior_confirm_path(id: @behavior.id), class: "btn btn-large btn-default", remote: true, 
+                id: "confirm-button" %>
   </div>
 </div>

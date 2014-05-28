@@ -8,9 +8,18 @@
 <%= render 'shared/notice' %>
 <div class="top-links">
   <%= link_to "学生中心", iclasses_path, remote: true %> |
-  <%= link_to "组织结构", iclasses_path, remote: true %> 
-  <%= link_to '添加新班级', new_iclass_path, remote: true, class: "btn btn-large btn-default right-button" %>
-  <%= link_to '添加新学生', new_student_path, remote: true, class: "btn btn-large btn-default right-button" %>  
+  <%= link_to iclasses_path, remote: true do %> 
+    <span class="glyphicon glyphicon-import"></span> 从Excel导入
+  <% end %> |
+  <%= link_to iclasses_path, remote: true do %> 
+    <span class="glyphicon glyphicon-export"></span> 导 出
+  <% end %> 
+  <%= link_to new_iclass_path, remote: true, class: "btn btn-large btn-default right-button" do %>
+    <span class="glyphicon glyphicon-plus"></span> 新班级
+  <% end %>
+  <%= link_to new_student_path, remote: true, class: "btn btn-large btn-default right-button" do %>
+    <span class="glyphicon glyphicon-plus"></span> 新学生
+  <% end %>    
 </div>
 <div id="class-content">  
   <div class="tabbable">

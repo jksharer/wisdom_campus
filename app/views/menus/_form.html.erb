@@ -4,57 +4,56 @@
   <%= render 'shared/error_messages', object: f.object%>
 
   <div class="form-group">
-    <%= f.label :name, "菜单名称", class: "col-sm-2 control-label" %>
-    <div class="col-sm-8">
+    <%= f.label :name, "菜单名称", class: "col-sm-1 control-label" %>
+    <div class="col-sm-4">
       <%= f.text_field :name, class: "form-control" %>
-    </div>  
-  </div>
+    </div>
 
-  <div class="form-group">
-    <%= f.label :url, "URL地址", class: "col-sm-2 control-label" %>
-    <div class="col-sm-8">
+    <%= f.label :url, "URL地址", class: "col-sm-1 control-label" %>
+    <div class="col-sm-4">
       <%= f.text_field :url, class: "form-control" %>
     </div>  
   </div>
 
   <div class="form-group">
-    <%= f.label :controller, "控制器", class: "col-sm-2 control-label" %>
-    <div class="col-sm-8">
+    <%= f.label :controller, "控制器", class: "col-sm-1 control-label" %>
+    <div class="col-sm-4">
       <%= f.text_field :controller, class: "form-control" %>
     </div>  
-  </div>
 
-  <div class="form-group">
-    <%= f.label :action, "操作", class: "col-sm-2 control-label" %>
-    <div class="col-sm-8">
+    <%= f.label :action, "操作", class: "col-sm-1 control-label" %>
+    <div class="col-sm-4">
       <%= f.text_field :action, class: "form-control" %>
     </div>  
   </div>
 
   <div class="form-group">
-    <%= f.label :parent_menu_id, "上级菜单", class: "col-sm-2 control-label" %>
-    <div class="col-sm-8">
+    <%= f.label :parent_menu_id, "上级菜单", class: "col-sm-1 control-label" %>
+    <div class="col-sm-4">
       <%= f.select(:parent_menu_id, options_for_select(Menu.all.map {|menu| [menu.name, menu.id] }, @menu.parent_menu_id),
         { prompt: "根菜单" }, { class: "form-control" }) %>  
+    </div>
+
+    <%= f.label :status, "启用状态", class: "col-sm-1 control-label" %>
+    <div class="col-sm-4">
+      <%= f.number_field :status, class: "form-control" %>
     </div>
   </div>  
 
   <div class="form-group">
-    <%= f.label :status, "启用状态", class: "col-sm-2 control-label" %>
-    <div class="col-sm-8">
-      <%= f.number_field :status, class: "form-control" %>
-    </div>
-  </div>
-
-  <div class="form-group">
-    <%= f.label :display_order, "排序", class: "col-sm-2 control-label" %>
-    <div class="col-sm-8">
+    <%= f.label :display_order, "排序", class: "col-sm-1 control-label" %>
+    <div class="col-sm-4">
       <%= f.number_field :display_order, class: "form-control" %>
     </div>
+
+    <%= f.label :icon, "图标", class: "col-sm-1 control-label" %>
+    <div class="col-sm-4">
+      <%= f.text_field :icon, class: "form-control" %>
+    </div>    
   </div>
 
   <div class="form-group">
-    <div class="col-sm-offset-2 col-sm-4">
+    <div class="col-sm-offset-1 col-sm-2">
       <%= f.submit "保  存", class: "btn btn-large btn-primary" %>
     </div>
   </div>

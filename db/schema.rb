@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140526153316) do
+ActiveRecord::Schema.define(version: 20140528084614) do
 
   create_table "agencies", force: true do |t|
     t.string   "name"
@@ -124,6 +124,7 @@ ActiveRecord::Schema.define(version: 20140526153316) do
     t.string   "controller"
     t.string   "action"
     t.integer  "agency_id"
+    t.string   "icon"
   end
 
   add_index "menus", ["agency_id"], name: "index_menus_on_agency_id"

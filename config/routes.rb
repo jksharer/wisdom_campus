@@ -19,6 +19,8 @@ JkPlatform::Application.routes.draw do
   match '/change_password',   to: 'main_pages#change_password', via: 'get'
   match '/update_password',   to: 'main_pages#update_password', via: 'post'
 
+  match '/read_announcement', to: 'announcements#read',         via: 'get'
+
   match 'handle_workflow',    to: 'announcements#handle_workflow', via: 'post'
   match 'handle_workflow',    to: 'announcements#handle_workflow', via: 'get'
   match 'handle_review',      to: 'announcements#handle_review',   via: 'get'

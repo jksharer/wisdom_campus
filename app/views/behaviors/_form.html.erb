@@ -1,4 +1,6 @@
-<%= link_to "返 回", behaviors_path, remote: true %>
+<%= link_to behaviors_path, remote: true do %>
+  <span class="glyphicon glyphicon-arrow-left"></span> 返 回
+<% end %>
 <%= form_for(@behavior, remote: true, html: { class: "form-horizontal", role: "form" }) do |f| %>
   <%= render 'shared/error_messages', object: f.object %>
 

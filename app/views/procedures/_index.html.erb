@@ -1,5 +1,5 @@
 <div class="top-links">
-  <%= link_to '新增流程', new_procedure_path, :remote => true, :class => "btn btn-large btn-primary" %>  
+  <%= render 'shared/new_button', path: new_procedure_path, name: "新增流程" %>
 </div>
 <%= render 'shared/notice' %>
 <div id="procedure-content">

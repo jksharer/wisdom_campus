@@ -1,12 +1,20 @@
 <div class="top-links"> 
   <%= link_to "所有记录", behaviors_path, remote: true %> |
-  <%= link_to "按类型", behaviors_path, remote: true %> |
-  <%= link_to "按班级", behaviors_path, remote: true %>
-  <%= link_to "查找学生", new_behavior_path, remote: true, class: "btn btn-large btn-default right-button" %>
-  <%= link_to "添加纪录", new_behavior_path, remote: true, class: "btn btn-large btn-default right-button" %>
+  <%= link_to behaviors_path, remote: true do %> 
+    <span class="glyphicon glyphicon-import"></span> 从Excel导入
+  <% end %> |
+  <%= link_to behaviors_path, remote: true do %> 
+    <span class="glyphicon glyphicon-export"></span> 导 出
+  <% end %> 
+  <%= link_to new_behavior_path, remote: true, class: "btn btn-large btn-default right-button" do %>
+    <span class="glyphicon glyphicon-search"></span> 查询
+  <% end %>
+  <%= link_to new_behavior_path, remote: true, class: "btn btn-large btn-default right-button" do %>
+    <span class="glyphicon glyphicon-plus"></span> 添加纪录
+  <% end %>
 </div>
 <div id="behaviors-content">
-  <table class="table">
+  <table class="table table-hover table-striped">
   <thead>
     <tr>
       <th>行为类型</th>
@@ -30,9 +38,15 @@
         <td><%= link_to behavior.description.truncate(15), behavior, remote: true %></td>
         <td><%= behavior.score %></td>
         <td><%= transfer_confirm_state(behavior.confirm_state) %></td>
-        <td><%= link_to '详细', behavior, remote: true %></td>
-        <td><%= link_to '设为无效', behavior, method: :delete, delete: true,
-          data: { confirm: 'Are you sure?' } %></td>
+        <td>
+          <% if behavior.confirmed? %>
+            <%= link_to '详细', behavior, remote: true %>
+          <% else %>
+            <%= link_to edit_behavior_path(behavior), remote: true do %>
+              <span class="glyphicon glyphicon-edit"></span>   
+            <% end %>
+          <% end %>
+        </td>
       </tr>
     <% end %>
   </tbody>
