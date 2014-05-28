@@ -1,0 +1,40 @@
+<div class="top-links"> 
+  <%= link_to "所有记录", behaviors_path, remote: true %> |
+  <%= link_to "按类型", behaviors_path, remote: true %> |
+  <%= link_to "按班级", behaviors_path, remote: true %>
+  <%= link_to "查找学生", new_behavior_path, remote: true, class: "btn btn-large btn-default right-button" %>
+  <%= link_to "添加纪录", new_behavior_path, remote: true, class: "btn btn-large btn-default right-button" %>
+</div>
+<div id="behaviors-content">
+  <table class="table">
+  <thead>
+    <tr>
+      <th>行为类型</th>
+      <th>学生</th>
+      <th>发生时间</th>
+      <th>地点</th>
+      <th>过程描述</th>
+      <th>扣/加分</th>
+      <th>状态</th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @behaviors.each do |behavior| %>
+      <tr>
+        <td><%= behavior.behavior_type.name %></td>
+        <td><%= "#{behavior.student.name}, #{behavior.student.iclass.name}" %></td>
+        <td><%= time_format_min(behavior.time) %></td>
+        <td><%= behavior.address %></td>
+        <td><%= link_to behavior.description.truncate(15), behavior, remote: true %></td>
+        <td><%= behavior.score %></td>
+        <td><%= transfer_confirm_state(behavior.confirm_state) %></td>
+        <td><%= link_to '详细', behavior, remote: true %></td>
+        <td><%= link_to '设为无效', behavior, method: :delete, delete: true,
+          data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>  
+</div>

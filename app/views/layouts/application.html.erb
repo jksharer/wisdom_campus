@@ -5,17 +5,16 @@
 	  <meta name="viewport" content="width=device-width, initial-scale=1.0">
 	  <%= stylesheet_link_tag    "application", media: "all", "data-turbolinks-track" =>true %>
 	  <%= javascript_include_tag "application", "data-turbolinks-track" => true %>
-	  <%= javascript_include_tag "custom", "data-turbolinks-track" => true %>
 	  <%= csrf_meta_tags %>
 	  <script type="text/javascript">
 	  	$(document).ready(function() {
 				$("div#content").css({
-					"height":document.body.scrollHeight-40,
+					"height":document.body.scrollHeight-60,
 					"overflow-y":"auto"
 				});
 				$("a").click(function(event) {
 					$("div#content").css({
-						"height":document.body.scrollHeight-40,
+						"height":document.body.scrollHeight-60,
 						"overflow-y":"auto"
 					});
 				});
@@ -23,7 +22,7 @@
 
 			$(window).resize(function() {
 				$("div#content").css({
-						"height":document.body.scrollHeight-40,
+						"height":document.body.scrollHeight-60,
 						"overflow-y":"auto"
 				});
 			});
@@ -34,7 +33,7 @@
 		<div class="container <%= controller.controller_name %>">
 			<div class="row">
 				<!-- 左侧边导航 -->
-				<div class="col-md-1" id="side">
+				<div class="col-md-1 col-xs-2" id="side" width="150px">
 					<%= render 'layouts/side' %>	
 				</div>
 

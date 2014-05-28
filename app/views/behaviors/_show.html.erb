@@ -1,0 +1,68 @@
+<%= link_to '返 回', behaviors_path, remote: true %> |
+<%= link_to '修 改', edit_behavior_path(@behavior), remote: true %> |
+<%= link_to "打印确认单", behavior_print_path(id: @behavior.id), 
+      onclick: "var w = window.open(this.href); w.focus(); return false;" %>
+<%= render 'shared/notice' %>
+<h1>学生行为记录单</h1>
+<div id="bevavior-info">
+  <table class="table table-bordered">
+    <tr>
+      <th>
+        <strong>学生信息:</strong>    
+      </th>
+      <td>
+        <%= "#{@behavior.student.name}, #{@behavior.student.iclass.grade.name}-#{@behavior.student.iclass.name}" %>     
+      </td>
+    </tr>
+
+    <tr>
+      <th>
+        <strong>行为信息:</strong>    
+      </th>
+      <td>
+        <%= "#{@behavior.behavior_type.name}, #{@behavior.description}" %>
+      </td>
+    </tr>
+
+    <tr>
+      <th>
+        <strong>发生时间:</strong>    
+      </th>
+      <td>
+        <%= time_format_min(@behavior.time) %>
+      </td>
+    </tr>
+
+    <tr>
+      <th>
+        <strong>发生地点:</strong>
+      </th>
+      <td>
+        <%= @behavior.address %>
+      </td>
+    </tr>
+
+    <tr>
+      <th>
+        <strong>扣分情况:</strong>    
+      </th>
+      <td>
+        <%= "本次扣分#{@behavior.score}分" %>    
+      </td>
+    </tr>
+
+    <tr>
+      <th>
+        <strong>学生确认:</strong>    
+      </th>
+      <td>
+        <%= transfer_confirm_state(@behavior.confirm_state) %>
+      </td>
+    </tr>    
+  </table>
+  <div class="col-sm-offset-5 col-sm-4">
+    <%= link_to "打印确认单", behavior_print_path(id: @behavior.id), class: "btn btn-large btn-default",
+      onclick: "var w = window.open(this.href); w.focus(); return false;" %>
+    <%= link_to "设为已确认", behavior_confirm_path(id: @behavior.id), class: "btn btn-large btn-default", remote: true, id: "confirm-button" %>
+  </div>
+</div>

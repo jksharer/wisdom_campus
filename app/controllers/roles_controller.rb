@@ -25,7 +25,7 @@ class RolesController < ApplicationController
   def edit
     @menus = Menu.where(parent_menu_id: nil).order('display_order asc')
     respond_to do |format|
-      format.js
+      format.js { render 'new.js.erb' }
       format.html
     end
   end
@@ -80,6 +80,7 @@ class RolesController < ApplicationController
       format.js {
         flash.now[:notice] = "the role #{@role.name} has been deleted."
         @roles = Role.all
+        render 'index.js.erb'
       }
       format.html { redirect_to roles_url }
       format.json { head :no_content }

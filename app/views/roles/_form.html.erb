@@ -1,3 +1,4 @@
+<%= link_to "返 回", roles_path, remote: true %>
 <%= form_for(@role, remote: true, html: { class: "form-horizontal", role: "form" }) do |f| %>
   <%= render 'shared/error_messages', object: f.object %>
 

@@ -1,0 +1,36 @@
+label#student-info {
+	margin-top: -1em;
+	margin-bottom: 0.5em;
+	color: green;
+	font-size: 16px;
+}
+
+div.radio-boxes {
+	padding: 0.5em 0 0.3em 1em;
+}
+
+div#bevavior-info {
+	margin: 1em 20%;
+	font-size: 1.5em;
+	table th {
+		width: 20%;
+		text-align: center;
+	}
+}
+
+div#print-page {
+	font-family: serif;
+	font-size: 14px;
+	margin: 0 25%;
+	div#sign {
+		margin-top: 3em;
+		strong {
+			margin-left: 0.5em;
+		}
+		hr {
+			border: 1px solid;
+			margin-left: 6em;
+		}
+	}
+	a:after { content:' [' attr(href) '] '}
+}

@@ -1,0 +1,2 @@
+module BehaviorTypesHelper
+end

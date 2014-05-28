@@ -1,0 +1,29 @@
+<%= link_to "返 回", behavior_types_path, remote: true %>
+<%= form_for(@behavior_type, remote: true, html: { class: "form-horizontal", role: "form" }) do |f| %>
+  <%= render 'shared/error_messages', object: f.object %>
+
+  <div class="form-group">
+    <%= f.label :name, "行为类型",class: "col-sm-1 control-label" %>
+    <div class="col-sm-3">
+      <%= f.text_field :name, class: "form-control" %>
+    </div>  
+
+    <%= f.label :score, "扣/加分值",class: "col-sm-1 control-label" %>
+    <div class="col-sm-3">
+      <%= f.number_field :score, class: "form-control" %>
+    </div>  
+  </div>
+
+  <div class="form-group">
+    <%= f.label :description, "描 述",class: "col-sm-1 control-label" %>
+    <div class="col-sm-7">
+      <%= f.text_area :description, class: "form-control", rows: 3 %>  
+    </div>
+  </div>
+
+  <div class="form-group">
+    <div class="col-sm-offset-1 col-sm-2">
+      <%= f.submit "保 存", class: "btn btn-large btn-primary" %>
+    </div>  
+  </div>
+<% end %>

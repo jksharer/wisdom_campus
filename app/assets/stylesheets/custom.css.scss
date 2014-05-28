@@ -58,10 +58,15 @@ p {
 	height: 38px;
 	background: $backColor;
 
+	#logo-image {
+		float: left;
+	}
+
 	#logo {
 		margin: 10px;
 		float: left;
-		font-size: 20px;
+		font: small-caps 30px/15px "Times New Romen", serif;
+		// font-size: 20px;
 		&:link, &:hover, &:active, &:visited {
 			color: $fontColor;
 			background: none;		
@@ -110,7 +115,7 @@ p {
 }
 
 div.container {
-	margin-top: 2em;
+	margin-top: 1em;
 	width: 100%;
 }
 
@@ -143,14 +148,10 @@ input {
   @extend .has-error;  
 }
 
-.navbtn {
-	float: right;
-}
-
-.new_button {
-	float: right;
-}
-
 .right-button {
 	float: right;	
+}
+
+.center {
+	text-align: center;
 }

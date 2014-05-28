@@ -1,0 +1,5 @@
+<% if @result_student.nil? %>  <!-- 未找到学生,提示重新输入 -->
+	$("label#student-info").html("未找到该学生，请输入正确的学号.")	
+<% else %>                     <!-- 找到学生,显示学生信息 --> 
+	$("label#student-info").html('<%= "#{@result_student.name}, #{@result_student.iclass.grade.name}-#{@result_student.iclass.name}" %>')
+<% end %>    

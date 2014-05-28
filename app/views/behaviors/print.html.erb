@@ -1,0 +1,110 @@
+<script>
+  window.onload = function () { 
+    window.print();     
+  };
+</script>
+
+<style type="text/css">
+  div#print-page {
+    font-family: serif;
+    font-size: 16px;
+    margin: 5% 20%;
+  }
+
+  h1 {
+    text-align: center;
+  }
+   
+  table {
+    width: 100%;
+    border-collapse:collapse;
+  }
+
+  table, th, td{
+    border: 1px solid black;
+  }
+  td {
+    padding-left: 10px;
+  }
+
+  th {
+    width: 30%;
+    height: 40px;
+  }
+    
+  div#sign {
+    margin-top: 3em;
+  }  
+  strong#sign {
+    margin-left: 1.5em;
+  }
+  hr {
+    border: 1px solid;
+    margin-left: 7.5em;
+  }
+
+  a:after { content:' [' attr(href) '] '}
+</style>
+<div id="print-page">
+  <h1>学生行为记录单</h1>
+  <table>
+    <tr>
+      <th>
+        <strong>学生信息:</strong>    
+      </th>
+      <td>
+        <%= "#{@behavior.student.name}, #{@behavior.student.iclass.grade.name}-#{@behavior.student.iclass.name}" %>   
+      </td>
+    </tr>
+
+    <tr>
+      <th>
+        <strong>行为信息:</strong>    
+      </th>
+      <td>
+        <%= "#{@behavior.behavior_type.name}, #{@behavior.description}" %>
+      </td>
+    </tr>
+
+    <tr>
+      <th>
+        <strong>发生时间:</strong>    
+      </th>
+      <td>
+        <%= time_format_min(@behavior.time) %>
+      </td>
+    </tr>
+
+    <tr>
+      <th>
+        <strong>发生地点:</strong>
+      </th>
+      <td>
+        <%= @behavior.address %>
+      </td>
+    </tr>
+
+    <tr>
+      <th>
+        <strong>扣分情况:</strong>    
+      </th>
+      <td>
+        <%= "本次扣分#{@behavior.score}分" %>    
+      </td>
+    </tr>
+
+    <tr>
+      <th>
+        <strong>记录人:</strong>    
+      </th>
+      <td>
+        <%= @behavior.recorder.username %>    
+      </td>
+    </tr>
+
+  </table>
+  <div id="sign">
+    <strong id="sign">学生签字:</strong>
+    <hr>      
+  </div>
+</div>

@@ -1,4 +1,8 @@
 JkPlatform::Application.routes.draw do
+  resources :behaviors
+
+  resources :behavior_types
+
   root 'main_pages#home'
 
   resources :sessions, only: [:new, :create, :destroy]
@@ -20,6 +24,8 @@ JkPlatform::Application.routes.draw do
   match 'handle_review',      to: 'announcements#handle_review',   via: 'get'
   match 'being_reviewed',     to: 'announcements#being_reviewed',  via: 'get'
 
-  match '/students_home',     to: 'students#home',   via: 'get'
-
+  match '/students_home',     to: 'students#home',     via:   'get'
+  match '/students_query',    to: 'students#query',    via:   'get'
+  match '/behavior_print',    to: 'behaviors#print',   via:   'get'
+  match '/behavior_confirm',  to: 'behaviors#confirm', via:   'get'
 end

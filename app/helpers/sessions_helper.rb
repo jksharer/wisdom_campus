@@ -8,8 +8,8 @@ module SessionsHelper
 
   # 获取当前已登陆用户
 	def current_user
-		# @current_user ||= User.find_by(id: session[:user_id])
-    @current_user ||= User.find(session[:user_id])
+		@current_user ||= User.find_by(id: session[:user_id])
+    # @current_user ||= User.find(session[:user_id])   # 不能用find! 此处只能用find_by，否则未登陆时报错.
 	end
 
   # 获取用户所在的机构

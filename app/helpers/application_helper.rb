@@ -50,7 +50,7 @@ module ApplicationHelper
 	# 获取当前需要我审批的对象，如通知公告
 	def needed_my_review(model_type)
 		os = []
-		Review.where(state: "current_review", model_type: model_type).each do |review|
+		Review.where(state: "current_review", model_type: model_type).order('created_at asc').each do |review|
       if review.step.user == current_user
       	puts "--------------#{review.model_type}--#{review.object_id}"
         os << Kernel.const_get(model_type).find(review.object_id)
@@ -64,7 +64,8 @@ module ApplicationHelper
 	end
 
 	def time_format(time)
-		"#{time.year}-#{time.month }-#{time.day} #{time.strftime("%A")}"
+		# "#{time.year}-#{time.month }-#{time.day} #{time.strftime("%A")}"
+		"#{time.year}-#{time.month }-#{time.day}"
 	end
 
 	def time_format_min(time)

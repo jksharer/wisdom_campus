@@ -1,9 +1,13 @@
 <div id="banner">
-	<%= link_to 'Wisdom-Campus', "#", id: "logo" %>
+  <%= link_to image_tag("lg.png", size: "120x50", alt: "智慧校园"), root_path, id: "logo-image" %>
+	<%= link_to "Wisdom Campus", root_path, id: "logo" %>
   
   <ul id="nav-left" class="nav nav-pills">
     <% current_user.one_level_menus.each do |parent| %>             
-      <li><%= link_to parent.name, "#{parent.url}?parent=#{parent.id}", remote: true %></li>
+      <li>
+        
+        <%= link_to parent.name, "#{parent.url}?parent=#{parent.id}", remote: true %>
+      </li>
     <% end %>
   </ul>	
 

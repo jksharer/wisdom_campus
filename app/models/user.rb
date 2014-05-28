@@ -9,6 +9,7 @@ class User < ActiveRecord::Base
   belongs_to :department
   has_many :steps
   has_many :announcements
+  has_many :behaviors
 
   validates :username, presence: true, uniqueness: true, length: { maximum: 20 }
   validates :password, length: { in: 3..20 }, 

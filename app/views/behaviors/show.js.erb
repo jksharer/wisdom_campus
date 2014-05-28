@@ -1,0 +1,4 @@
+$("div#behaviors-content").html('<%= j render("behaviors/show") %>')
+<% if @behavior.confirm_state == "confirmed" %>
+	$("#confirm-button").hide()
+<% end %>

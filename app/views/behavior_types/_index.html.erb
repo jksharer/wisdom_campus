@@ -1,0 +1,30 @@
+<%= render 'shared/notice' %>
+<div class="top-links">
+  <%= link_to "行为类型", behavior_types_path, remote: true %> |
+  <%= link_to "规则", "#", remote: true %>
+  <%= link_to "添加纪录", new_behavior_type_path, remote: true, class: "btn btn-large btn-default right-button" %>
+</div>
+<div id="rules-content">
+  <table class="table">
+    <thead>
+      <tr>
+        <th>行为类型</th>
+        <th>描述</th>
+        <th>扣/加分</th>
+        <th colspan="3"></th>
+      </tr>
+    </thead>
+
+    <tbody>
+      <% @behavior_types.each do |type| %>
+        <tr>
+          <td><%= link_to type.name, edit_behavior_type_path(type), remote: true %></td>
+          <td><%= type.description %></td>
+          <td><%= link_to type.score, edit_behavior_type_path(type), remote: true %></td>
+          <td><%= link_to 'Destroy', type, method: :delete, remote: true,
+            data: { confirm: 'Are you sure?' } %></td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>  
+</div>

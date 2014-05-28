@@ -1,0 +1,35 @@
+<%= image_tag("my_announcements.gif",alt: "我的审批") %>
+<span class="head">概览</span>
+<hr>
+<div id="agency-info">
+	<strong><%= current_user.agency.name %></strong>
+	<span class="right-button">
+		<%= "#{current_user.username}, #{current_user.department.nil?? "" : current_user.department.name}, 
+			#{current_user.roles.map { |role| role.name }.join(',')}" %>
+	</span>
+</div>
+<div id="students-info">
+	<span>
+		共<strong><%= my_agency.iclasses.size %></strong>个班级, <%= my_agency.total_students %>个学生.
+	</span>
+
+	<span>
+		共发生<strong><%= Behavior.where(agency: my_agency).size %></strong>起违反校园秩序的行为。
+	</span>
+	<table class="table table-bordered">
+		<thead>
+			<tr>
+				<% BehaviorType.all.each do |type| %>
+					<th><%= type.name %></th>	
+				<% end %>
+			</tr>	
+		</thead>
+		<tbody>
+			<tr>
+			<% BehaviorType.all.each do |type| %>
+				<td><%= Behavior.where(agency: my_agency, behavior_type: type).size %></td>
+			<% end %>
+			</tr>	
+		</tbody>
+	</table>
+</div>
