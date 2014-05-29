@@ -18,9 +18,9 @@
         <tr>
           <td><%= link_to procedure.name, procedure, remote: true %></td>
           <td><%= procedure.steps.map { |step| step.user.username }.join('->') %></td>
-          <td><%= link_to 'Edit', edit_procedure_path(procedure) %></td>
-          <td><%= link_to 'Destroy', procedure, method: :delete, 
-            data: { confirm: 'Are you sure?' } %></td>
+          <td>
+          <%= render 'shared/edit_link', path: edit_procedure_path(procedure) %>
+          </td>
         </tr>
       <% end %>
     </tbody>

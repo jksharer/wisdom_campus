@@ -2,11 +2,11 @@
 <div id="procedure-name">
 	<strong>流程名称:</strong>
   <%= @procedure.name %> |
-  <%= link_to ' 编辑', edit_procedure_path(@procedure), remote: true %>
+  <%= render 'shared/edit_link', path: edit_procedure_path(@procedure) %>
 </div>
 <div class="top-links">
-	<%= link_to '添加步骤', new_step_path(procedure_id: @procedure.id), remote: true %> |
-	<%= link_to '返回', procedures_path, remote: true %>	
+	<%= render 'shared/back_link', path: procedures_path %> |
+	<%= render 'shared/add_link', path: new_step_path(procedure_id: @procedure.id), name: "添加步骤" %>
 </div>
 <div id="steps">
 	<table class="table table-bordered">
@@ -23,10 +23,9 @@
 				<tr>
 					<td><%= step.view_order %></td>
 					<td><%= step.user.username %></td>
-					<td><%= link_to "Edit", edit_step_path(step), remote: true %></td>
-					<td><%= link_to 'Destroy', step, method: :delete, remote: true,
-	          				data: { confirm: 'Are you sure?' } %>
-	        </td>
+					<td>
+						<%= render 'shared/edit_link', path: edit_step_path(step) %>
+					</td>
 				</tr>
 			<% end %>
 		</tbody>

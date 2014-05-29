@@ -1,4 +1,4 @@
-<%= link_to '返回', menus_path, remote: true %> | 
+<%= render 'shared/back_link', path: menus_path %> |
 <a href="#">清空</a>
 <%= form_for(@menu, remote: true, html: { class: "form-horizontal", role: "form" }) do |f| %>
   <%= render 'shared/error_messages', object: f.object%>

@@ -1,5 +1,4 @@
-<%= link_to '返回', procedures_path, remote: true %> | 
-<a href="#">清空</a>
+<%= render 'shared/back_link', path: procedures_path %> |
 <%= form_for(@procedure, remote: true, html: { class: "form-horizontal", role: "form" }) do |f| %>
   <%= render 'shared/error_messages', object: f.object %>
 
@@ -9,7 +8,9 @@
     	<%= f.text_field :name, class: "form-control" %>
     </div>
   </div>
-  <div class="col-sm-offset-2 col-sm-4">
-    <%= f.submit "保  存", class: "btn btn-large btn-primary" %>
+  <div class="form-group">
+    <div class="col-sm-offset-2 col-sm-2">
+      <%= f.submit "保  存", class: "btn btn-large btn-primary" %>
+    </div>  
   </div>
 <% end %>

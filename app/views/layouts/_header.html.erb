@@ -20,9 +20,17 @@
       	<%= link_to "English", "#" %>
       </li> 
       <li>|</li>
-			<li><%= link_to "帮助", about_path, remote: true %></li>
+			<li>
+        <%= link_to about_path, remote: true do %>
+          <span class="glyphicon glyphicon-heart-empty"></span> 帮助
+        <% end %>  
+      </li>
 			<li>|</li> 
-			<li><%= link_to "注销", "/logout", method: "delete" %></li>
+			<li>
+        <%= link_to "/logout", method: "delete" do %>
+          <span class="glyphicon glyphicon-off"></span> 注销
+        <% end %>
+      </li>
     </ul>
 	</nav>
 </div>

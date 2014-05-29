@@ -1,6 +1,6 @@
 <%= render 'shared/notice' %>
 <div class="top-links">
-  <%= render 'shared/new_button', path: new_menu_path, name: "新菜单" %>  
+  <%= render 'shared/new_button', path: new_menu_path, name: "新模块" %>  
 </div>
 <table class="table table-hover table-responsive">
   <thead>
@@ -13,7 +13,6 @@
       <th>状态</th>
       <th>排序</th>
       <th>图标</th>
-      <th></th>
     </tr>
   </thead>
 
@@ -28,8 +27,6 @@
         <td><%= menu.status == 1? "启用" : "停用" %></td>
         <td><%= menu.display_order %></td>
         <td><%= menu.icon %></td>
-        <td><%= link_to 'Destroy', menu, method: :delete, remote: true,
-          data: { confirm: 'Are you sure?' } %></td>
       </tr>
       <% if menu.has_kids? %>
         <% menu.sub_menus.each do |sub_menu| %>
@@ -42,8 +39,6 @@
             <td><%= sub_menu.status == 1? "启用" : "停用" %></td>
             <td><%= sub_menu.display_order %></td>
             <td><%= sub_menu.icon %></td>
-            <td><%= link_to 'Destroy', sub_menu, method: :delete, remote: true,
-              data: { confirm: 'Are you sure?' } %></td>
           </tr>
         <% end %>    
       <% end %>
