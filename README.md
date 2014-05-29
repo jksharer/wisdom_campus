@@ -1,1 +1,1 @@
-#About wisdom_campus#
+#About Wisdom Campus#
