@@ -1,36 +1,66 @@
-<div id="banner">
-  <%= link_to image_tag("lg.png", size: "120x50", alt: "智慧校园"), root_path, id: "logo-image" %>
-	<%= link_to "Wisdom Campus", root_path, id: "logo" %>
-  
-  <ul id="nav-left" class="nav nav-pills">
-    <% current_user.one_level_menus.each do |parent| %>             
-      <li>
-        <%= link_to "#{parent.url}?parent=#{parent.id}", remote: true do %>
-          <span class="glyphicon glyphicon-<%= parent.icon %>"></span> <%= parent.name %>
-        <% end %>
-      </li>
-    <% end %>
-  </ul>	
+<nav class="navbar navbar-default" role="navigation">
+  <div class="navbar-header">
+    <%= link_to "Wisdom Campus", root_path, class: "navbar-brand", id: "logo" %>
+  </div>
 
-  <nav id="nav-right">
-    <ul>
-    	<li>欢迎您 <%= link_to current_user.username, my_path, remote: true %></li> 
-    	<li>|</li> 
+  <div class="collapse navbar-collapse" id="navbar-collapse-1">
+    <ul class="nav navbar-nav">
+      <% current_user.one_level_menus.each do |parent| %>             
+        <li>
+          <%= link_to "#{parent.url}?parent=#{parent.id}", remote: true do %>
+            <span class="glyphicon glyphicon-<%= parent.icon %>"></span> <%= parent.name %>
+          <% end %>
+        </li>
+      <% end %>        
+    </ul>
+
+    <ul class="nav navbar-nav navbar-right">
+      <li><%= link_to "欢迎您, #{current_user.username}", my_path, remote: true %></li>  
       <li>
-      	<%= link_to "English", "#" %>
-      </li> 
-      <li>|</li>
-			<li>
-        <%= link_to about_path, remote: true do %>
-          <span class="glyphicon glyphicon-heart-empty"></span> 帮助
-        <% end %>  
+          
       </li>
-			<li>|</li> 
-			<li>
-        <%= link_to "/logout", method: "delete" do %>
-          <span class="glyphicon glyphicon-off"></span> 注销
-        <% end %>
+
+      <li class="dropdown">
+        <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+          <span class="glyphicon glyphicon-question-sign"></span>
+        </a>
+        <ul class="dropdown-menu">
+          <li>
+            <%= link_to about_path, remote: true do %>
+              <span class="glyphicon glyphicon-question-sign"></span> 功能向导
+            <% end %>
+          </li>
+          <li>
+            <%= link_to "#", remote: true do %>
+              <span class="glyphicon glyphicon-earphone"></span> 联系我们
+            <% end %>
+          </li>
+          <li>
+            <%= link_to "#", remote: true do %>
+              <span class="glyphicon glyphicon-heart-empty"></span> 在线客服
+            <% end %>
+          </li>
+        </ul>
+      </li>
+
+      <li class="dropdown">
+        <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+          <span class="glyphicon glyphicon-user"></span>
+        </a>
+        <ul class="dropdown-menu">
+          <li>
+            <%= link_to my_path, remote: true do %>
+              <span class="glyphicon glyphicon-th-list"></span> 个人资料  
+            <% end %>
+          </li>
+          <li>
+            <%= link_to "/logout", method: "delete" do %>
+              <span class="glyphicon glyphicon-off"></span> 退 出
+            <% end %>
+          </li>
+        </ul>
       </li>
     </ul>
-	</nav>
-</div>
+
+  </div>
+</nav>

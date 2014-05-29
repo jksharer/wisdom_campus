@@ -1,7 +1,8 @@
-<%= image_tag("my_announcements.gif",alt: "我的审批") %>
-<span class="head">概览</span>
+<span class="glyphicon glyphicon-globe"></span>
+<span class="head"> 概览</span>
 <hr>
 <div id="agency-info">
+	<span class="glyphicon glyphicon-flag"></span>
 	<strong><%= current_user.agency.name %></strong>
 	<span class="right-button">
 		<%= "#{current_user.username}, #{current_user.department.nil?? "" : current_user.department.name}, 
@@ -10,6 +11,7 @@
 </div>
 <div id="students-info">
 	<span>
+		<span class="glyphicon glyphicon-stats"></span>
 		共<strong><%= my_agency.iclasses.size %></strong>个班级, <%= my_agency.total_students %>个学生.
 	</span>
 

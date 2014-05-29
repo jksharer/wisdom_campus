@@ -1,0 +1,76 @@
+$backColor: #006600;
+$fontColor: #E8E8E8;
+$hoverFontColor: #fff;
+$hoverBackColor: #336600;
+div#navbar {
+	nav {
+		margin-bottom: 0;
+		background: $backColor;
+		
+		a {
+			color: $fontColor;
+			&:hover {
+				color: $hoverFontColor;
+			}
+		}
+	}
+
+	#logo {
+		font: small-caps 30px/15px "Times New Romen", serif;
+		&:link, &:hover, &:active, &:visited {
+			color: $hoverFontColor;
+			background: none;		
+			text-decoration:none	
+		}
+	}
+
+	a.dropdown-toggle {
+		font-size: 18px;
+		&:link, &:active, &:visited {
+			color: $fontColor;
+			background: none;		
+			text-decoration:none	
+		}
+		&:hover {
+			background: #339900;		
+		}	
+	}
+
+	ul.dropdown-menu a {
+			height: 30px;
+			color: $backColor;
+			margin: 0;
+			&:hover {
+				color: $fontColor;
+				background: $backColor;	
+			}
+	}
+}
+
+div.container {
+	margin-top: 0;
+	width: 100%;
+	
+	div#side {
+		padding: 5px 0;
+		border-top: 2px solid $backColor;
+		border-right: 2px solid $backColor;
+
+		ul {
+			a {
+				color: $backColor;
+				background-color: #fff;
+				&:hover {
+					color: $fontColor;
+					background: $backColor;	
+				}		
+			}			
+		}
+	}
+
+
+	div#content {
+		padding-top: 10px;
+		overflow-y: auto;
+	}	
+}

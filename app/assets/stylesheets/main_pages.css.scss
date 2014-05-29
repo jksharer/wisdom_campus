@@ -4,7 +4,7 @@ $div_border: 1px ridge rgb(55,155,215);
 	margin-top: 1em;
 	.pagination {
 			padding: 0;
-			margin-top: 2px;
+			// margin-top: 2px;
 			margin-bottom: 0;
 			float: right;
 			border: none;
@@ -31,12 +31,17 @@ div.portel {
 	-moz-box-shadow: 0 0 2px rgb(55,155,215);
 	-webkit-box-shadow: 0 0 2px rgb(55,155,215);
 	box-shadow: 0 0 2px rgb(55,155,215);
+	margin-left: 0.2em;
 } 
 
 div.portel-right {
-	margin-left: 0.2em;
+	// margin-left: 0.2em;
 }
 
 div#students-info {
+	margin-top: 1em;
+}
+
+div#latest-behaviors {
 	margin-top: 1em;
 }

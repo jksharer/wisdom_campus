@@ -55,6 +55,74 @@ p {
   line-height: 1.7em;
 }
 
+#banner {
+	height: 38px;
+	background: $backColor;
+
+	#logo-image {
+		float: left;
+	}
+
+	#logo {
+		margin: 10px;
+		float: left;
+		font: small-caps 30px/15px "Times New Romen", serif;
+		// font-size: 20px;
+		&:link, &:hover, &:active, &:visited {
+			color: $fontColor;
+			background: none;		
+			text-decoration:none	
+		}
+	}
+
+	#nav-left {
+		font-size: 13px;
+		float: left;
+		margin-left: 1em;
+		padding: 0;
+
+		a{
+			color: $fontColor;
+			&:hover {
+				background: #E0E0E0;	
+			}
+		}
+		
+		.dropdown-menu li a{
+			color: #000;
+		}
+	}	
+
+	#nav-right {
+		color: $fontColor;
+		float: right;
+		margin: 10px;
+
+		li {
+			font-size: 13px;
+			list-style: none;
+			float: left;
+			margin-left: 0.5em;
+		}
+
+		a {
+			color: $fontColor;
+			&:link, &:hover, &:active, &:visited {
+				background: none;
+				text-decoration: none;
+			}	
+		}
+	}
+}
+
+div.container {
+	margin-top: 1em;
+	width: 100%;
+}
+div#side {
+	padding: 0 3px;
+}
+
 @mixin box_sizing {
   -moz-box-sizing: border-box;
   -webkit-box-sizing: border-box;

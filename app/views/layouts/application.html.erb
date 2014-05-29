@@ -6,42 +6,46 @@
 	  <%= stylesheet_link_tag    "application", media: "all", "data-turbolinks-track" =>true %>
 	  <%= javascript_include_tag "application", "data-turbolinks-track" => true %>
 	  <%= csrf_meta_tags %>
-	  <script type="text/javascript">
+	  <script type="text/javascript">    
 	  	$(document).ready(function() {
-				$("div#content").css({
-					"height":document.body.scrollHeight-60,
-					"overflow-y":"auto"
-				});
+	  		$("div#side").css({
+	  			"height":document.body.scrollHeight-55
+	  		});
+
 				$("a").click(function(event) {
 					$("div#content").css({
-						"height":document.body.scrollHeight-60,
-						"overflow-y":"auto"
+						"height":document.body.scrollHeight-55,
 					});
 				});
 			});
 
 			$(window).resize(function() {
-				$("div#content").css({
-						"height":document.body.scrollHeight-60,
-						"overflow-y":"auto"
-				});
+				$("div#side").css({
+	  			"height":document.body.scrollHeight-55
+	  		});
 			});
 	  </script>
 	</head>
 	<body>
-		<%= render 'layouts/header' %>
+		<!-- 顶部导航区域 -->
+		<div id="navbar">
+			<%= render 'layouts/header' %>	
+		</div>
+
+		<!-- 内容区域 -->
 		<div class="container <%= controller.controller_name %>">
 			<div class="row">
-				<!-- 左侧边导航 -->
+				
+				<!-- 左侧边导航，大屏幕占用1/12宽度，小屏幕2/12宽度 -->
 				<div class="col-md-1 col-xs-2" id="side" width="150px">
 					<%= render 'layouts/side' %>	
 				</div>
 
 				<!-- 内容区 -->
 				<div class="col-md-11 col-xs-10" id="content">
-						<%= render 'shared/notice' %>
-						<%= yield %>	
+					<%= yield %>	
 				</div>
+
 			</div>
 		</div>	
 	</body>
