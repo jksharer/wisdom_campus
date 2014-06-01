@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140528084614) do
+ActiveRecord::Schema.define(version: 20140530091545) do
 
   create_table "agencies", force: true do |t|
     t.string   "name"
@@ -25,6 +25,13 @@ ActiveRecord::Schema.define(version: 20140528084614) do
   end
 
   add_index "agencies", ["school_type_id"], name: "index_agencies_on_school_type_id"
+
+  create_table "agencies_menus", id: false, force: true do |t|
+    t.integer  "agency_id"
+    t.integer  "menu_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
 
   create_table "announcements", force: true do |t|
     t.string   "name"
@@ -62,6 +69,7 @@ ActiveRecord::Schema.define(version: 20140528084614) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.integer  "agency_id"
+    t.integer  "serial_number"
   end
 
   add_index "behaviors", ["agency_id"], name: "index_behaviors_on_agency_id"
@@ -123,11 +131,8 @@ ActiveRecord::Schema.define(version: 20140528084614) do
     t.datetime "updated_at"
     t.string   "controller"
     t.string   "action"
-    t.integer  "agency_id"
     t.string   "icon"
   end
-
-  add_index "menus", ["agency_id"], name: "index_menus_on_agency_id"
 
   create_table "menus_roles", id: false, force: true do |t|
     t.integer  "menu_id"
@@ -214,8 +219,10 @@ ActiveRecord::Schema.define(version: 20140528084614) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.integer  "class_role_id"
+    t.integer  "agency_id"
   end
 
+  add_index "students", ["agency_id"], name: "index_students_on_agency_id"
   add_index "students", ["class_role_id"], name: "index_students_on_class_role_id"
   add_index "students", ["iclass_id"], name: "index_students_on_iclass_id"
 

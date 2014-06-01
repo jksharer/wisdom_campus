@@ -20,10 +20,10 @@ class ApplicationController < ActionController::Base
       @two_level_menus = current_user.sub_menus(@current_menu.parent_menu)
     #从其他途径访问系统  
     else
-      unless current_user.nil?
-        @current_menu = current_user.one_level_menus.first
-        @two_level_menus = current_user.sub_menus(@current_menu)
-      end
+      # unless current_user.nil?
+        # @current_menu = current_user.one_level_menus.first
+        # @two_level_menus = current_user.sub_menus(@current_menu)
+      # end
     end
   end
 

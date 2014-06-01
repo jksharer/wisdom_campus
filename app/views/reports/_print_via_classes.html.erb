@@ -1,0 +1,26 @@
+<h1>本学期各班级校园秩序情况统计</h1>
+<table class="table table-bordered table-striped report-table" id="via-classes">
+  <thead>
+    <tr>
+      <th width="8%">年级</th>
+      <th width="8%">班级名称</th>
+      <th width="10%">班主任</th>
+      <th width="10%">学生数量</th>
+      <th width="10%">本学期累计违规</th>
+      <th width="10%">上学期总计违规</th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @iclasses.each do |iclass| %>
+      <tr>
+        <td><%= iclass.grade.name %></td>
+        <td><%= iclass.name %></td>
+        <td><%= iclass.header %></td>
+        <td><%= iclass.students.size %></td>
+        <td><%= total_behaviors(iclass) %></td>
+        <td></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>

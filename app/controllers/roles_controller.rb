@@ -15,7 +15,7 @@ class RolesController < ApplicationController
 
   def new
     @role = Role.new
-    @menus = Menu.where(parent_menu_id: nil).order('display_order asc')
+    @one_level_menus = Menu.where(parent_menu_id: nil).order('display_order asc')
     respond_to do |format|
       format.js
       format.html
@@ -23,7 +23,7 @@ class RolesController < ApplicationController
   end
 
   def edit
-    @menus = Menu.where(parent_menu_id: nil).order('display_order asc')
+    @one_level_menus = Menu.where(parent_menu_id: nil).order('display_order asc')
     respond_to do |format|
       format.js { render 'new.js.erb' }
       format.html
@@ -44,7 +44,7 @@ class RolesController < ApplicationController
           notice: 'Role was successfully created.' }
       else
         format.js {
-          @menus = Menu.where(parent_menu_id: nil).order('display_order asc')  
+          @one_level_menus = Menu.where(parent_menu_id: nil).order('display_order asc')  
         }
         format.html { render action: 'new' }
       end
@@ -64,7 +64,7 @@ class RolesController < ApplicationController
           notice: 'Role was successfully updated.' }
       else
         format.js {
-          @menus = Menu.where(parent_menu_id: nil).order('display_order asc')  
+          @one_level_menus = Menu.where(parent_menu_id: nil).order('display_order asc')  
           render 'create.js.erb'
         }
         format.html { render action: 'edit' }
@@ -89,7 +89,7 @@ class RolesController < ApplicationController
 
   private
     def set_role
-      @role = Role.find_by(params[:id], agency: my_agency)
+      @role = Role.find(params[:id])   # 此处改成find_by(id: params[:id], agency: my_agency) 会造成未知的异常！请注意！
     end
 
     def role_params

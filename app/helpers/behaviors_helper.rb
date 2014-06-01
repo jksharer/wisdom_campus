@@ -1,5 +1,14 @@
 module BehaviorsHelper
 
+	def generate_serial_number
+		last_behavior = Behavior.where('created_at > ?', Time.now.midnight).order('created_at asc').last
+		if last_behavior.nil? 
+			return "#{Time.now.strftime('%Y%m%d')}001".to_i
+		else
+			return last_behavior.serial_number + 1
+		end
+	end
+
 	# 根据行为记录单的英文确认状态，转化为中文状态名称
 	def transfer_confirm_state(confirm_state)
 		state = case confirm_state

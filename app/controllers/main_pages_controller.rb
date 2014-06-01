@@ -4,6 +4,8 @@ class MainPagesController < ApplicationController
   before_action :authorize
 
   def home
+    @current_menu = current_user.one_level_menus.first
+    @two_level_menus = current_user.sub_menus(@current_menu)
     # 取出最新8条已审批发布的公告
     @announcements = Announcement.where(workflow_state: "accepted").order('created_at DESC').limit(8)
 

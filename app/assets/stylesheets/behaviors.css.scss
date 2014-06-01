@@ -34,3 +34,9 @@ div#print-page {
 	}
 	a:after { content:' [' attr(href) '] '}
 }
+
+div.datatable {
+	input, select{
+		line-height: 12px;	
+	}
+}

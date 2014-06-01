@@ -29,7 +29,7 @@ class User < ActiveRecord::Base
 
   # 获取用户权限范围内的一级菜单
   def one_level_menus
-    Menu.where(parent_menu_id: nil, agency_id: self.agency_id).order('display_order asc').
+    Menu.where(parent_menu_id: nil).order('display_order asc').
       find_all { |menu| permissions.include?(menu) }
   end
 

@@ -48,6 +48,7 @@ class StudentsController < ApplicationController
   def create
     @student = Student.new(student_params)
     @student.class_role_ids = params[:class_roles]
+    @student.agency = my_agency
     respond_to do |format|
       if @student.save
         format.js {

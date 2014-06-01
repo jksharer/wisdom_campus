@@ -1,3 +1,23 @@
+<script type="text/javascript">
+  $(document).ready(function() {
+    $('.datatable').dataTable({
+      "oLanguage": {
+        "sLengthMenu": "每页_MENU_条",
+        "sZeroRecords": "抱歉， 没有找到",
+        "sSearch": "",
+        "sInfo": "从 _START_ 到 _END_ /共 _TOTAL_ 条数据",
+        "sInfoEmpty": "没有数据",
+        "sInfoFiltered": "(从 _MAX_ 条数据中检索)",
+        "oPaginate": {
+        "sFirst": "首页",
+        "sPrevious": "前一页",
+        "sNext": "后一页",
+        "sLast": "尾页"
+        }
+      }  
+    });
+  });
+</script>
 <div class="top-links"> 
   <%= link_to "所有记录", behaviors_path, remote: true %> |
   <%= link_to behaviors_path, remote: true do %> 
@@ -14,41 +34,41 @@
   <% end %>
 </div>
 <div id="behaviors-content">
-  <table class="table table-hover table-striped">
-  <thead>
-    <tr>
-      <th>行为类型</th>
-      <th>学生</th>
-      <th>发生时间</th>
-      <th>地点</th>
-      <th>过程描述</th>
-      <th>扣/加分</th>
-      <th>状态</th>
-      <th colspan="3"></th>
-    </tr>
-  </thead>
-
-  <tbody>
-    <% @behaviors.each do |behavior| %>
+  <table class="datatable">
+    <thead>
       <tr>
-        <td><%= behavior.behavior_type.name %></td>
-        <td><%= "#{behavior.student.name}, #{behavior.student.iclass.name}" %></td>
-        <td><%= time_format_min(behavior.time) %></td>
-        <td><%= behavior.address %></td>
-        <td><%= link_to behavior.description.truncate(15), behavior, remote: true %></td>
-        <td><%= behavior.score %></td>
-        <td><%= transfer_confirm_state(behavior.confirm_state) %></td>
-        <td>
-          <% if behavior.confirmed? %>
-            <%= link_to '详细', behavior, remote: true %>
-          <% else %>
-            <%= link_to edit_behavior_path(behavior), remote: true do %>
-              <span class="glyphicon glyphicon-edit"></span>   
-            <% end %>
-          <% end %>
-        </td>
+        <th>行为类型</th>
+        <th>学生</th>
+        <th>发生时间</th>
+        <th>地点</th>
+        <th>过程描述</th>
+        <th>扣/加分</th>
+        <th>状态</th>
+        <th></th>
       </tr>
-    <% end %>
-  </tbody>
-</table>  
+    </thead>
+
+    <tbody>
+      <% @behaviors.each do |behavior| %>
+        <tr>
+          <td><%= behavior.behavior_type.name %></td>
+          <td><%= "#{behavior.student.name}, #{behavior.student.iclass.name}" %></td>
+          <td><%= time_format_min(behavior.time) %></td>
+          <td><%= behavior.address %></td>
+          <td><%= link_to behavior.description.truncate(15), behavior, remote: true %></td>
+          <td><%= behavior.score %></td>
+          <td><%= transfer_confirm_state(behavior.confirm_state) %></td>
+          <td>
+            <% if behavior.confirmed? %>
+              <%= link_to '详细', behavior, remote: true %>
+            <% else %>
+              <%= link_to edit_behavior_path(behavior), remote: true do %>
+                <span class="glyphicon glyphicon-edit"></span>   
+              <% end %>
+            <% end %>
+          </td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>  
 </div>

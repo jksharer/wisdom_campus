@@ -13,7 +13,7 @@
   <div class="form-group">
     <%= f.label :menus_of_role, "功能权限:", class: "col-sm-2 control-label" %>
     <div class=" col-sm-10">
-      <% @menus.each do |menu| %>
+      <% @one_level_menus.each do |menu| %>
         <div class="all_menus">
           <%= check_box_tag "menus_of_role[]", menu.id, 
             @role.menus.include?(menu) %>

@@ -1,6 +1,7 @@
 class Student < ActiveRecord::Base
   enum gender: [:male, :female]
 
+  belongs_to :agency
   belongs_to :iclass
   has_many :behaviors
   has_and_belongs_to_many :class_roles, -> { uniq }

@@ -3,11 +3,11 @@ class Agency < ActiveRecord::Base
 	has_many :iclasses
 	has_many :users
 	has_many :departments
-	has_many :menus
 	has_many :roles
 	has_many :procedures
 	has_many :behavior_types
 	has_many :behaviors
+	has_and_belongs_to_many :menus
 
 	belongs_to :higher_agency, class_name: "Agency"
 	belongs_to :school_type

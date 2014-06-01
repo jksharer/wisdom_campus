@@ -2,7 +2,7 @@ class Menu < ActiveRecord::Base
 	has_many :sub_menus, class_name: "Menu", foreign_key: "parent_menu_id"
 	belongs_to :parent_menu, class_name: "Menu"
 	has_and_belongs_to_many :roles
-	belongs_to :agency
+	has_and_belongs_to_many :agencies
 
 	validates :name, presence: true, uniqueness: true
 	validates :url, presence: true

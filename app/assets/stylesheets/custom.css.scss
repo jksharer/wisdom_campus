@@ -1,6 +1,5 @@
 @import "bootstrap";
 
-// $backColor: rgb(55,155,215);
 $backColor: #006600;
 $fontColor: #fff;
 
@@ -46,10 +45,6 @@ h2 {
 	color: red;
 }
 
-table {
-	margin-top: 10px;
-}
-
 p {
   font-size: 1.1em;
   line-height: 1.7em;
@@ -63,14 +58,14 @@ p {
 
 /* forms */
 
-input, textarea, select, .uneditable-input {
-  margin-bottom: 15px;
-  // @include box_sizing;
-}
+// input, textarea, select, .uneditable-input {
+//   // margin-bottom: 15px;
+//   // @include box_sizing;
+// }
 
-input {
-  height: auto !important;
-}
+// input {
+//   // height: auto !important;
+// }
 
 #error_explanation {
   color: #f00;
@@ -90,4 +85,14 @@ input {
 
 .center {
 	text-align: center;
+}
+
+hr {
+  margin-top: 0;
+  margin-bottom: 0;
+  border: 1px solid #c8c8c8;
+}
+
+div.top-links {
+  margin-bottom: 1em;
 }

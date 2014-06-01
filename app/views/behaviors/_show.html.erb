@@ -1,20 +1,17 @@
-<%= link_to behaviors_path, remote: true do %>
-  <span class="glyphicon glyphicon-arrow-left"></span> 返 回
-<% end %> |
-<%= link_to edit_behavior_path(@behavior), remote: true do %> 
-  <span class="glyphicon glyphicon-edit"></span> 修 改
-<% end %> |
-<%= link_to @behavior, method: :delete, delete: true, data: { confirm: 'Are you sure?' } do %>
+<%= render 'shared/back_link', path: behaviors_path %> |
+<%= render 'shared/edit_link', path: edit_behavior_path(@behavior) %> |
+<%= link_to @behavior, method: :delete, delete: true, data: { confirm:  'Are you sure?' } do %>
   <span class="glyphicon glyphicon-off"></span> 设为无效
 <% end %> |
-<%= link_to behavior_print_path(id: @behavior.id), 
-      onclick: "var w = window.open(this.href); w.focus(); return false;" do %>
-  <span class="glyphicon glyphicon-print"></span> 打 印    
-<% end %>      
+<%= render 'shared/print_link', path: behavior_print_path(id: @behavior.id) %>      
 <%= render 'shared/notice' %>
 <h1>学生行为记录单</h1>
 <div id="bevavior-info">
   <table class="table table-bordered">
+    <tr>
+      <th><strong>流 水 号:</strong></th>
+      <td><%= @behavior.serial_number %></td>
+    </tr>
     <tr>
       <th>
         <strong>学生信息:</strong>    

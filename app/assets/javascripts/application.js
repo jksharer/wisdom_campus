@@ -16,6 +16,7 @@
 //= require turbolinks
 //= require_tree .
 //= require bootstrap-datepicker
+//= require dataTables/jquery.dataTables
 
 function set_scroll(height) {
 	$("div#content").css({

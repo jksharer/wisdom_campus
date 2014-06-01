@@ -1,4 +1,6 @@
 class BehaviorsController < ApplicationController
+  include ApplicationHelper
+
   before_action :set_behavior, only: [:show, :edit, :print, :confirm, :update, :destroy]
 
   def index
@@ -38,6 +40,7 @@ class BehaviorsController < ApplicationController
       else                      # 成功找到学生
         @behavior = Behavior.new(behavior_params)
         @behavior.student_id = @result_student.id
+        @behavior.serial_number = generate_serial_number
         @behavior.recorder = current_user
         @behavior.agency = my_agency 
         @behavior.score = BehaviorType.find(behavior_params[:behavior_type_id]).score if behavior_params[:behavior_type_id]
