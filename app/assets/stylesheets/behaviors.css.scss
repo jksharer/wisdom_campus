@@ -35,8 +35,15 @@ div#print-page {
 	a:after { content:' [' attr(href) '] '}
 }
 
-div.datatable {
-	input, select{
-		line-height: 12px;	
-	}
+div#behaviors-content {
+	margin-top: 1em;
+	margin-bottom: 0;
+
+	table.datatable {
+		margin-top: 0;
+		input, select{
+			line-height: 12px;	
+		}
+	}	
 }
+

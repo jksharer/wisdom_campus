@@ -1,7 +1,9 @@
 <%= render 'shared/notice' %>
-<%= link_to new_department_path, remote: true, class: "btn btn-large btn-default" do %>
+<div class="top-links">
+  <%= link_to new_department_path, remote: true, class: "btn btn-large btn-default" do %>
     <span class="glyphicon glyphicon-plus"></span> 新部门
-  <% end %>
+  <% end %>  
+</div>
 <table class="table table-bordered" id="depts-table">
   <thead>
     <tr>

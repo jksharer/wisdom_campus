@@ -7,7 +7,6 @@
       <th width="10%">班主任</th>
       <th width="10%">学生数量</th>
       <th width="10%">本学期累计违规</th>
-      <th width="10%">上学期总计违规</th>
     </tr>
   </thead>
 
@@ -18,9 +17,13 @@
         <td><%= iclass.name %></td>
         <td><%= iclass.header %></td>
         <td><%= iclass.students.size %></td>
-        <td><%= total_behaviors(iclass) %></td>
-        <td></td>
+        <td><%= behaviors_count_of_class(iclass) %></td>
       </tr>
     <% end %>
+    <tr>
+      <td colspan="3" style="text-align: center;"><strong>合计:</strong></td>
+      <td><%= my_agency.total_students %></td>
+      <td><%= behaviors_count_of_agency(my_agency) %></td>
+    </tr>  
   </tbody>
 </table>

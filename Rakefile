@@ -3,4 +3,4 @@
 
 require File.expand_path('../config/application', __FILE__)
 
-JkPlatform::Application.load_tasks
+WisdomCampus::Application.load_tasks

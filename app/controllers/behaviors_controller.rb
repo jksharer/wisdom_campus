@@ -5,6 +5,14 @@ class BehaviorsController < ApplicationController
 
   def index
     @behaviors = Behavior.order('created_at desc')
+    respond_to do |format|
+      format.js 
+      format.html { 
+        redirect_to '/behaviors.xls'
+      }
+      format.csv { send_data @behaviors.to_csv }
+      format.xls  
+    end
   end
 
   def show

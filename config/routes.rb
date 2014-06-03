@@ -1,4 +1,4 @@
-JkPlatform::Application.routes.draw do
+WisdomCampus::Application.routes.draw do
   root 'main_pages#home'
 
   resources :sessions, only: [:new, :create, :destroy]
@@ -28,8 +28,8 @@ JkPlatform::Application.routes.draw do
   match '/behavior_confirm',  to: 'behaviors#confirm',             via:   'get'
 
   match '/reports',           to: 'reports#home',                  via: 'get'
-  get '/via_classes',         to: 'reports#via_classes',           via: 'get'
-  get '/via_students',        to: 'reports#via_students',          via: 'get'
-  get '/query',               to: 'reports#query',                 via: 'get'
+  match '/via_classes',       to: 'reports#via_classes',           via: 'get'
+  match '/via_grades',        to: 'reports#via_grades',            via: 'get'
+  match '/query',             to: 'reports#query',                 via: 'get'
 
 end

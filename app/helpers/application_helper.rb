@@ -1,9 +1,11 @@
 #encoding: utf-8
 module ApplicationHelper
 	include SessionsHelper
+	include AgenciesHelper
 	include ProjectsHelper
 	include StudentsHelper
 	include IclassesHelper
+	include GradesHelper
 	include BehaviorsHelper
 
 	# 定义ajax方式的will_paginate

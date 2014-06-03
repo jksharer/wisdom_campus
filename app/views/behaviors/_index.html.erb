@@ -2,9 +2,9 @@
   $(document).ready(function() {
     $('.datatable').dataTable({
       "oLanguage": {
-        "sLengthMenu": "每页_MENU_条",
+        "sLengthMenu": "每页条数:_MENU_",
         "sZeroRecords": "抱歉， 没有找到",
-        "sSearch": "",
+        "sSearch": "搜索:",
         "sInfo": "从 _START_ 到 _END_ /共 _TOTAL_ 条数据",
         "sInfoEmpty": "没有数据",
         "sInfoFiltered": "(从 _MAX_ 条数据中检索)",
@@ -23,12 +23,7 @@
   <%= link_to behaviors_path, remote: true do %> 
     <span class="glyphicon glyphicon-import"></span> 从Excel导入
   <% end %> |
-  <%= link_to behaviors_path, remote: true do %> 
-    <span class="glyphicon glyphicon-export"></span> 导 出
-  <% end %> 
-  <%= link_to new_behavior_path, remote: true, class: "btn btn-large btn-default right-button" do %>
-    <span class="glyphicon glyphicon-search"></span> 查询
-  <% end %>
+  <a href="/behaviors"><span class="glyphicon glyphicon-export"></span> 导出到Excel</a> 
   <%= link_to new_behavior_path, remote: true, class: "btn btn-large btn-default right-button" do %>
     <span class="glyphicon glyphicon-plus"></span> 添加纪录
   <% end %>

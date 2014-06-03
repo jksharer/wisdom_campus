@@ -11,4 +11,13 @@ class Behavior < ActiveRecord::Base
 	validates :score, presence: true
 	validates :confirm_state, presence: true
 	validates :recorder, presence: true
+
+	def self.to_csv(options = {})
+		CSV.generate(options) do |csv|
+			csv << column_names
+			all.each do |behavior|
+				csv << behavior.attributes.values_at(*column_names) 
+			end
+		end
+	end
 end

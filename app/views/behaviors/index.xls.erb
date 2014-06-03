@@ -1,0 +1,29 @@
+<table class="table table-bordered">
+    <thead>
+      <tr>
+        <th>班级</th>
+        <th>学生姓名</th>
+        <th>行为类型</th>
+        <th>发生时间</th>
+        <th>地点</th>
+        <th>过程描述</th>
+        <th>扣/加分</th>
+        <th>状态</th>
+      </tr>
+    </thead>
+
+    <tbody>
+      <% @behaviors.each do |behavior| %>
+        <tr>
+          <td><%= behavior.student.iclass.name %></td>
+          <td><%= behavior.student.name %></td>
+          <td><%= behavior.behavior_type.name %></td>
+          <td><%= time_format_min(behavior.time) %></td>
+          <td><%= behavior.address %></td>
+          <td><%= behavior.description%></td>
+          <td><%= behavior.score %></td>
+          <td><%= transfer_confirm_state(behavior.confirm_state) %></td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>

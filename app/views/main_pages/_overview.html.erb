@@ -16,7 +16,7 @@
 	</span>
 
 	<span>
-		共发生<strong><%= Behavior.where(agency: my_agency).size %></strong>起违反校园秩序的行为。
+		共发生<strong><%= Behavior.select(:student_id).distinct.size %></strong>人次, <strong><%= Behavior.where(agency: my_agency).size %></strong>起违反校园秩序的行为。
 	</span>
 	<table class="table table-bordered">
 		<thead>

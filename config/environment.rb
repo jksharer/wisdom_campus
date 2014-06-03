@@ -5,4 +5,4 @@ Encoding.default_internal = 'UTF-8'
 require File.expand_path('../application', __FILE__)
 
 # Initialize the Rails application.
-JkPlatform::Application.initialize!
+WisdomCampus::Application.initialize!
