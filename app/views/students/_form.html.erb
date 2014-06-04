@@ -1,5 +1,7 @@
 <%= link_to "返 回", iclasses_path, remote: true %>
-<%= form_for(@student, remote: true, html: { class: "form-horizontal", role: "form" }) do |f| %>
+<%= form_for(@student, remote: true, :authenticity_token => true, 
+  html: { :multipart => true, class: "form-horizontal", role: "form" }) do |f| %>
+  
   <%= render 'shared/error_messages', object: f.object %>
 
   <div class="form-group">
@@ -8,9 +10,11 @@
       <%= f.text_field :sid, class: "form-control" %>  
     </div>
 
-    <%= f.label :photo_url, "照 片", class: "col-sm-1 control-label" %>
+    <%= f.label :photo, "照 片", class: "col-sm-1 control-label" %>
     <div class="col-sm-3">
-      <%= f.text_field :photo_url, class: "form-control" %>
+      <%= image_tag(@student.photo_url, size: "80x100") if @student.photo? %>
+      <%= f.file_field :photo, class: "form-control" %>
+      <%= f.hidden_field :photo_cache %>
     </div>
   </div>
 
@@ -49,6 +53,7 @@
 
   <div class="form-group">
     <div class="col-sm-offset-1 col-sm-2">
+      <%= hidden_field_tag :menu_id, Menu.find_by(name: '学生中心').id %>
       <%= f.submit "保 存", class: "btn btn-large btn-primary" %>      
     </div>
   </div>

@@ -56,7 +56,10 @@ class StudentsController < ApplicationController
           set_initial_data
           render 'index.js.erb'
         }
-        format.html { redirect_to @student, notice: 'Student was successfully created.' }
+        format.html {
+          flash.now[:notice] = 'Student was successfully created.'
+          redirect_to @student
+        }
       else
         format.js { render 'new.js.erb' }
         format.html { render action: 'new' }
@@ -73,7 +76,10 @@ class StudentsController < ApplicationController
           set_initial_data
           render 'index.js.erb'
         }
-        format.html { redirect_to @student, notice: 'Student was successfully updated.' }
+        format.html { 
+          flash.now[:notice] = 'Student was successfully updated.'
+          redirect_to @student
+        }
       else
         format.js { render 'new.js.erb' }
         format.html { render action: 'edit' }
@@ -85,7 +91,7 @@ class StudentsController < ApplicationController
     @student.class_roles.clear unless @student.class_roles.empty?
     @student.destroy
     respond_to do |format|
-      format.js {
+      format.js { 
         flash.now[:notice] = 'Student was successfully deleted.'
         set_initial_data
         @students = Student.where(iclass_id: @student.iclass_id).order('sid asc')  
@@ -101,6 +107,6 @@ class StudentsController < ApplicationController
     end
 
     def student_params
-      params.require(:student).permit(:sid, :name, :gender, :photo_url, :iclass_id)
+      params.require(:student).permit(:sid, :name, :gender, :photo, :iclass_id)
     end
 end

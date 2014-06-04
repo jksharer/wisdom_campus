@@ -17,7 +17,7 @@
   <tbody>
     <% @iclasses.each do |iclass| %>
       <tr>
-        <td><%= link_to iclass.name, edit_iclass_path(iclass), remote: true %></td>
+        <td><%= iclass.name %></td>
         <td><%= iclass.grade.name %></td>
         <td><%= iclass.header %></td>
         <td><%= iclass.students.size %></td>

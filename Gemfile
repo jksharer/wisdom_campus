@@ -21,6 +21,7 @@ gem 'enumerize'
 gem 'twitter_ratchet_rails'
 gem 'spring', group: :development
 gem 'jquery-datatables-rails', git: 'git://github.com/rweng/jquery-datatables-rails.git'
+gem 'carrierwave'
 
 group :development, :test do
   gem 'sqlite3', '1.3.8'

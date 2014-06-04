@@ -1,4 +1,6 @@
 class Student < ActiveRecord::Base
+	mount_uploader :photo, AvatarUploader
+
   enum gender: [:male, :female]
 
   belongs_to :agency

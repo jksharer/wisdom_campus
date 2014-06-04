@@ -1,0 +1,8 @@
+<%= render 'shared/notice' %>
+<div class="top-links">
+  <%= link_to '返 回', students_home_path, remote: true %>  |
+  <%= link_to '编 辑', edit_student_path(@student), remote: true %> 
+</div>
+<div id="class-content"> 
+	<%= render 'student' %>
+</div>	

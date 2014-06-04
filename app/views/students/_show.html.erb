@@ -1,32 +1,6 @@
 <%= render 'shared/notice' %>
-<p>
-  <strong>学号:</strong>
-  <%= @student.sid %>
-</p>
-
-<p>
-  <strong>姓名:</strong>
-  <%= @student.name %>
-</p>
-
-<p>
-  <strong>性别:</strong>
-  <%= @student.gender %>
-</p>
-
-<p>
-  <strong>照片:</strong>
-  <%= @student.photo_url %>
-</p>
-
-<p>
-  <strong>班级:</strong>
-  <%= @student.iclass.name %>
-</p>
-
-<p>
-  <strong>角色:</strong>
-  <%= @student.class_roles.map { |role| role.name }.join(',') %>
-</p>
-<%= link_to '编 辑', edit_student_path(@student), remote: true %> |
-<%= link_to '返 回', students_path(iclass_id: @student.iclass_id), remote: true %>
+<div class="top-links">
+  <%= link_to '返 回', students_path(iclass_id: @student.iclass_id), remote: true %>  |
+  <%= link_to '编 辑', edit_student_path(@student), remote: true %> 
+</div>
+<%= render 'student' %>

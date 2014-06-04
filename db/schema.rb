@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140530091545) do
+ActiveRecord::Schema.define(version: 20140604005412) do
 
   create_table "agencies", force: true do |t|
     t.string   "name"
@@ -214,7 +214,7 @@ ActiveRecord::Schema.define(version: 20140530091545) do
     t.string   "sid"
     t.string   "name"
     t.integer  "gender",        limit: 255, default: 0
-    t.string   "photo_url"
+    t.string   "photo"
     t.integer  "iclass_id"
     t.datetime "created_at"
     t.datetime "updated_at"
