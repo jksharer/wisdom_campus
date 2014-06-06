@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140604005412) do
+ActiveRecord::Schema.define(version: 20140605025107) do
 
   create_table "agencies", force: true do |t|
     t.string   "name"
@@ -195,6 +195,18 @@ ActiveRecord::Schema.define(version: 20140604005412) do
   create_table "school_types", force: true do |t|
     t.string   "name"
     t.string   "description"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "sms", force: true do |t|
+    t.string   "mid"
+    t.string   "phone"
+    t.string   "content"
+    t.datetime "send_time"
+    t.string   "status"
+    t.integer  "behavior_id"
+    t.integer  "agency_id"
     t.datetime "created_at"
     t.datetime "updated_at"
   end

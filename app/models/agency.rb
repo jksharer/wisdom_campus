@@ -7,6 +7,7 @@ class Agency < ActiveRecord::Base
 	has_many :procedures
 	has_many :behavior_types
 	has_many :behaviors
+	has_many :sms
 	has_and_belongs_to_many :menus
 
 	belongs_to :higher_agency, class_name: "Agency"

@@ -110,6 +110,8 @@ class BehaviorsController < ApplicationController
   # 设为已确认状态
   def confirm
     @behavior.update_attribute(:confirm_state, "confirmed")
+    response = send_message(@behavior)    # 给家长发送短信
+    puts response
     respond_to do |format|
       format.js {
         @behaviors = Behavior.order('created_at desc')

@@ -1,4 +1,6 @@
 WisdomCampus::Application.routes.draw do
+  resources :sms
+
   root 'main_pages#home'
 
   resources :sessions, only: [:new, :create, :destroy]

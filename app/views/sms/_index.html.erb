@@ -1,0 +1,33 @@
+<div class="top-links">
+  <%= link_to '新短信', new_sm_path %> |
+</div>
+<div id="sms">
+  <table class="table">
+  <thead>
+    <tr>
+      <th>流水号</th>
+      <th>手机号码</th>
+      <th>短信内容</th>
+      <th>发送时间</th>
+      <th>发送状态</th>
+      <th></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @sms.each do |sm| %>
+      <tr>
+        <td><%= sm.mid %></td>
+        <td><%= sm.phone %></td>
+        <td><%= sm.content %></td>
+        <td><%= sm.send_time %></td>
+        <td><%= sm.status %></td>
+        <td>
+          <%= link_to 'Show', sm %>
+          <%= link_to 'Destroy', sm, method: :delete, data: { confirm: 'Are you sure?' } %>
+        </td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>  
+</div>

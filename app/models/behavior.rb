@@ -3,6 +3,7 @@ class Behavior < ActiveRecord::Base
 	belongs_to :recorder, class_name: "User"
 	belongs_to :behavior_type
 	belongs_to :agency
+	has_many :sms
 
 	enum confirm_state: [:initial, :confirming, :confirmed, :canceled]
 
