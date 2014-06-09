@@ -1,0 +1,54 @@
+<script type="text/javascript">
+	$(document).ready(function() {
+		$("#import-submit").click(function(event) {
+			if($("#file-selector").val() == "") {
+				$("#import-info").removeClass("alert alert-info");
+				$("#import-info").addClass("alert alert-danger");
+				$("button.close").click();
+				$("#import-info").html("请选择文件.");
+				event.preventDefault();
+			} else {
+				$("#import-info").removeClass("alert alert-info");
+				$("#import-info").removeClass("alert alert-danger");
+				$("#import-info").addClass("alert alert-info");
+				$("#import-info").html("导入正在进行中, 预计在1分钟内完成，请耐心等候.");
+				$(this).hide("slow");
+			}
+		});
+	});
+</script>
+
+<div class="top-links">
+	<%= render 'shared/back_link', path: students_home_path %> |
+	下载模板:
+	<%= link_to "Excel", download_file_path(filename: "students", extension: "xls") %> |
+	<%= link_to "CSV",   download_file_path(filename: "students", extension: "csv")  %>
+</div>
+
+<div id="import-form">
+	<div class="col-sm-12">
+		<h1>导入</h1>
+	</div>
+	<div class="row">
+		<%= form_tag import_students_path, multipart: true do %>
+			<div class="col-sm-2">
+				<%= file_field_tag :file, id: "file-selector", class: "form-control" %>	
+			</div>
+			<div class="col-sm-2">
+				<%= submit_tag "导入", id: "import-submit", class: "btn btn-default" %>	
+			</div>
+		<% end %>	
+	</div>
+</div>
+
+<div id="import-info">
+	<%= render 'shared/notice_heavy' %>
+	<div class="col-sm-12">
+		<strong><span id="import-info"></span></strong>	
+	</div>
+</div>
+
+<div id="export-form">
+	<hr>
+	<%= render 'export_students' %>
+</div>

@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140605025107) do
+ActiveRecord::Schema.define(version: 20140608093921) do
 
   create_table "agencies", force: true do |t|
     t.string   "name"
@@ -99,14 +99,27 @@ ActiveRecord::Schema.define(version: 20140605025107) do
 
   add_index "departments", ["agency_id"], name: "index_departments_on_agency_id"
 
+  create_table "estimate_rules", force: true do |t|
+    t.integer  "lower"
+    t.integer  "higher"
+    t.string   "description"
+    t.integer  "agency_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "estimate_rules", ["agency_id"], name: "index_estimate_rules_on_agency_id"
+
   create_table "grades", force: true do |t|
     t.string   "name"
     t.integer  "school_type_id"
     t.string   "description"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.integer  "agency_id"
   end
 
+  add_index "grades", ["agency_id"], name: "index_grades_on_agency_id"
   add_index "grades", ["school_type_id"], name: "index_grades_on_school_type_id"
 
   create_table "iclasses", force: true do |t|
@@ -199,6 +212,16 @@ ActiveRecord::Schema.define(version: 20140605025107) do
     t.datetime "updated_at"
   end
 
+  create_table "semesters", force: true do |t|
+    t.string   "name"
+    t.integer  "school_year"
+    t.date     "start_date"
+    t.date     "end_date"
+    t.boolean  "current"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
   create_table "sms", force: true do |t|
     t.string   "mid"
     t.string   "phone"
@@ -232,6 +255,13 @@ ActiveRecord::Schema.define(version: 20140605025107) do
     t.datetime "updated_at"
     t.integer  "class_role_id"
     t.integer  "agency_id"
+    t.string   "id_number"
+    t.string   "class_name"
+    t.string   "card_type"
+    t.string   "card_status"
+    t.datetime "open_date"
+    t.string   "bank_account"
+    t.integer  "phone"
   end
 
   add_index "students", ["agency_id"], name: "index_students_on_agency_id"

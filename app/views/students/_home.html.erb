@@ -8,12 +8,8 @@
 <%= render 'shared/notice' %>
 <div class="top-links">
   <%= link_to "学生中心", iclasses_path, remote: true %> |
-  <%= link_to iclasses_path, remote: true do %> 
-    <span class="glyphicon glyphicon-import"></span> 从Excel导入
-  <% end %> |
-  <%= link_to iclasses_path, remote: true do %> 
-    <span class="glyphicon glyphicon-export"></span> 导 出
-  <% end %> 
+  <%= render 'shared/import_link', path: import_export_students_path, remote: true %> |
+  <%= render 'shared/export_link', path: import_export_students_path, remote: true %> 
   <%= link_to new_iclass_path, remote: true, class: "btn btn-large btn-default right-button" do %>
     <span class="glyphicon glyphicon-plus"></span> 新班级
   <% end %>
@@ -21,6 +17,7 @@
     <span class="glyphicon glyphicon-plus"></span> 新学生
   <% end %>    
 </div>
+
 <div id="class-content">  
   <div class="tabbable">
     <!-- 顶部年级导航条 -->

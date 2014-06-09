@@ -6,7 +6,7 @@
 </div>
 <div class="top-links">
 	<%= render 'shared/back_link', path: procedures_path %> |
-	<%= render 'shared/add_link', path: new_step_path(procedure_id: @procedure.id), name: "添加步骤" %>
+	<%= link_to "添加步骤", new_step_path(procedure_id: @procedure.id), remote: true %>
 </div>
 <div id="steps">
 	<table class="table table-bordered">

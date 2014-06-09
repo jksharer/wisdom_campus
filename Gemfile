@@ -19,9 +19,10 @@ gem 'bootstrap-will_paginate', '0.0.10'
 gem 'bootstrap-datepicker-rails'
 gem 'enumerize'
 gem 'twitter_ratchet_rails'
-gem 'spring', group: :development
 gem 'jquery-datatables-rails', git: 'git://github.com/rweng/jquery-datatables-rails.git'
 gem 'carrierwave'
+gem 'simple_form'
+gem 'roo'
 
 group :development, :test do
   gem 'sqlite3', '1.3.8'
@@ -30,6 +31,10 @@ group :development, :test do
   gem 'spork-rails', '4.0.0'   
   gem 'guard-spork', '1.5.0'
   gem 'childprocess', '0.3.6'
+  gem 'spring'
+  gem 'better_errors'
+  gem 'binding_of_caller'
+  gem 'meta_request'
 end
 
 group :test do

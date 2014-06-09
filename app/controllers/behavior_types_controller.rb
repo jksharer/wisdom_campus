@@ -1,9 +1,13 @@
 class BehaviorTypesController < ApplicationController
   before_action :set_behavior_type, only: [:show, :edit, :update, :destroy]
-  before_action :authorize
+  # before_action :authorize
 
   def index
     @behavior_types = BehaviorType.where(agency: my_agency).order('score asc')
+    respond_to do |format|
+      format.js { render 'shared/index.js.erb' }
+      format.html
+    end
   end
 
   def show

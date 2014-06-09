@@ -1,0 +1,28 @@
+<%= render 'shared/back_link', path: estimate_rules_path %>
+<%= form_for(@estimate_rule, remote: true, html: { class: "form-horizontal", role: "form" }) do |f| %>
+  <%= render 'shared/error_messages', object: f.object %>
+
+  <div class="form-group">
+    <%= f.label :lower, "范围", class: "col-sm-1 control-label" %>
+    <div class="col-sm-3">
+      <%= f.number_field :lower, class: "form-control" %>
+    </div>
+    <%= f.label :higher, "-", class: "col-sm-1 control-label center" %>  
+    <div class="col-sm-3">
+      <%= f.number_field :higher, class: "form-control" %>
+    </div>
+  </div>
+  
+  <div class="form-group">
+    <%= f.label :description, "评价", class: "col-sm-1 control-label" %>
+    <div class="col-sm-7">
+      <%= f.text_area :description, class: "form-control", rows: 5 %>
+    </div>
+  </div>
+  
+  <div class="form-group">
+    <div class="col-sm-offset-1 col-sm-2">
+      <%= f.submit "保 存", class: "btn btn-large btn-primary" %>
+    </div>
+  </div>
+<% end %>

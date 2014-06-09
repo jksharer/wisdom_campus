@@ -3,6 +3,7 @@ class ClassRolesController < ApplicationController
 
   def index
     @class_roles = ClassRole.all
+    render 'shared/link.js.erb'
   end
 
   def show

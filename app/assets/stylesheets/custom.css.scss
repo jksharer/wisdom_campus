@@ -31,7 +31,7 @@ h1 {
 }
 
 h2 {
-  font-size: 1.2em;
+  font-size: 2em;
   letter-spacing: -1px;
   margin-bottom: 30px;
   text-align: center;
@@ -62,14 +62,14 @@ table, th, td {
 
 /* forms */
 
-// input, textarea, select, .uneditable-input {
-//   // margin-bottom: 15px;
-//   // @include box_sizing;
-// }
+input, textarea, select, .uneditable-input {
+  // margin-bottom: 15px;
+  // @include box_sizing;
+}
 
-// input {
-//   // height: auto !important;
-// }
+input {
+  // height: auto !important;
+}
 
 #error_explanation {
   color: #f00;
@@ -85,6 +85,10 @@ table, th, td {
 
 .right-button {
 	float: right;	
+}
+
+.float-right {
+  float: right;   
 }
 
 .center {

@@ -1,0 +1,41 @@
+<%= render 'shared/back_link', path: semesters_path %>
+<%= form_for(@semester, remote: true, html: { class: "form-horizontal", role: "form" }) do |f| %>
+  <%= render 'shared/error_messages', object: f.object %>
+
+  <div class="form-group">
+    <%= f.label :school_year, "学年",class: "col-sm-1 control-label" %>
+    <div class="col-sm-3">
+      <%= f.number_field :school_year, class: "form-control" %>
+    </div>  
+
+    <%= f.label :name, "名称",class: "col-sm-1 control-label" %>
+    <div class="col-sm-3">
+      <%= f.text_field :name, class: "form-control" %>
+    </div>    
+  </div>
+
+  <div class="form-group">
+    <%= f.label :start_date, "开始日期", class: "col-sm-1 control-label" %>
+    <div class="col-sm-3">
+      <%= f.text_field :start_date, class: "form-control" %>
+    </div>
+
+    <%= f.label :end_date, "结束日期", class: "col-sm-1 control-label" %>
+    <div class="col-sm-3">
+      <%= f.text_field :end_date, class: "form-control" %>
+    </div>
+  </div>
+  
+  <div class="form-group">
+    <%= f.label :current, "当前学期", class: "col-sm-1 control-label" %>
+    <div class="col-sm-1">
+      <%= f.check_box :current, class: "form-control" %>
+    </div>  
+  </div>
+
+  <div class="form-group">
+    <div class="col-sm-offset-1 col-sm-2">
+      <%= f.submit "保 存", class: "btn btn-large btn-primary" %>
+    </div>
+  </div>
+<% end %>

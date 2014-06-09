@@ -1,0 +1,42 @@
+<style type="text/css">
+  table, th, td {
+    border: 0.5px solid black;
+  }
+</style>
+<table>
+    <thead>
+      <tr>
+        <th>序号</th>
+        <th>年级</th>
+        <th>班级</th>
+        <th>学生姓名</th>
+        <th>学号</th>
+        <th>身份证号</th>
+        <th>手机号</th>
+        <th>卡类型</th>
+        <th>卡状态</th>
+        <th>开户日期</th>
+        <th>银行账号</th>
+        <th>性别</th>
+      </tr>
+    </thead>
+
+    <tbody>
+      <% @students.each_with_index do |student, index| %>
+        <tr>
+          <td><%= index + 1 %></td>
+          <td><%= student.iclass.grade.name %></td>
+          <td><%= student.iclass.name %></td>
+          <td><%= student.name %></td>
+          <td><%= student.sid %></td>
+          <td><%= student.id_number %></td>
+          <td><%= student.phone %></td>
+          <td><%= student.card_type %></td>
+          <td><%= student.card_status %></td>
+          <td><%= time_format_min(student.open_date) %></td>
+          <td><%= student.bank_account %></td>
+          <td><%= student.gender %></td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>

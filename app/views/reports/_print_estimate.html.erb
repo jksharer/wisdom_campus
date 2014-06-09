@@ -1,0 +1,43 @@
+<h1><%= "#{@result_student.name}#{@semester.name}综合行为评价报告" %></h1>
+  <table class="table table-bordered" valign="middle">
+    <tr>
+      <th width="20%"><strong>学号:</strong></th>
+      <td width="60%"><%= @result_student.sid %></td>
+    </tr>
+    
+    <tr>
+      <th>
+        <strong>学生信息:</strong>    
+      </th>
+      <td>
+        <%= "#{@result_student.name}, #{@result_student.iclass.grade.name}#{@result_student.iclass.name}" %>     
+      </td>
+    </tr>
+    
+    <tr>
+      <th><strong>扣分情况:</strong></th>
+      <td><%= "共计违反校园秩序#{@behaviors.size}次, 总计扣分: #{@total}" %></td>
+    </tr>
+    
+    <tr>
+      <th><strong>学期得分:</strong></th>
+      <td><%= @final_score %></td>
+    </tr>
+    
+    <tr>
+      <th><strong>评价结果:</strong></th>
+      <td><%= @rule.description %></td>
+    </tr>
+
+    <tr>
+      <th rowspan="<%= @behaviors.size %>" vertical-align:"middle"><strong>详细记录:</strong></th>
+      <td><%= generate_behavior_content(@behaviors.first) %></td>  
+    </tr>
+    <% @behaviors[1..(@behaviors.size-1)].each do |behavior| %>
+      <tr>
+        <td>
+          <%= generate_behavior_content(behavior) %>
+        </td>
+      </tr>     
+      <% end %>
+  </table>

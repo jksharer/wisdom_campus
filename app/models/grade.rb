@@ -1,8 +1,10 @@
 class Grade < ActiveRecord::Base
   belongs_to :school_type
+  belongs_to :agency
   has_many :iclasses
 
-  validates :name, presence: true
+  validates :name, presence: true, uniqueness: { scope: :agency,
+		message: ": One school should not have 2 same grade." }
 
   def total_students_count
   	count = 0

@@ -1,0 +1,7 @@
+<%= render 'shared/back_link', path: reports_path %> |
+<%= render 'shared/print_link', path: print_estimate_path(
+  student_id: @result_student.id, semester_id: @semester.id) %> 
+<%= render 'shared/notice' %>
+<div id="estimate-report">
+  <%= render 'print_estimate' %>
+</div>

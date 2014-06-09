@@ -3,6 +3,7 @@ class SchoolTypesController < ApplicationController
   
   def index
     @school_types = SchoolType.all
+    render 'shared/link.js.erb'
   end
 
   def show

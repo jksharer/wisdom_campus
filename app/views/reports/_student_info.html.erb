@@ -1,0 +1,18 @@
+<% if @result_student.nil? %>  <!-- 未找到学生,提示重新输入 -->
+	<label>
+		"未找到该学生，请输入正确的学号."
+	</label>
+<% else %>    <!-- 找到学生,显示学生信息 -->
+	<div class="col-sm-12">
+		<label class="col-sm-12" id="student-info">
+			<%= "#{@result_student.name}, #{@result_student.iclass.grade.name}-#{@result_student.iclass.name}" %>
+		</label>
+		<% if @result_student.photo? %>                      
+			<%= image_tag(@result_student.photo_url, size: "300x400") %>	
+		<% else %>
+			<label class="col-sm-12">
+				照片:系统中无该学生照片信息。
+			</label>	
+		<% end %>
+	</div>
+<% end %>

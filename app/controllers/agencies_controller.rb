@@ -3,7 +3,8 @@ class AgenciesController < ApplicationController
   before_action :authorize
 
   def index
-    @agencies = Agency.order('name asc').page(params[:page]).per_page(5)
+    @agencies = Agency.order('name asc')
+    render 'shared/index.js.erb'
   end
 
   def show

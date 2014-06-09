@@ -1,0 +1,27 @@
+<%= render 'shared/add_link', name: "新学期", path: new_semester_path %>
+<%= render 'shared/notice' %>
+<table class="table">
+  <thead>
+    <tr>
+      <th>学年</th>
+      <th>名称</th>
+      <th>开始日期</th>
+      <th>结束日期</th>
+      <th>当前学期</th>
+      <th></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @semesters.each do |semester| %>
+      <tr>
+        <td><%= semester.school_year %></td>
+        <td><%= semester.name %></td>
+        <td><%= semester.start_date %></td>
+        <td><%= semester.end_date %></td>
+        <td><%= semester.current %></td>
+        <td><%= render 'shared/edit_link', path: edit_semester_path(semester) %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>

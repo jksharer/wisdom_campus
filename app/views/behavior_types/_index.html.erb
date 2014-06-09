@@ -1,12 +1,10 @@
 <%= render 'shared/notice' %>
 <div class="top-links">
-  <%= link_to "行为类型", behavior_types_path, remote: true %> |
-  <%= link_to "规则", "#", remote: true %>
-  <%= link_to new_behavior_type_path, remote: true, class: "btn btn-large btn-default right-button" do %>
-    <span class="glyphicon glyphicon-plus"></span> 添加纪录
-  <% end %>
+  <%= link_to "评价规则", estimate_rules_path, remote: true %> |
+  <%= link_to "行为类型", behavior_types_path, remote: true %>  
+  <%= render 'shared/add_link', name: "新类型", path: new_behavior_type_path %>  
 </div>
-<div id="rules-content">
+<div id="behavior_types">
   <table class="table">
     <thead>
       <tr>

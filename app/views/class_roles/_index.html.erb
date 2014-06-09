@@ -1,4 +1,5 @@
-<%= link_to "新角色", new_class_role_path, :remote => true , :class => "btn btn-large btn-default" %>  
+<%= render 'shared/add_link', name: '新角色', path: new_class_role_path %>
+<%= render 'shared/notice' %>
 <table class="table">
   <thead>
     <tr>

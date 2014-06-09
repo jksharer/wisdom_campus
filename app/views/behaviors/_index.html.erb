@@ -20,9 +20,6 @@
 </script>
 <div class="top-links"> 
   <%= link_to "所有记录", behaviors_path, remote: true %> |
-  <%= link_to behaviors_path, remote: true do %> 
-    <span class="glyphicon glyphicon-import"></span> 从Excel导入
-  <% end %> |
   <a href="/behaviors"><span class="glyphicon glyphicon-export"></span> 导出到Excel</a> 
   <%= link_to new_behavior_path, remote: true, class: "btn btn-large btn-default right-button" do %>
     <span class="glyphicon glyphicon-plus"></span> 添加纪录

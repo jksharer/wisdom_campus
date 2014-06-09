@@ -3,6 +3,7 @@ class GradesController < ApplicationController
 
   def index
     @grades = Grade.all
+    render 'shared/link.js.erb'
   end
 
   def show
@@ -65,6 +66,7 @@ class GradesController < ApplicationController
       respond_to do |format|
         format.js {
           flash.now[:alert] = "The grade was deleted successfully."
+          @grades = Grade.all 
           render 'index.js.erb'
         }
       end  

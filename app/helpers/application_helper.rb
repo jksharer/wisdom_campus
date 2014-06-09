@@ -8,6 +8,7 @@ module ApplicationHelper
 	include GradesHelper
 	include BehaviorsHelper
 	include SmsHelper
+	include EstimateRulesHelper
 
 	# 定义ajax方式的will_paginate
 	def paginate(collection, params= {})

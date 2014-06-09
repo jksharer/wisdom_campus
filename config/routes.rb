@@ -1,12 +1,11 @@
 WisdomCampus::Application.routes.draw do
-  resources :sms
-
   root 'main_pages#home'
 
   resources :sessions, only: [:new, :create, :destroy]
   resources :departments, :roles, :users, :menus, :agencies, :announcements, :steps, :procedures, :projects
   resources :class_roles, :students, :iclasses, :grades, :school_types, :behaviors, :behavior_types
-  
+  resources :sms, :estimate_rules, :semesters
+
   match '/login',  to: 'sessions#new',        via: 'get'
   match '/logout', to: 'sessions#destroy',    via: 'delete'
   match '/home',   to: 'main_pages#home',     via: 'get'
@@ -33,5 +32,12 @@ WisdomCampus::Application.routes.draw do
   match '/via_classes',       to: 'reports#via_classes',           via: 'get'
   match '/via_grades',        to: 'reports#via_grades',            via: 'get'
   match '/query',             to: 'reports#query',                 via: 'get'
+  match '/print_estimate',    to: 'reports#print_estimate',        via: 'get'
+
+  match '/import_export_students', to: 'students#import_export',   via: 'get'
+  match '/import_students',   to: 'students#import',               via: 'post'
+  match '/export_students',   to: 'students#export',               via: 'get'
+
+  match '/download_file',     to: 'students#download',             via: 'get'
 
 end

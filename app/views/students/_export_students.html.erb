@@ -1,0 +1,16 @@
+<div>
+	<h1>导出</h1>	
+</div>
+<div>
+	<%= form_tag export_students_path(format: "xls"), multipart: true, method: 'get' do %>
+		<div class="col-sm-2">
+			<%= select_tag(:grade, options_for_select(
+				Grade.where(agency: my_agency).map { |grade| [grade.name, grade.id] }),
+				{prompt: "导出所有学生", class: "form-control"}) %>	
+		</div>
+		<div class="col-sm-2">
+			<%= submit_tag "导出为excel", id: "import-submit", class: "btn btn-default" %>	
+		</div>
+	<% end %>	
+</div>
+	
