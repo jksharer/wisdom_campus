@@ -1,28 +1,32 @@
-<%= render 'shared/notice' %>
+<div id="notice">
+  <%= render 'shared/notice' %>  
+</div>
 <div class="top-links">
   <%= render 'shared/new_button', path: new_role_path, name: "新角色" %>  
 </div>
-<table class="table table-bordered">
-  <thead>
-    <tr>
-      <th>角色名称</th>
-      <th>功能权限</th>
-      <th>用户</th>
-      <th></th>
-    </tr>
-  </thead>
-
-  <tbody>
-    <% @roles.each do |role| %>
+<div class="link-content">
+  <table class="table table-bordered">
+    <thead>
       <tr>
-        <td><%= link_to role.name, edit_role_path(role), remote: true %></td>
-        <td><%= link_to "#{role.menus.size}个菜单权限", edit_role_path(role), remote: true %></td>
-        <td>
-          <%= role.users.map { |user| user.username }.join(',') %>
-        </td>
-        <td><%= link_to 'Destroy', role, method: :delete, remote: true,
-          data: { confirm: 'Are you sure?' } %></td>
+        <th>角色名称</th>
+        <th>功能权限</th>
+        <th>用户</th>
+        <th></th>
       </tr>
-    <% end %>
-  </tbody>
-</table>
+    </thead>
+
+    <tbody>
+      <% @roles.each do |role| %>
+        <tr>
+          <td><%= link_to role.name, edit_role_path(role), remote: true %></td>
+          <td><%= link_to "#{role.menus.size}个菜单权限", edit_role_path(role), remote: true %></td>
+          <td>
+            <%= role.users.map { |user| user.username }.join(',') %>
+          </td>
+          <td><%= link_to 'Destroy', role, method: :delete, remote: true,
+            data: { confirm: 'Are you sure?' } %></td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+</div>  

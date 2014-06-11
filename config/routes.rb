@@ -40,4 +40,5 @@ WisdomCampus::Application.routes.draw do
 
   match '/download_file',     to: 'students#download',             via: 'get'
 
+  match '/my_school',         to: 'my_school#home',                via: 'get'
 end

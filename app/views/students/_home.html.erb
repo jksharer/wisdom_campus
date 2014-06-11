@@ -1,24 +1,23 @@
+<!-- 这段js代码的作用：在点击年级tab时自动点击链接到第一个班级学生列表 -->
 <script type="text/javascript">
   $(document).ready(function(){
     $("a.grade-tab").click(function(event){
-      $("a#".concat(this.id, "-link")).click();
+      $("a#".concat("class0", "-link")).click();
     });
   });
 </script>
-<%= render 'shared/notice' %>
+<div id="notice">
+  <%= render 'shared/notice_heavy' %>  
+</div>
 <div class="top-links">
   <%= link_to "学生中心", iclasses_path, remote: true %> |
   <%= render 'shared/import_link', path: import_export_students_path, remote: true %> |
   <%= render 'shared/export_link', path: import_export_students_path, remote: true %> 
-  <%= link_to new_iclass_path, remote: true, class: "btn btn-large btn-default right-button" do %>
-    <span class="glyphicon glyphicon-plus"></span> 新班级
-  <% end %>
-  <%= link_to new_student_path, remote: true, class: "btn btn-large btn-default right-button" do %>
-    <span class="glyphicon glyphicon-plus"></span> 新学生
-  <% end %>    
+  <%= render 'shared/add_link', path: new_iclass_path, name: "新班级" %>
+  <%= render 'shared/add_link', path: new_student_path, name: "新学生" %> 
 </div>
 
-<div id="class-content">  
+<div id="class-content" class="link-content">  
   <div class="tabbable">
     <!-- 顶部年级导航条 -->
     <ul class="nav nav-tabs">
@@ -31,24 +30,22 @@
       <% end %>
     </ul>
     
+    <!-- 各个tab的内容区，以id链接 -->
     <div class="tab-content">
       <div class="tab-pane active" id="1">
-        <%= render partial: 'iclasses/iclasses' %>
+        <%= render partial: 'iclasses/index' %>
       </div>
       
       <% @grades.each_with_index do |grade, index| %>
         <div class="tab-pane" id="<%= index+2 %>">
           <div class="row">
             
-            <div class="col-sm-1" id="class-nav">
+            <div class="col-sm-2 col-lg-1" id="class-nav">
               <ul class="nav nav-list">
-                <li class="nav-header">
-                  <%= link_to grade.name, students_path(grade: grade.id), remote: true, id: "grade#{grade.id}-link" %>  
-                </li>
                 <% grade.iclasses.each_with_index do |iclass, index| %>
                   <% if index == 0 %>
                     <li class="active">
-                      <%= link_to iclass.name, students_path(iclass_id: iclass.id), remote: true %>
+                      <%= link_to iclass.name, students_path(iclass_id: iclass.id), remote: true, id: "class#{index}-link" %>
                     </li>
                   <% else %>
                     <li>
@@ -59,8 +56,7 @@
               </ul>    
             </div>
 
-            <div class="col-sm-11" id="students-content">
-                
+            <div class="col-sm-10 col-lg-11" id="students-content">
             </div>
 
           </div>

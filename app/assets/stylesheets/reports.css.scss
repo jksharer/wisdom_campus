@@ -19,14 +19,14 @@ div#via-grades-report {
 
 div#query-form {
 	margin-top: 1em;
-	padding-top: 1em;
-	#submit {
+	.form-group {
+		margin-bottom: 1em;
+	}
+	div#submit {
 		margin-top: 2em;
-		padding-top: 1em;
 	}
 }
 
 div#student-info {
 	margin-top: 1em;
 }
-

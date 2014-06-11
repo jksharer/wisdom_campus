@@ -1,6 +1,4 @@
-<%= link_to departments_path, remote: true do %>
-  <span class="glyphicon glyphicon-arrow-left"></span> 返 回
-<% end %> |
+<%= render 'shared/back_link', path: departments_path %> |
 <a href="#">清空</a>
 <%= form_for(@department, remote: true, html: { class: "form-horizontal", role: "form" }) do |f| %>
   <%= render 'shared/error_messages', object: f.object %>

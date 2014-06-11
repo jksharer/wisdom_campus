@@ -2,8 +2,8 @@ class IclassesController < ApplicationController
   before_action :set_iclass, only: [:show, :edit, :update, :destroy]
 
   def index
-    @iclasses = Iclass.where(agency: my_agency)
-    @grades = Grade.all
+    @iclasses = Iclass.where(agency: my_agency).order('grade_id asc')
+    @grades = Grade.where(agency: my_agency).order('id asc')
   end
 
   def show
@@ -11,13 +11,13 @@ class IclassesController < ApplicationController
 
   def new
     @iclass = Iclass.new
+    @grades = Grade.where(agency: my_agency).order('id asc')
+    render 'shared/new.js.erb'
   end
 
   def edit
-    respond_to do |format|
-      format.js { render 'new.js.erb' }
-      format.html
-    end
+    @grades = Grade.where(agency: my_agency).order('id asc')
+    render 'shared/new.js.erb' 
   end
 
   def create
@@ -30,10 +30,8 @@ class IclassesController < ApplicationController
           flash.now[:notice] = 'Class was successfully created.'
           render 'index.js.erb'     
         }
-        format.html { redirect_to @iclass, notice: 'Iclass was successfully created.' }
       else
-        format.js { render 'new.js.erb' }
-        format.html { render action: 'new' }
+        format.js { render 'shared/new.js.erb' }
       end
     end
   end
@@ -46,10 +44,8 @@ class IclassesController < ApplicationController
           flash.now[:notice] = 'Class was successfully updated.'
           render 'index.js.erb'     
         }
-        format.html { redirect_to @iclass, notice: 'Iclass was successfully updated.' }
       else
-        format.js { render 'new.js.erb' }
-        format.html { render action: 'edit' }
+        format.js { render 'shared/new.js.erb' }
       end
     end
   end
@@ -59,20 +55,18 @@ class IclassesController < ApplicationController
       respond_to do |format|
         format.js {
           flash.now[:alert] = "There are students in this class, you should not delete it."
-          set_initial_data
-          render 'index.js.erb'
+          render 'shared/notice.js.erb'
         }
-        format.html { redirect_to iclasses_url }
       end  
     else
       @iclass.destroy
       respond_to do |format|
         format.js {
-          flash.now[:notice] = "Class was successfully deleted."
           set_initial_data
+          # @iclasses = Iclass.where(agency: my_agency).order('grade_id asc')
+          flash.now[:notice] = "Class was successfully deleted."
           render 'index.js.erb'
         }
-        format.html { redirect_to iclasses_url }
       end  
     end
   end

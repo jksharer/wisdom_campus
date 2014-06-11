@@ -2,7 +2,7 @@ class GradesController < ApplicationController
   before_action :set_grade, only: [:show, :edit, :update, :destroy]
 
   def index
-    @grades = Grade.all
+    @grades = Grade.where(agency: my_agency)
     render 'shared/link.js.erb'
   end
 
@@ -11,28 +11,25 @@ class GradesController < ApplicationController
 
   def new
     @grade = Grade.new
+    render 'shared/new.js.erb'
   end
 
   def edit
-    respond_to do |format|
-      format.js { render 'new.js.erb' }
-      format.html
-    end    
+    render 'shared/new.js.erb'
   end
 
   def create
     @grade = Grade.new(grade_params)
+    @grade.agency = my_agency
     respond_to do |format|
       if @grade.save
         format.js {
-          @grades = Grade.all
+          @grades = Grade.where(agency: my_agency)
           flash.now[:notice] = 'Grade was successfully created.'
-          render 'index.js.erb'     
+          render 'shared/link.js.erb'     
         }
-        format.html { redirect_to @grade, notice: 'Grade was successfully created.' }
       else
-        format.js { render 'new.js.erb' }  
-        format.html { render action: 'new' }
+        format.js { render 'shared/new.js.erb' }  
       end
     end
   end
@@ -41,14 +38,12 @@ class GradesController < ApplicationController
     respond_to do |format|
       if @grade.update(grade_params)
         format.js {
-          @grades = Grade.all
+          @grades = Grade.where(agency: my_agency)
           flash.now[:notice] = 'Grade was successfully updated.'
-          render 'index.js.erb'     
+          render 'shared/link.js.erb'     
         }  
-        format.html { redirect_to @grade, notice: 'Grade was successfully updated.' }
       else
-        format.js { render 'new.js.erb' }  
-        format.html { render action: 'edit' }
+        format.js { render 'shared/new.js.erb' }  
       end
     end
   end
@@ -58,7 +53,8 @@ class GradesController < ApplicationController
       respond_to do |format|
         format.js {
           flash.now[:alert] = "There are classes related to the grade, you should not delete it."
-          render 'index.js.erb'
+          @grades = Grade.where(agency: my_agency)
+          render 'shared/link.js.erb'
         }
       end      
     else
@@ -66,8 +62,8 @@ class GradesController < ApplicationController
       respond_to do |format|
         format.js {
           flash.now[:alert] = "The grade was deleted successfully."
-          @grades = Grade.all 
-          render 'index.js.erb'
+          @grades = Grade.where(agency: my_agency) 
+          render 'shared/link.js.erb'
         }
       end  
     end

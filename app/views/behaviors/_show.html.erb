@@ -1,10 +1,9 @@
 <%= render 'shared/back_link', path: behaviors_path %> |
-<%= render 'shared/edit_link', path: edit_behavior_path(@behavior) %> |
-<%= link_to @behavior, method: :delete, delete: true, data: { confirm:  'Are you sure?' } do %>
+<%= link_to @behavior, method: :delete, remote: true, data: { confirm:  'Are you sure?' } do %>
   <span class="glyphicon glyphicon-off"></span> 设为无效
 <% end %> |
 <%= render 'shared/print_link', path: behavior_print_path(id: @behavior.id) %>      
-<%= render 'shared/notice' %>
+<%= render 'shared/notice_heavy' %>
 <h1>学生行为记录单</h1>
 <div id="bevavior-info">
   <table class="table table-bordered">

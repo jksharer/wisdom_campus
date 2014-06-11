@@ -1,33 +1,32 @@
 <div class="top-links">
-  <%= link_to '新短信', new_sm_path %> |
+  <%= render 'shared/add_link', path: new_sm_path, name: '新短信' %>
 </div>
-<div id="sms">
+<div id="sms" class="link-content">
   <table class="table">
-  <thead>
-    <tr>
-      <th>流水号</th>
-      <th>手机号码</th>
-      <th>短信内容</th>
-      <th>发送时间</th>
-      <th>发送状态</th>
-      <th></th>
-    </tr>
-  </thead>
-
-  <tbody>
-    <% @sms.each do |sm| %>
+    <thead>
       <tr>
-        <td><%= sm.mid %></td>
-        <td><%= sm.phone %></td>
-        <td><%= sm.content %></td>
-        <td><%= sm.send_time %></td>
-        <td><%= sm.status %></td>
-        <td>
-          <%= link_to 'Show', sm %>
-          <%= link_to 'Destroy', sm, method: :delete, data: { confirm: 'Are you sure?' } %>
-        </td>
+        <th width="10%">流水号</th>
+        <th width="10%">手机号码</th>
+        <th width="60%">短信内容</th>
+        <th width="10%">发送时间</th>
+        <th width="10%">发送状态</th>
+        <th></th>
       </tr>
-    <% end %>
-  </tbody>
-</table>  
+    </thead>
+
+    <tbody>
+      <% @sms.each do |sm| %>
+        <tr>
+          <td><%= sm.mid %></td>
+          <td><%= sm.phone %></td>
+          <td><%= sm.content %></td>
+          <td><%= time_format_min(sm.send_time) %></td>
+          <td><%= sm.status %></td>
+          <td>
+            <%= link_to 'x', sm, method: :delete, data: { confirm: 'Are you sure?' } %>
+          </td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>  
 </div>

@@ -5,7 +5,7 @@ class ProceduresController < ApplicationController
   def index
     @procedures = Procedure.where(agency: my_agency)
     respond_to do |format|
-      format.js
+      format.js { render 'shared/index' }
       format.html
     end    
   end
@@ -20,7 +20,7 @@ class ProceduresController < ApplicationController
   def new
     @procedure = Procedure.new
     respond_to do |format|
-      format.js
+      format.js { render 'shared/new' }
       format.html {
         render layout: 'empty'    
       }
@@ -44,10 +44,9 @@ class ProceduresController < ApplicationController
         format.js { render 'show.js.erb' }
         format.html { redirect_to @procedure, 
           notice: 'Procedure was successfully created.' }
-        format.json { render action: 'show', status: :created, location: @procedure }
       else
+        format.js { render 'shared/new' }
         format.html { render action: 'new' }
-        format.json { render json: @procedure.errors, status: :unprocessable_entity }
       end
     end
   end
@@ -55,18 +54,21 @@ class ProceduresController < ApplicationController
   def update
     respond_to do |format|
       if @procedure.update(procedure_params)
+        format.js { render 'show.js.erb' }
         format.html { redirect_to @procedure, notice: 'Procedure was successfully updated.' }
-        format.json { head :no_content }
       else
+        format.js { render 'shared/new' }
         format.html { render action: 'edit' }
-        format.json { render json: @procedure.errors, status: :unprocessable_entity }
       end
     end
   end
 
   def destroy
-    @procedure.destroy
     respond_to do |format|
+      format.js { 
+        flash.now[:alert] = "不建议删除流程, 可能会导致以前的公文、公告无法打开."
+        render 'shared/notice_heavy'
+      }
       format.html { redirect_to procedures_url }
       format.json { head :no_content }
     end

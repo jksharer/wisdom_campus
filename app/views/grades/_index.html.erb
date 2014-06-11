@@ -14,8 +14,7 @@
       <tr>
         <td><%= link_to grade.name, edit_grade_path(grade), remote: true %></td>
         <td><%= grade.description %></td>
-        <td><%= link_to 'Destroy', grade, method: :delete, remote: true,
-          data: { confirm: 'Are you sure?' } %></td>
+        <td><%= render 'shared/delete_link', path: grade %></td>
       </tr>
     <% end %>
   </tbody>

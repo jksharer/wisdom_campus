@@ -1,0 +1,32 @@
+<div id="students-stats">
+  <span class="glyphicon glyphicon-stats"></span>  
+  共<%= current_user.agency.total_students %>位学生, <%= current_user.agency.iclasses.size %>个班级.
+</div>
+<table class="table" id="class-table">
+  <thead>
+    <tr>
+      <th>年级</th>
+      <th>班级名称</th>
+      <th>班主任</th>
+      <th>学生</th>
+      <th colspan="1"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @iclasses.each do |iclass| %>
+      <tr id="tr<%= iclass.id %>">
+        <td><%= iclass.grade.name %></td>
+        <td><%= iclass.name %></td>
+        <td><%= iclass.header %></td>
+        <td><%= iclass.students.size %></td>
+        <td>
+          <%= render 'shared/edit_link', path: edit_iclass_path(iclass) %>
+        </td>
+        <td>
+          <%= render 'shared/delete_link', path: iclass %>
+        </td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>

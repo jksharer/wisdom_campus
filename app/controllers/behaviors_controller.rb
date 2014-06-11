@@ -2,13 +2,22 @@ class BehaviorsController < ApplicationController
   include ApplicationHelper
 
   before_action :set_behavior, only: [:show, :edit, :print, :confirm, :update, :destroy]
+  before_action :authorize
 
   def index
-    @behaviors = Behavior.order('created_at desc')
+    if params[:time]
+      @scope = params[:time]
+      @behaviors = Behavior.where(agency: my_agency).where("created_at > ?", params[:time].to_i.days.ago).
+        order('created_at desc')
+    else
+      @scope = 3
+      @behaviors = Behavior.where(agency: my_agency).where("created_at > ?", 3.days.ago).
+        order('created_at desc')
+    end
     respond_to do |format|
-      format.js 
+      format.js { render 'shared/index.js.erb' }
       format.html { 
-        redirect_to '/behaviors.xls'
+        redirect_to behaviors_path(format: 'xls', time: @scope)
       }
       format.csv { send_data @behaviors.to_csv }
       format.xls  
@@ -21,13 +30,15 @@ class BehaviorsController < ApplicationController
   def new
     @behavior = Behavior.new
     @current_time = Time.now
+    respond_to do |format|    
+      format.js { render 'shared/new.js.erb' }
+      format.html
+    end
+    
   end
 
   def edit
-    respond_to do |format|    
-      format.js { render 'new.js.erb' }
-      format.html
-    end
+    render 'shared/new.js.erb'
   end
 
   def print
@@ -61,7 +72,7 @@ class BehaviorsController < ApplicationController
             format.html { redirect_to @behavior, notice: 'Behavior was successfully created.' }
           else
             format.js {
-              render 'new.js.erb'
+              render 'shared/new.js.erb'
             }
             format.html { render action: 'new' }
           end
@@ -98,7 +109,7 @@ class BehaviorsController < ApplicationController
             format.html { redirect_to @behavior, notice: 'Behavior was successfully updated.' }
           else
             format.js {
-              render 'new.js.erb'
+              render 'shared/new.js.erb'
             }
             format.html { render action: 'new' }
           end
@@ -114,7 +125,7 @@ class BehaviorsController < ApplicationController
     puts response
     respond_to do |format|
       format.js {
-        @behaviors = Behavior.order('created_at desc')
+        flash.now[:notice] = "已确认并发送短信至家长手机, 手机号为:#{@behavior.student.phone}"
         render 'show.js.erb'  
       }
       format.html { redirect_to behaviors_url }
@@ -127,8 +138,7 @@ class BehaviorsController < ApplicationController
     @behavior.update_attribute(:confirm_state, "canceled")
     respond_to do |format|
       format.js {
-        @behaviors = Behavior.order('created_at desc')
-        render 'index.js.erb'  
+        render 'show.js.erb'  
       }
       format.html { redirect_to behaviors_url }
     end

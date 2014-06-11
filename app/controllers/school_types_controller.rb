@@ -11,12 +11,12 @@ class SchoolTypesController < ApplicationController
 
   def new
     @school_type = SchoolType.new
+    render 'shared/new.js.erb'
   end
 
   def edit
     respond_to do |format|
-      format.js { render 'new.js.erb' }
-      format.html
+      format.js { render 'shared/new.js.erb' }
     end
   end
 
@@ -26,14 +26,12 @@ class SchoolTypesController < ApplicationController
     respond_to do |format|
       if @school_type.save
         format.js { 
-          @school_types = SchoolType.all     
           flash.now[:notice] = "Agency type was successfully created."
-          render 'index.js.erb' 
+          @school_types = SchoolType.all     
+          render 'shared/link.js.erb' 
         }
-        format.html { redirect_to @school_type, notice: 'School type was successfully created.' }
       else
-        format.js { render 'new.js.erb' }
-        format.html { render action: 'new' }
+        format.js { render 'shared/new.js.erb' }
       end
     end
   end
@@ -44,12 +42,10 @@ class SchoolTypesController < ApplicationController
         format.js { 
           @school_types = SchoolType.all     
           flash.now[:notice] = "Agency type was successfully updated."
-          render 'index.js.erb' 
+          render 'shared/link.js.erb' 
         }
-        format.html { redirect_to @school_type, notice: 'School type was successfully updated.' }
       else
-        format.js { render 'new.js.erb' }
-        format.html { render action: 'edit' }
+        format.js { render 'shared/new.js.erb' }
       end
     end
   end
@@ -59,18 +55,14 @@ class SchoolTypesController < ApplicationController
       respond_to do |format|
         format.js {
           flash.now[:alert] = "There are agencies related to this, you should not delete id."
-          render 'index.js.erb'
         }
-        format.html { redirect_to school_types_url }  
       end
     else
-      @school_type.destroy  
-      format.js {
-          flash.now[:notice] = "the type was deleted successfully."
-          render 'index.js.erb'
-        }
-        format.html { redirect_to school_types_url }
+      @school_type.destroy
+      flash.now[:notice] = "the type was deleted successfully."
     end
+    @school_types = SchoolType.all     
+    render 'shared/link.js.erb'
   end
   
   private

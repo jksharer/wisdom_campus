@@ -5,7 +5,7 @@ class UsersController < ApplicationController
   def index
     @users = User.all
     respond_to do |format|
-      format.js
+      format.js { render 'shared/index.js.erb' }
       format.html
     end
   end
@@ -16,14 +16,14 @@ class UsersController < ApplicationController
   def new
     @user = User.new
     respond_to do |format|
-      format.js
+      format.js { render 'shared/new.js.erb' }
       format.html
     end
   end
 
   def edit
     respond_to do |format|
-      format.js { render 'new.js.erb' }
+      format.js { render 'shared/new.js.erb' }
       format.html
     end
   end
@@ -37,12 +37,10 @@ class UsersController < ApplicationController
         flash.now[:notice] = 'User was successfully created.'
         format.js { 
           @users = User.all
-          render 'index' 
+          render 'shared/index' 
         }
-        format.html { redirect_to users_url }
       else
         format.js { render 'new.js.erb' }
-        format.html { render action: 'new' }
       end
     end
   end
@@ -55,16 +53,13 @@ class UsersController < ApplicationController
         format.js { 
           flash.now[:notice] = 'User was successfully updated.'
           @users = User.all
-          render 'index.js.erb' 
+          render 'shared/index.js.erb' 
         }
-        format.html { redirect_to users_url, 
-          notice: 'User was successfully updated.' }
       else
         format.js { 
           params[:from] = "edit"
-          render 'new.js.erb' 
+          render 'shared/new.js.erb' 
         }
-        format.html { render action: 'edit' }
       end
     end
   end
@@ -76,9 +71,8 @@ class UsersController < ApplicationController
       format.js {  
         @users = User.all
         flash.now[:notice] = "User '#{@user.username}' deleted successfully."
-        render 'index.js.erb' 
+        render 'shared/index.js.erb' 
       }
-      format.html { redirect_to users_url }
     end
   end
 

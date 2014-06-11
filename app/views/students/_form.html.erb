@@ -1,4 +1,9 @@
-<%= link_to "返 回", iclasses_path, remote: true %>
+<!-- 如果是编辑，则返回按钮指向班级学生列表，如果是新增则指向学生中心主界面 -->
+<% if @student.id %>   
+  <%= render 'shared/back_link', path: students_path(iclass_id: @student.iclass_id) %>
+<% else %>  
+  <%= render 'shared/back_link', path: students_home_path %>
+<% end %>  
 <%= form_for(@student, remote: true, :authenticity_token => true, 
   html: { :multipart => true, class: "form-horizontal", role: "form" }) do |f| %>
   

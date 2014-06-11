@@ -4,7 +4,7 @@
 			<div class="form-group">
 		    <%= label_tag :student, "学 号", class: "col-sm-2" %>
 		    <div class="col-sm-8">
-		      <%= text_field_tag(:student, {}, {class: "form-control"}) %>  
+		      <%= text_field_tag(:student, {},{ class: "form-control" }) %>  
 		    </div>
 		    <div class="col-sm-2">
 		      <%= submit_tag "查 找", name: "query", class: "btn btn-large btn-primary" %>  
@@ -18,7 +18,7 @@
 		      	{ class: "form-control" }) %>  
 		    </div>
 		  </div>
-
+		  <label class="col-sm-offset-1 col-sm-11"></label>
 		  <div class="form-group" id="submit">
 		  	<div class="col-sm-offset-2 col-sm-4">
 		  		<%= submit_tag "提 交", name: "submit", class: "btn btn-large btn-primary" %>

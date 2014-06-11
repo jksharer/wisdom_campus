@@ -11,29 +11,24 @@ class ClassRolesController < ApplicationController
 
   def new
     @class_role = ClassRole.new
+    render 'shared/new.js.erb'
   end
 
   def edit
-    respond_to do |format|
-      format.js { render 'new.js.erb' }
-      format.html
-    end    
+    render 'shared/new.js.erb'
   end
 
   def create
     @class_role = ClassRole.new(class_role_params)
-
     respond_to do |format|
       if @class_role.save
         format.js {
           @class_roles = ClassRole.all
           flash.now[:notice] = 'Class role was successfully created.'
-          render 'index.js.erb'     
+          render 'shared/link.js.erb'     
         }
-        format.html { redirect_to @class_role, notice: 'Class role was successfully created.' }
       else
-        format.js { render 'new.js.erb' }
-        format.html { render action: 'new' }
+        format.js { render 'shared/new.js.erb' }
       end
     end
   end
@@ -44,12 +39,10 @@ class ClassRolesController < ApplicationController
         format.js {
           @class_roles = ClassRole.all
           flash.now[:notice] = 'Class role was successfully updated.'
-          render 'index.js.erb'     
+          render 'shared/link.js.erb'     
         }
-        format.html { redirect_to @class_role, notice: 'Class role was successfully updated.' }
       else
-        format.js { render 'new.js.erb' }
-        format.html { render action: 'edit' }
+        format.js { render 'shared/new.js.erb' }
       end
     end
   end
@@ -59,22 +52,18 @@ class ClassRolesController < ApplicationController
       @class_role.destroy
       respond_to do |format|
         format.js {
-          @class_roles = ClassRole.all
           flash.now[:notice] = 'Class role was successfully deleted.'
-          render 'index.js.erb'     
         }
-        format.html { redirect_to class_roles_url }
       end
     else
       respond_to do |format|
         format.js {
-          @class_roles = ClassRole.all
           flash.now[:alert] = 'You should not delete this class role.'
-          render 'index.js.erb'  
         }
-        format.html { redirect_to class_roles_url }
       end
     end
+    @class_roles = ClassRole.all
+    render 'shared/link.js.erb'     
   end
 
   private

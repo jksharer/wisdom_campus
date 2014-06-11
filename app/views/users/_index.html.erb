@@ -1,28 +1,8 @@
-<script type="text/javascript">
-  $(document).ready(function() {
-    $('.datatable').dataTable({
-      "oLanguage": {
-        "sLengthMenu": "每页条数:_MENU_",
-        "sZeroRecords": "抱歉， 没有找到",
-        "sSearch": "搜素:",
-        "sInfo": "从 _START_ 到 _END_ /共 _TOTAL_ 条数据",
-        "sInfoEmpty": "没有数据",
-        "sInfoFiltered": "(从 _MAX_ 条数据中检索)",
-        "oPaginate": {
-        "sFirst": "首页",
-        "sPrevious": "前一页",
-        "sNext": "后一页",
-        "sLast": "尾页"
-        }
-      }  
-    });
-  });
-</script>
 <%= render 'shared/notice' %>
-<div>
+<div class="top-links">
   <%= render 'shared/new_button', path: new_user_path, name: "新用户" %>
 </div>
-<div id="users-table">
+<div id="users-table" class="link-content">
   <table class="table table-hover">
     <thead>
       <tr>

@@ -3,6 +3,7 @@ class SmsController < ApplicationController
 
   def index
     @sms = Sm.order('created_at desc')
+    render 'shared/index.js.erb'
   end
 
   def show
@@ -10,9 +11,11 @@ class SmsController < ApplicationController
 
   def new
     @sm = Sm.new
+    render 'shared/new.js.erb'
   end
 
   def edit
+    render 'shared/new.js.erb'
   end
 
   def create
@@ -20,11 +23,11 @@ class SmsController < ApplicationController
 
     respond_to do |format|
       if @sm.save
+        format.js { render 'shared/index.js.erb' }   
         format.html { redirect_to @sm, notice: 'Sm was successfully created.' }
-        format.json { render action: 'show', status: :created, location: @sm }
       else
+        format.js { render 'shared/new.js.erb' }   
         format.html { render action: 'new' }
-        format.json { render json: @sm.errors, status: :unprocessable_entity }
       end
     end
   end
@@ -32,11 +35,11 @@ class SmsController < ApplicationController
   def update
     respond_to do |format|
       if @sm.update(sm_params)
+        format.js { render 'shared/index.js.erb' }
         format.html { redirect_to @sm, notice: 'Sm was successfully updated.' }
-        format.json { head :no_content }
       else
+        format.js { render 'shared/new.js.erb' }   
         format.html { render action: 'edit' }
-        format.json { render json: @sm.errors, status: :unprocessable_entity }
       end
     end
   end
@@ -44,8 +47,8 @@ class SmsController < ApplicationController
   def destroy
     @sm.destroy
     respond_to do |format|
+      format.js { render 'shared/index.js.erb' }
       format.html { redirect_to sms_url }
-      format.json { head :no_content }
     end
   end
 

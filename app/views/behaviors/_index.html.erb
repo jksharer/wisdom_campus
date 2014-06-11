@@ -18,20 +18,22 @@
     });
   });
 </script>
+<%= render 'shared/notice' %>
 <div class="top-links"> 
-  <%= link_to "所有记录", behaviors_path, remote: true %> |
-  <a href="/behaviors"><span class="glyphicon glyphicon-export"></span> 导出到Excel</a> 
-  <%= link_to new_behavior_path, remote: true, class: "btn btn-large btn-default right-button" do %>
-    <span class="glyphicon glyphicon-plus"></span> 添加纪录
-  <% end %>
+  <%= link_to "最近3天", behaviors_path(time: "3"), remote: true %> |
+  <%= link_to "最近一周", behaviors_path(time: "7"), remote: true %> |
+  <%= link_to "最近一月", behaviors_path(time: "30"), remote: true %> |
+  <%= link_to "更多查询", behaviors_path, remote: true %> |
+  <a href="/behaviors?time=<%= @scope %>"><span class="glyphicon glyphicon-export"></span> 导出到Excel</a>
+  <%= render 'shared/add_link', path: new_behavior_path, name: '添加记录' %>
 </div>
-<div id="behaviors-content">
+<div id="behaviors-content" class="link-content">
   <table class="datatable">
     <thead>
       <tr>
-        <th>行为类型</th>
-        <th>学生</th>
         <th>发生时间</th>
+        <th>学生</th>
+        <th>行为类型</th>
         <th>地点</th>
         <th>过程描述</th>
         <th>扣/加分</th>
@@ -43,9 +45,9 @@
     <tbody>
       <% @behaviors.each do |behavior| %>
         <tr>
-          <td><%= behavior.behavior_type.name %></td>
-          <td><%= "#{behavior.student.name}, #{behavior.student.iclass.name}" %></td>
           <td><%= time_format_min(behavior.time) %></td>
+          <td><%= "#{behavior.student.name}, #{behavior.student.iclass.name}" %></td>
+          <td><%= behavior.behavior_type.name %></td>
           <td><%= behavior.address %></td>
           <td><%= link_to behavior.description.truncate(15), behavior, remote: true %></td>
           <td><%= behavior.score %></td>

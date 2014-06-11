@@ -5,17 +5,16 @@
     <tr>
       <th>名称</th>
       <th>描述</th>
-      <th colspan="3"></th>
+      <th></th>
     </tr>
   </thead>
 
   <tbody>
     <% @school_types.each do |school_type| %>
       <tr>
-        <td><%= link_to school_type.name, edit_school_type_path(school_type) %></td>
+        <td><%= link_to school_type.name, edit_school_type_path(school_type), remote: true %></td>
         <td><%= school_type.description %></td>
-        <td><%= link_to 'Destroy', school_type, method: :delete, remote: true,
-          data: { confirm: 'Are you sure?' } %></td>
+        <td><%= render 'shared/delete_link', path: school_type %></td>
       </tr>
     <% end %>
   </tbody>

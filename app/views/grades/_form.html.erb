@@ -1,4 +1,4 @@
-<%= link_to "返 回", grades_path, remote: true %>
+<%= render 'shared/back_link', path: grades_path %>
 <%= form_for(@grade, remote: true, html: { class: "form-horizontal", role: "form" }) do |f| %>
   <%= render 'shared/error_messages', object: f.object %>
 

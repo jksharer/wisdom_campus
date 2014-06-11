@@ -1,91 +1,59 @@
+# 本控制器暂时只接受js请求，无法回应html请求
 class DepartmentsController < ApplicationController
   before_action :set_department, only: [:show, :edit, :update, :destroy]
   before_action :authorize
 
   def index
     @departments = Department.where(agency: my_agency).order('name asc')
+    render 'shared/index.js.erb'
   end
 
   def show
-    
+    render 'shared/new.js.erb'
   end
 
   def new
     @department = Department.new
-    respond_to do |format|
-      format.js
-      format.html
-    end
+    render 'shared/new.js.erb' 
   end
 
   def edit
-    respond_to do |format|
-      format.js { render 'new.js.erb' }
-      format.html
-    end
+    render 'shared/new.js.erb' 
   end
 
   def create
     @department = Department.new(department_params)
     @department.agency = current_user.agency
-    
-    respond_to do |format|
-      if @department.save
-        format.js { 
-          @departments = Department.order('name asc')     
-          flash.now[:notice] = 'Department was successfully created.'
-          render 'index.js.erb'
-        }
-        format.html { redirect_to departments_url, 
-          notice: 'Department was successfully created.' }
-      else
-        format.js { render 'new.js.erb' }
-        format.html { render action: 'new' }
-      end
+    if @department.save
+      flash.now[:notice] = 'Department was successfully created.'
+      @departments = Department.where(agency: my_agency).order('name asc')
+      render 'shared/index.js.erb'
+    else
+      render 'shared/new.js.erb'
     end
   end
 
   def update
-    respond_to do |format|
-      if @department.update(department_params)
-        format.js { 
-          @departments = Department.order('name asc')     
-          flash.now[:notice] = 'Department was successfully updated.'
-          render 'index.js.erb'  
-        }
-        format.html { redirect_to departments_url, 
-          notice: 'Department was successfully updated.' }
-      else
-        format.js { render 'new.js.erb' }
-        format.html { render action: 'edit', layout: 'empty' }
-      end
+    if @department.update(department_params)
+      flash.now[:notice] = 'Department was successfully updated.'
+      @departments = Department.where(agency: my_agency).order('name asc')
+      render 'shared/index.js.erb'  
+    else
+      render 'shared/new.js.erb'
     end
   end
 
+  # 只接受ajax方式操作
   def destroy
     if @department.sub_departments.empty?
       @department.destroy
-      respond_to do |format|
-        format.js {
-          @departments = Department.order('name asc')     
-          flash.now[:notice] = 'Department was successfully deleted.'
-          render 'index.js.erb'    
-        }
-        format.html { redirect_to departments_url }
-      end  
+      flash.now[:notice] = 'Department was successfully deleted.'
     else
-      respond_to do |format|
-        format.js {
-          flash.now[:alert] = "The department has sub departments, you just can't delete it."
-          @departments = Department.order('name asc')
-          render 'index.js.erb'
-        }
-        format.html {
-          redirect_to departments_url, 
-            notice: "The department has sub departments, you just can't delete it."    
-        }
-      end
+      flash.now[:alert] = "The department has sub departments, you just can't delete it."
     end
+    @departments = Department.where(agency: my_agency).order('name asc')
+    render 'shared/index.js.erb'
+    
   end
 
   private

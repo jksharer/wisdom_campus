@@ -1,7 +1,6 @@
 class Department < ActiveRecord::Base
 	belongs_to :agency
-	has_many :users
-	
+	has_many :users	
 	has_many :sub_departments, class_name: "Department", foreign_key: "parent_department_id"
 	belongs_to :parent_department, class_name: "Department"
 

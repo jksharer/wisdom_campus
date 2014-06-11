@@ -1,4 +1,4 @@
-<table class="table ">
+<table class="table">
   <thead>
     <tr>
       <th>学号</th>
@@ -7,7 +7,7 @@
       <th>性别</th>
       <th>班级</th>
       <th>班级角色</th>
-      <th colspan="3"></th>
+      <th colspan="2"></th>
     </tr>
   </thead>
 
@@ -21,14 +21,10 @@
         <td><%= student.iclass.name %></td>
         <td><%= student.class_roles.map { |role| role.name }.join(',') %></td>
         <td>
-          <%= link_to edit_student_path(student), remote: true do %>
-            <span class="glyphicon glyphicon-edit"></span>  
-          <% end %>
+          <%= render 'shared/edit_link', path: edit_student_path(student) %>
         </td>
         <td>
-          <%= link_to student, method: :delete, remote: true, data: { confirm: 'Are you sure?' } do %>
-            <span class="glyphicon glyphicon-remove"></span>  
-          <% end %>
+          <%= render 'shared/delete_link', path: student %>
         </td>
       </tr>
     <% end %> 

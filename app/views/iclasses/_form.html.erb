@@ -1,6 +1,4 @@
-<%= link_to iclasses_path, remote: true do %>
-  <span class="glyphicon glyphicon-arrow-left"></span> 返 回
-<% end %>
+<%= render 'shared/back_link', path: iclasses_path %>
 <%= form_for(@iclass, remote: true, html: { class: "form-horizontal", role: "form" }) do |f| %>
   <%= render 'shared/error_messages', object: f.object %>
 
@@ -14,7 +12,7 @@
   <div class="form-group">
     <%= f.label :grade_id, "年级", class: "col-sm-2 control-label" %>
     <div class="col-sm-8">
-      <% Grade.all.each do |grade| %>
+      <% @grades.each do |grade| %>
         <%= f.radio_button(:grade_id, grade.id) %>  
         <%= f.label(:grade_id, grade.name) %>
       <% end %>

@@ -14,15 +14,13 @@ class AgenciesController < ApplicationController
   def new
     @agency = Agency.new
     respond_to do |format|
-      format.js
-      format.html
+      format.js { render 'shared/new.js.erb' }
     end
   end
 
   def edit
     respond_to do |format|
-      format.js { render 'new.js.erb' }
-      format.html
+      format.js { render 'shared/new.js.erb' }
     end
   end
 
@@ -31,15 +29,12 @@ class AgenciesController < ApplicationController
     respond_to do |format|
       if @agency.save
         format.js { 
-          flash.now[:notice] = 'Agency was successfully created.'
-          @agencies = Agency.order('name asc').page(params[:page]).per_page(5)     
-          render 'index.js.erb' 
+          flash.now[:notice] = 'School was successfully created.'
+          @agencies = Agency.order('name asc')     
+          render 'shared/index.js.erb' 
         }
-        format.html { redirect_to agencies_path, 
-          notice: 'Agency was successfully created.' }
       else
-        format.js { render 'new.js.erb' }
-        format.html { render action: 'new', layout: 'empty' }
+        format.js { render 'shared/new.js.erb' }
       end
     end
   end
@@ -48,15 +43,12 @@ class AgenciesController < ApplicationController
     respond_to do |format|
       if @agency.update(agency_params)
         format.js { 
-          flash.now[:notice] = 'Agency was successfully updated.'
-          @agencies = Agency.order('name asc').page(params[:page]).per_page(5)     
-          render 'index.js.erb' 
+          flash.now[:notice] = 'School was successfully updated.'
+          @agencies = Agency.order('name asc')     
+          render 'shared/index.js.erb' 
         }
-        format.html { redirect_to agencies_path, 
-          notice: 'Agency was successfully updated.' }
       else
-        format.js { render 'new.js.erb' }
-        format.html { render action: 'edit' }
+        format.js { render 'shared/new.js.erb' }
       end
     end
   end
@@ -65,10 +57,10 @@ class AgenciesController < ApplicationController
     # 不允许删除机构
     respond_to do |format|
       format.js {
-        flash.now[:notice] = "The rule is anyone CAN'T destroy Agency."
+        flash.now[:alert] = "The rule is anyone CAN'T delete School."
+        @agencies = Agency.order('name asc')     
+        render 'shared/index.js.erb' 
       }
-      format.html { redirect_to agencies_url, 
-        notice: "The rule is anyone CAN'T destroy Agency." }
     end
   end
 

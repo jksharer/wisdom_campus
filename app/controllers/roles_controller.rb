@@ -5,7 +5,7 @@ class RolesController < ApplicationController
   def index
     @roles = Role.where(agency: my_agency)
     respond_to do |format|
-      format.js
+      format.js { render 'shared/index' }
       format.html
     end
   end
@@ -17,7 +17,7 @@ class RolesController < ApplicationController
     @role = Role.new
     @one_level_menus = Menu.where(parent_menu_id: nil).order('display_order asc')
     respond_to do |format|
-      format.js
+      format.js { render 'shared/new' }
       format.html
     end
   end
@@ -25,7 +25,7 @@ class RolesController < ApplicationController
   def edit
     @one_level_menus = Menu.where(parent_menu_id: nil).order('display_order asc')
     respond_to do |format|
-      format.js { render 'new.js.erb' }
+      format.js { render 'shared/new' }
       format.html
     end
   end
@@ -38,15 +38,14 @@ class RolesController < ApplicationController
       if @role.save
         format.js {
           flash.now[:notice] = 'Role was successfully created.'
-          @roles = Role.all     
+          @roles = Role.all
+          render 'shared/index'     
         }
-        format.html { redirect_to roles_url, 
-          notice: 'Role was successfully created.' }
       else
         format.js {
           @one_level_menus = Menu.where(parent_menu_id: nil).order('display_order asc')  
+          render 'shared/new'
         }
-        format.html { render action: 'new' }
       end
     end
   end
@@ -58,32 +57,27 @@ class RolesController < ApplicationController
         format.js {
           flash.now[:notice] = 'Role was successfully updated.'
           @roles = Role.all
-          render 'create.js.erb'  
+          render 'shared/index'  
         }
-        format.html { redirect_to roles_url, 
-          notice: 'Role was successfully updated.' }
       else
         format.js {
           @one_level_menus = Menu.where(parent_menu_id: nil).order('display_order asc')  
-          render 'create.js.erb'
+          render 'shared/new'
         }
-        format.html { render action: 'edit' }
       end
     end
   end
 
   def destroy
-    @role.menus.clear
-    @role.users.clear
-    @role.destroy
-    respond_to do |format|
-      format.js {
-        flash.now[:notice] = "the role #{@role.name} has been deleted."
-        @roles = Role.all
-        render 'index.js.erb'
-      }
-      format.html { redirect_to roles_url }
-      format.json { head :no_content }
+    if @role.users.size > 0
+      flash.now[:alert] = "存在使用该角色的用户, 建议不要删除."  
+      render 'shared/notice_heavy'
+    else
+      @role.menus.clear
+      @role.destroy  
+      flash.now[:notice] = "角色 '#{@role.name}' 已删除."
+      @roles = Role.all
+      render 'index.js.erb'
     end
   end
 

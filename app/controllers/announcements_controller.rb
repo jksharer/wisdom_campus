@@ -20,7 +20,7 @@ class AnnouncementsController < ApplicationController
       @scope = "mine"
     end
     respond_to do |format|
-      format.js 
+      format.js { render 'shared/index.js.erb' }
       format.html          
       format.html.phone    
       format.html.tablet   
@@ -31,7 +31,12 @@ class AnnouncementsController < ApplicationController
   def being_reviewed
     @announcements = needed_my_review("Announcement").paginate(page: params[:page], per_page: 10)
     @scope = "being_reviewed"
-    render 'index'
+    respond_to do |format|
+      format.js { render 'shared/index.js.erb' }
+      format.html          
+      format.html.phone    
+      format.html.tablet   
+    end  
   end
 
   def show
@@ -71,7 +76,6 @@ class AnnouncementsController < ApplicationController
   def create
     @announcement = Announcement.new(announcement_params)
     @announcement.user = current_user
-    puts params[:commit]
     respond_to do |format|
       if @announcement.save
         format.js {
@@ -90,7 +94,6 @@ class AnnouncementsController < ApplicationController
       else
         format.js
         format.html { render action: 'new' }
-        format.json { render json: @announcement.errors, status: :unprocessable_entity }
       end
     end
   end

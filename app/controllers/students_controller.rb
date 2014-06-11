@@ -5,7 +5,6 @@ class StudentsController < ApplicationController
 
   def home
     set_initial_data
-    @students = Student.order('sid asc')
     respond_to do |format|
       format.js { render 'index.js.erb' }
       format.html 
@@ -78,20 +77,11 @@ class StudentsController < ApplicationController
     end
   end
 
-  # 通过年级和班级获取学生
+  # 通过班级获取学生
   def index
-    if !params[:grade].nil?
-      iclasses = Iclass.where(agency_id: my_agency.id, grade_id: params[:grade])
-      @students = []
-      iclasses.each do |c|
-        c.students.each do |s|
-          @students << s       
-        end
-      end
-    elsif !params[:iclass_id].nil?
+    if params[:iclass_id]
       @students = Student.where(iclass_id: params[:iclass_id]).order('sid asc')  
     end
-    set_initial_data
     respond_to do |format|
       format.js { render 'students.js.erb' }
       format.html 
@@ -103,6 +93,7 @@ class StudentsController < ApplicationController
 
   def new
     @student = Student.new
+    render 'shared/new.js.erb'
   end
 
   def edit
@@ -120,12 +111,10 @@ class StudentsController < ApplicationController
       if @student.save
         format.js {
           flash.now[:notice] = 'Student was successfully created.'
-          set_initial_data
-          render 'index.js.erb'
+          render 'show.js.erb'
         }
         format.html {
-          flash.now[:notice] = 'Student was successfully created.'
-          redirect_to @student
+          redirect_to @student, notice: 'Student was successfully created.'
         }
       else
         format.js { render 'new.js.erb' }
@@ -140,16 +129,16 @@ class StudentsController < ApplicationController
       if @student.update(student_params)
         format.js {
           flash.now[:notice] = 'Student was successfully updated.'
-          set_initial_data
-          render 'index.js.erb'
+          render 'show.js.erb'
         }
-        format.html { 
-          flash.now[:notice] = 'Student was successfully updated.'
-          redirect_to @student
+        format.html {
+          redirect_to @student, notice: 'Student was successfully updated.'
         }
       else
         format.js { render 'new.js.erb' }
-        format.html { render action: 'edit' }
+        format.html {
+          render action: 'edit'
+        }
       end
     end
   end

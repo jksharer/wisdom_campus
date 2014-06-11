@@ -1,37 +1,39 @@
 <%= render 'shared/notice' %>
 <div class="top-links">
-  <%= link_to new_department_path, remote: true, class: "btn btn-large btn-default" do %>
-    <span class="glyphicon glyphicon-plus"></span> 新部门
-  <% end %>  
+  <%= link_to "全部", departments_path, remote: true %> |
+  <%= link_to "一级部门", departments_path(query: "one_level"), remote: true %>
+  <%= render 'shared/add_link', path: new_department_path, name: '新部门' %>
 </div>
-<table class="table table-bordered" id="depts-table">
-  <thead>
-    <tr>
-      <th>部门名称</th>
-      <th>描述</th>
-      <th>所属机构</th>
-      <th>上级部门</th>
-      <th>子部门</th>
-      <th></th>
-    </tr>
-  </thead>
-
-  <tbody>
-    <% @departments.each do |department| %>
+<div class="link-content">
+  <table class="table table-bordered" id="depts-table">
+    <thead>
       <tr>
-        <td><%= link_to department.name, edit_department_path(department), :remote => true %></td>
-        <td><%= department.description %></td>
-        <td><%= department.agency.name %></td>
-        <td><%= department.parent_department.nil?? "所属机构" : department.parent_department.name %></td>
-        <td><%= department.sub_departments.size %></td>
-        <td>
-          <%= link_to edit_department_path(department), remote: true do %>
-            <span class="glyphicon glyphicon-edit"></span>  
-          <% end %>
-          <%= link_to department, method: :delete, remote: true, data: { confirm: 'Are you sure?' } do %>
-            <span class="glyphicon glyphicon-remove"></span>     
-          <% end %>
+        <th>部门名称</th>
+        <th>描述</th>
+        <th>所属机构</th>
+        <th>上级部门</th>
+        <th>子部门</th>
+        <th></th>
       </tr>
-    <% end %>
-  </tbody>
-</table>
+    </thead>
+
+    <tbody>
+      <% @departments.each do |department| %>
+        <tr>
+          <td><%= link_to department.name, edit_department_path(department), :remote => true %></td>
+          <td><%= department.description %></td>
+          <td><%= department.agency.name %></td>
+          <td><%= department.parent_department.nil?? "所属机构" : department.parent_department.name %></td>
+          <td><%= department.sub_departments.size %></td>
+          <td>
+            <%= link_to edit_department_path(department), remote: true do %>
+              <span class="glyphicon glyphicon-edit"></span>  
+            <% end %>
+            <%= link_to department, method: :delete, remote: true, data: { confirm: 'Are you sure?' } do %>
+              <span class="glyphicon glyphicon-remove"></span>     
+            <% end %>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+</div>

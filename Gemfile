@@ -23,6 +23,7 @@ gem 'jquery-datatables-rails', git: 'git://github.com/rweng/jquery-datatables-ra
 gem 'carrierwave'
 gem 'simple_form'
 gem 'roo'
+gem 'gon', '5.0.4'
 
 group :development, :test do
   gem 'sqlite3', '1.3.8'

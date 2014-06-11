@@ -1,0 +1,43 @@
+<div class="row">
+<%= render 'shared/notice' %>
+  <div class="col-sm-offset-3 col-sm-6">
+    <table class="table table-bordered">
+      <tr>
+        <th><strong>学校:</strong></th>
+        <td><%= @school.name %></td>
+      </tr>
+      <tr>
+        <th><strong>学校类型:</strong></th>
+        <td><%= @school.school_type.name %></td>
+      </tr>
+      <tr>
+        <th><strong>校长:</strong></th>
+        <td><%= @school.header %></td>
+      </tr>
+      <tr>
+        <th><strong>地址:</strong></th>
+        <td><%= @school.address %></td>
+      </tr>
+      <tr>
+        <th><strong>班级数量:</strong></th>
+        <td><%= @school.iclasses.size %></td>
+      </tr>
+      <tr>
+        <th><strong>学生数量:</strong></th>
+        <td><%= @school.total_students %></td>
+      </tr>
+      <tr>
+        <th><strong>用户数量:</strong></th>
+        <td><%= @school.users.count %></td>
+      </tr>
+      <tr>
+        <th><strong>部门数量:</strong></th>
+        <td><%= @school.departments.count %></td>
+      </tr>
+      <tr>
+      	<th><strong>介绍:</strong></th>
+      	<td><%= @school.description %></td>
+      </tr>
+    </table>
+  </div>  
+</div>
