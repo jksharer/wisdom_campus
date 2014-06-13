@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140608093921) do
+ActiveRecord::Schema.define(version: 20140613143828) do
 
   create_table "agencies", force: true do |t|
     t.string   "name"
@@ -69,7 +69,7 @@ ActiveRecord::Schema.define(version: 20140608093921) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.integer  "agency_id"
-    t.integer  "serial_number"
+    t.string   "serial_number"
   end
 
   add_index "behaviors", ["agency_id"], name: "index_behaviors_on_agency_id"
@@ -261,7 +261,7 @@ ActiveRecord::Schema.define(version: 20140608093921) do
     t.string   "card_status"
     t.datetime "open_date"
     t.string   "bank_account"
-    t.integer  "phone"
+    t.string   "phone"
   end
 
   add_index "students", ["agency_id"], name: "index_students_on_agency_id"

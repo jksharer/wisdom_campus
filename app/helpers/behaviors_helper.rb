@@ -3,9 +3,10 @@ module BehaviorsHelper
 	def generate_serial_number
 		last_behavior = Behavior.where('created_at > ?', Time.now.midnight).order('created_at asc').last
 		if last_behavior.nil? 
-			return "#{Time.now.strftime('%Y%m%d')}001".to_i
+			# return "#{Time.now.strftime('%Y%m%d')}001".to_i
+			return "#{Time.now.strftime('%Y%m%d')}001"
 		else
-			return last_behavior.serial_number + 1
+			return last_behavior.serial_number.to_i + 1
 		end
 	end
 
