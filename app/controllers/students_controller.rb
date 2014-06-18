@@ -114,14 +114,12 @@ class StudentsController < ApplicationController
     @student.agency = my_agency
     respond_to do |format|
       if @student.save
+        flash.now[:notice] = '成功添加学生信息.'
         format.js {
-          flash.now[:notice] = 'Student was successfully created.'
           @from = 'create'
           render 'show.js.erb'
         }
-        format.html {
-          redirect_to @student, notice: 'Student was successfully created.'
-        }
+        format.html { redirect_to @student }
       else
         format.js { render 'new.js.erb' }
         format.html { render action: 'new' }
@@ -133,18 +131,12 @@ class StudentsController < ApplicationController
     @student.class_role_ids = params[:class_roles]
     respond_to do |format|
       if @student.update(student_params)
-        format.js {
-          flash.now[:notice] = 'Student was successfully updated.'
-          render 'show.js.erb'
-        }
-        format.html {
-          redirect_to @student, notice: 'Student was successfully updated.'
-        }
+        flash.now[:notice] = '学生信息更新成功.'
+        format.js { render 'show.js.erb' }
+        format.html { redirect_to @student }
       else
         format.js { render 'new.js.erb' }
-        format.html {
-          render action: 'edit'
-        }
+        format.html { render action: 'edit' }
       end
     end
   end
@@ -160,18 +152,11 @@ class StudentsController < ApplicationController
   end
 
   def destroy
-    @student.class_roles.clear unless @student.class_roles.empty?
-    @student.destroy
-    respond_to do |format|
-      format.js { 
-        flash.now[:notice] = 'Student was successfully deleted.'
-        set_initial_data
-        @students = Student.where(iclass_id: params[:iclass_id]).order('sid asc').
-          paginate(page: params[:page], per_page: 12)    
-        render 'students.js.erb'
-      }
-      format.html { redirect_to students_url }
-    end
+    flash.now[:notice] = 'Student was successfully deleted.'
+    set_initial_data
+    @students = Student.where(iclass_id: params[:iclass_id]).order('sid asc').
+      paginate(page: params[:page], per_page: 12)    
+    render 'students.js.erb'
   end
 
   private

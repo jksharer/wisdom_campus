@@ -37,7 +37,7 @@ class RolesController < ApplicationController
     respond_to do |format|
       if @role.save
         format.js {
-          flash.now[:notice] = 'Role was successfully created.'
+          flash.now[:notice] = '角色创建成功.'
           @roles = Role.all
           render 'shared/index'     
         }
@@ -55,7 +55,7 @@ class RolesController < ApplicationController
     respond_to do |format|
       if @role.update(role_params)
         format.js {
-          flash.now[:notice] = 'Role was successfully updated.'
+          flash.now[:notice] = '成功更新角色信息.'
           @roles = Role.all
           render 'shared/index'  
         }

@@ -24,12 +24,12 @@ class EstimateRulesController < ApplicationController
     @estimate_rule.agency = my_agency
     respond_to do |format|
       if @estimate_rule.save
+        flash.now[:notice] = '成功添加评价规则.'
         format.js { 
-          flash.now[:notice] = 'Estimate rule was successfully created.'
           @estimate_rules = EstimateRule.order('updated_at desc')
           render 'shared/index.js.erb' 
         }
-        format.html { redirect_to @estimate_rule, notice: 'Estimate rule was successfully created.' }
+        format.html { redirect_to @estimate_rule }
       else
         format.js { render 'shared/new.js.erb' }
         format.html { render action: 'new' }
@@ -40,8 +40,8 @@ class EstimateRulesController < ApplicationController
   def update
     respond_to do |format|
       if @estimate_rule.update(estimate_rule_params)
+        flash.now[:notice] = '更新成功.'
         format.js { 
-          flash.now[:notice] = 'Estimate rule was successfully updated.'
           @estimate_rules = EstimateRule.order('updated_at desc')
           render 'shared/index.js.erb' 
         }
@@ -52,14 +52,9 @@ class EstimateRulesController < ApplicationController
   end
 
   def destroy
-    @estimate_rule.destroy
-    respond_to do |format|
-      format.js { 
-        flash.now[:notice] = 'Estimate rule was successfully deleted.'
-        @estimate_rules = EstimateRule.order('updated_at desc')
-        render 'shared/index.js.erb' 
-      }
-    end
+    flash.now[:alert] = '评价规则不可删除, 如果需要的话您可以修改.'
+    @estimate_rules = EstimateRule.order('updated_at desc')
+    render 'shared/index.js.erb' 
   end
 
   private

@@ -1,9 +1,11 @@
 class UsersController < ApplicationController
+  include ApplicationHelper
+
   before_action :set_user, only: [:show, :edit, :update, :destroy]
   before_action :authorize
 
   def index
-    @users = User.all
+    @users = User.where(agency: my_agency).order('username asc').paginate(page: params[:page], per_page: 10)
     respond_to do |format|
       format.js { render 'shared/index.js.erb' }
       format.html
@@ -34,9 +36,9 @@ class UsersController < ApplicationController
     @user.role_ids = params[:roles_of_user]
     respond_to do |format|
       if @user.save
-        flash.now[:notice] = 'User was successfully created.'
+        flash.now[:notice] = '成功添加用户.'
         format.js { 
-          @users = User.all
+          @users = User.where(agency: my_agency).order('username asc').paginate(page: params[:page], per_page: 10)
           render 'shared/index' 
         }
       else
@@ -51,8 +53,8 @@ class UsersController < ApplicationController
     respond_to do |format|
       if @user.update(user_params)
         format.js { 
-          flash.now[:notice] = 'User was successfully updated.'
-          @users = User.all
+          flash.now[:notice] = '用户信息更新成功.'
+          @users = User.where(agency: my_agency).order('username asc').paginate(page: params[:page], per_page: 10)
           render 'shared/index.js.erb' 
         }
       else
@@ -65,15 +67,15 @@ class UsersController < ApplicationController
   end
 
   def destroy
-    @user.roles.clear
-    @user.destroy
-    respond_to do |format|
-      format.js {  
-        @users = User.all
-        flash.now[:notice] = "User '#{@user.username}' deleted successfully."
-        render 'shared/index.js.erb' 
-      }
+    if Behavior.where(recorder_id: @user.id).empty? && @user.announcements.empty? && @user.steps.empty?
+      @user.roles.clear
+      @user.destroy
+      flash.now[:notice] = "用户 '#{@user.username}' 已删除."
+    else
+      flash.now[:alert] = "不可删除该用户: 存在该用户的关联数据：行为记录, 公文公告或审批步骤."
     end
+    @users = User.where(agency: my_agency).order('username asc').paginate(page: params[:page], per_page: 10)
+    render 'shared/index.js.erb' 
   end
 
   private

@@ -12,12 +12,12 @@ class SessionsController < ApplicationController
   		sign_in(user)
   		redirect_to root_url
   	else 
-      redirect_to login_url, alert: "Invalid username/password combination."
+      redirect_to login_url, alert: "错误的用户名和密码组合, 请重新输入."
   	end
   end
 
   def destroy
     session[:user_id] = nil
-    redirect_to login_url, notice: "You have loged out."
+    redirect_to login_url, notice: "您已退出系统."
   end
 end

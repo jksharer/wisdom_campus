@@ -24,7 +24,6 @@ class SemestersController < ApplicationController
     respond_to do |format|
       if @semester.save
         format.js {
-          flash.now[:notice] = 'Semester was successfully created.'
           @semesters = Semester.order('updated_at desc')
           render 'shared/link.js.erb'     
         }
@@ -38,7 +37,6 @@ class SemestersController < ApplicationController
     respond_to do |format|
       if @semester.update(semester_params)
         format.js {
-          flash.now[:notice] = 'Semester was successfully updated.'
           @semesters = Semester.order('updated_at desc')
           render 'shared/link.js.erb'     
         }
@@ -49,10 +47,10 @@ class SemestersController < ApplicationController
   end
 
   def destroy
-    @semester.destroy
+    # @semester.destroy
     respond_to do |format|
       format.js {
-        flash.now[:notice] = 'Semester was successfully deleted.'
+        flash.now[:alert] = '为了系统数据完整性, 学期数据不可删除, 如果确实需要请联系管理员从后台删除.'
         @semesters = Semester.order('updated_at desc')
         render 'shared/link.js.erb'     
       }

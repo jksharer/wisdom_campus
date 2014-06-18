@@ -41,6 +41,7 @@ class ProceduresController < ApplicationController
     @procedure.agency = current_user.agency
     respond_to do |format|
       if @procedure.save
+        flash.now[:notice] = '流程创建成功, 请为该流程设置流转顺序和审批人.'
         format.js { render 'show.js.erb' }
         format.html { redirect_to @procedure, 
           notice: 'Procedure was successfully created.' }

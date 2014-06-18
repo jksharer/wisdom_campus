@@ -64,11 +64,11 @@ class BehaviorsController < ApplicationController
         @behavior.score = BehaviorType.find(behavior_params[:behavior_type_id]).score if behavior_params[:behavior_type_id]
         respond_to do |format|
           if @behavior.save
+            flash.now[:notice] = "成功添加一条行为记录."  
             format.js {
-              flash.now[:notice] = "成功添加一条行为记录."
               render 'show.js.erb'
             }
-            format.html { redirect_to @behavior, notice: 'Behavior was successfully created.' }
+            format.html { redirect_to @behavior }
           else
             format.js {
               render 'shared/new.js.erb'
@@ -101,11 +101,11 @@ class BehaviorsController < ApplicationController
         @behavior.score = BehaviorType.find(behavior_params[:behavior_type_id]).score if behavior_params[:behavior_type_id]
         respond_to do |format|
           if @behavior.save
+            flash.now[:notice] = "成功更新记录."
             format.js {
-              flash.now[:notice] = "成功更新记录."
               render 'show.js.erb'
             }
-            format.html { redirect_to @behavior, notice: 'Behavior was successfully updated.' }
+            format.html { redirect_to @behavior }
           else
             format.js {
               render 'shared/new.js.erb'

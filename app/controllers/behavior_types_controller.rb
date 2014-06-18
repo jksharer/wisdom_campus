@@ -26,7 +26,7 @@ class BehaviorTypesController < ApplicationController
       if @behavior_type.save
         format.js {
           @behavior_types = BehaviorType.where(agency: my_agency).order('score asc')
-          flash.now[:notice] = 'Behavior type was successfully created.'
+          flash.now[:notice] = '成功添加行为类型'
           render 'shared/index.js.erb'      
         }
       else
@@ -40,7 +40,7 @@ class BehaviorTypesController < ApplicationController
       if @behavior_type.update(behavior_type_params)
         format.js {
           @behavior_types = BehaviorType.where(agency: my_agency).order('score asc')
-          flash.now[:notice] = 'Behavior type was successfully updated.'
+          flash.now[:notice] = '成功更新行为类型信息.'
           render 'shared/index.js.erb'        
         }
       else
@@ -52,9 +52,9 @@ class BehaviorTypesController < ApplicationController
   def destroy
     if @behavior_type.behaviors.empty?
       @behavior_type.destroy
-      flash.now[:notice] = 'Behavior type was successfully deleted.'
+      flash.now[:notice] = '删除成功.'
     else    
-      flash.now[:alert] = 'Some Behaviors related to this type, you should not delete it.'
+      flash.now[:alert] = '存在该类型的行为记录, 不可删除该类型信息.'
     end
     @behavior_types = BehaviorType.where(agency: my_agency).order('score desc')
     respond_to do |format|

@@ -29,7 +29,7 @@ class AgenciesController < ApplicationController
     respond_to do |format|
       if @agency.save
         format.js { 
-          flash.now[:notice] = 'School was successfully created.'
+          flash.now[:notice] = '成功新增学校.'
           @agencies = Agency.order('name asc')     
           render 'shared/index.js.erb' 
         }
@@ -43,7 +43,7 @@ class AgenciesController < ApplicationController
     respond_to do |format|
       if @agency.update(agency_params)
         format.js { 
-          flash.now[:notice] = 'School was successfully updated.'
+          flash.now[:notice] = '学校信息更新成功'
           @agencies = Agency.order('name asc')     
           render 'shared/index.js.erb' 
         }
@@ -57,7 +57,7 @@ class AgenciesController < ApplicationController
     # 不允许删除机构
     respond_to do |format|
       format.js {
-        flash.now[:alert] = "The rule is anyone CAN'T delete School."
+        flash.now[:alert] = "为了数据的安全性不允许删除机构/学校."
         @agencies = Agency.order('name asc')     
         render 'shared/index.js.erb' 
       }

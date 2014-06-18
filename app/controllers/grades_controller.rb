@@ -30,7 +30,7 @@ class GradesController < ApplicationController
       if @grade.save
         format.js {
           @grades = Grade.where(agency: my_agency, graduated: false)
-          flash.now[:notice] = 'Grade was successfully created.'
+          flash.now[:notice] = '年级添加成功.'
           render 'shared/link.js.erb'     
         }
       else
@@ -44,7 +44,7 @@ class GradesController < ApplicationController
       if @grade.update(grade_params)
         format.js {
           @grades = Grade.where(agency: my_agency, graduated: false)
-          flash.now[:notice] = 'Grade was successfully updated.'
+          flash.now[:notice] = '更新成功.'
           render 'shared/link.js.erb'     
         }  
       else
@@ -66,24 +66,9 @@ class GradesController < ApplicationController
   end
 
   def destroy
-    if @grade.iclasses.size > 0
-      respond_to do |format|
-        format.js {
-          flash.now[:alert] = "There are classes related to the grade, you should not delete it."
-          @grades = Grade.where(agency: my_agency, graduated: false)
-          render 'shared/link.js.erb'
-        }
-      end      
-    else
-      @grade.destroy
-      respond_to do |format|
-        format.js {
-          flash.now[:alert] = "The grade was deleted successfully."
-          @grades = Grade.where(agency: my_agency) 
-          render 'shared/link.js.erb'
-        }
-      end  
-    end
+    flash.now[:alert] = "年级信息不可删除, 您可以把该年级的状态置为已毕业."
+    @grades = Grade.where(agency: my_agency, graduated: false)
+    render 'shared/link.js.erb'
   end
 
   private

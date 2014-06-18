@@ -28,7 +28,7 @@ class IclassesController < ApplicationController
       if @iclass.save
         format.js {
           set_initial_data
-          flash.now[:notice] = 'Class was successfully created.'
+          flash.now[:notice] = '班级创建成功.'
           render 'index.js.erb'     
         }
       else
@@ -42,7 +42,7 @@ class IclassesController < ApplicationController
       if @iclass.update(iclass_params)
         format.js {
           set_initial_data
-          flash.now[:notice] = 'Class was successfully updated.'
+          flash.now[:notice] = '班级信息更新成功.'
           render 'index.js.erb'     
         }
       else
@@ -55,7 +55,7 @@ class IclassesController < ApplicationController
     if @iclass.students.size > 0
       respond_to do |format|
         format.js {
-          flash.now[:alert] = "There are students in this class, you should not delete it."
+          flash.now[:alert] = '该班级下面存在学生信息, 不可删除.'
           render 'shared/notice.js.erb'
         }
       end  
@@ -64,8 +64,7 @@ class IclassesController < ApplicationController
       respond_to do |format|
         format.js {
           set_initial_data
-          # @iclasses = Iclass.where(agency: my_agency).order('grade_id asc')
-          flash.now[:notice] = "Class was successfully deleted."
+          flash.now[:notice] = '班级删除成功.'
           render 'index.js.erb'
         }
       end  

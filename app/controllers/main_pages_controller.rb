@@ -42,13 +42,13 @@ class MainPagesController < ApplicationController
   	password = params[:password]
   	password_confirmation = params[:password_confirmation]			
   	if password.nil? || password.length < 6
-  		flash.now[:alert] = "the length of password must be greater than 6."
+  		flash.now[:alert] = "密码长度须在6位以上."
   		respond_to do |format|
         format.js { render 'change_password.js.erb' }
         format.html
       end 
   	elsif password != password_confirmation
-  		flash.now[:alert] = "the password does not equal confirmation."
+  		flash.now[:alert] = '密码及密码确认不匹配.'
   		respond_to do |format|
         format.js { render 'change_password.js.erb' }
         format.html { redirect_to change_password_path }
@@ -59,7 +59,7 @@ class MainPagesController < ApplicationController
       user.password_confirmation = password_confirmation
       user.for_updating = true
       user.save!
-      flash.now[:notice] = "the password was successfully updated."
+      flash.now[:notice] = '密码修改成功.'
       respond_to do |format|
         format.js { render 'my.js.erb' }
         format.html { redirect_to my_path }

@@ -23,9 +23,9 @@ class ClassRolesController < ApplicationController
     @class_role = ClassRole.new(class_role_params)
     respond_to do |format|
       if @class_role.save
+        flash.now[:notice] = '班级角色添加成功.'
         format.js {
           @class_roles = ClassRole.all
-          flash.now[:notice] = 'Class role was successfully created.'
           render 'shared/link.js.erb'     
         }
       else
@@ -39,7 +39,7 @@ class ClassRolesController < ApplicationController
       if @class_role.update(class_role_params)
         format.js {
           @class_roles = ClassRole.all
-          flash.now[:notice] = 'Class role was successfully updated.'
+          flash.now[:notice] = '班级角色更新成功.'
           render 'shared/link.js.erb'     
         }
       else
@@ -53,13 +53,13 @@ class ClassRolesController < ApplicationController
       @class_role.destroy
       respond_to do |format|
         format.js {
-          flash.now[:notice] = 'Class role was successfully deleted.'
+          flash.now[:notice] = '删除成功.'
         }
       end
     else
       respond_to do |format|
         format.js {
-          flash.now[:alert] = 'You should not delete this class role.'
+          flash.now[:alert] = '存在学生关联到该角色，不可删除.'
         }
       end
     end

@@ -1,4 +1,4 @@
-<%= render 'shared/notice' %>
+<%= render 'shared/notice_heavy' %>
 <div class="top-links">
   <%= render 'shared/new_button', path: new_user_path, name: "新用户" %>
 </div>
@@ -23,10 +23,12 @@
           <td>
             <%= user.roles.map { |role| "#{role.name}" }.join(',') %>
           </td>
-          <td><%= link_to 'Destroy', user, method: :delete, remote: true,
-            data: { confirm: 'Are you sure?' } %></td>
+          <td>
+          <%= render 'shared/delete_link', path: user %>
+          </td>
         </tr>
       <% end %>
     </tbody>
   </table>
+  <%= paginate @users %>
 </div>

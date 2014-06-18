@@ -23,8 +23,9 @@
           <td>
             <%= role.users.map { |user| user.username }.join(',') %>
           </td>
-          <td><%= link_to 'Destroy', role, method: :delete, remote: true,
-            data: { confirm: 'Are you sure?' } %></td>
+          <td>
+          <%= render 'shared/delete_link', path: role %>
+          </td>
         </tr>
       <% end %>
     </tbody>

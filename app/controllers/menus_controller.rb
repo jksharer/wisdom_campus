@@ -29,13 +29,12 @@ class MenusController < ApplicationController
     @menu = Menu.new(menu_params)
     respond_to do |format|
       if @menu.save
+        flash.now[:notice] = '模块添加成功.'
         format.js { 
           @menus = Menu.where(parent_menu_id: nil).order('display_order asc')
-          flash.now[:notice] = 'Menu was successfully created.'
           render 'index.js.erb' 
         }
-        format.html { redirect_to menus_url, 
-          notice: 'Menu was successfully created.' }
+        format.html { redirect_to menus_url }
       else
         format.js { render 'new.js.erb' }
         format.html { render action: 'new', layout: 'empty' }
@@ -50,11 +49,8 @@ class MenusController < ApplicationController
           @menus = Menu.where(parent_menu_id: nil).order('display_order asc') 
           render 'index.js.erb' 
         }
-        format.html { redirect_to menus_url, 
-          notice: 'Menu was successfully updated.' }
       else
         format.js { render 'new.js.erb' }
-        format.html { render action: 'edit' }
       end
     end
   end
@@ -64,11 +60,8 @@ class MenusController < ApplicationController
     if @menu.sub_menus.size > 0
       respond_to do |format|
         format.js { 
-          flash.now[:notice] = "The menu has sub menus, you can't delete it."
+          flash.now[:notice] = '该菜单有子菜单, 不可删除.'
           render 'index.js.erb'
-        }
-        format.html {
-          redirect_to menus_path, notice: "The menu has sub menus, you can't delete it."
         }
       end
     else
@@ -76,7 +69,7 @@ class MenusController < ApplicationController
       @menu.destroy
       respond_to do |format|
         format.js {
-          flash.now[:notice] = "The menu #{@menu.name} deleted."
+          flash.now[:notice] = '菜单删除成功.'
           render 'index.js.erb'  
         }
         format.html { redirect_to menus_url }

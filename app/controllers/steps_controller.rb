@@ -37,11 +37,9 @@ class StepsController < ApplicationController
     respond_to do |format|
       if @step.save
         format.js {
-          flash.now[:notice] = "Already added a step."
           render 'index.js.erb'  
         }
-        format.html { redirect_to @step.procedure, 
-          notice: 'Step was successfully created.' }
+        format.html { redirect_to @step.procedure }
       else
         format.js { render 'new.js.erb' }
         format.html { render action: 'new' }
@@ -52,8 +50,7 @@ class StepsController < ApplicationController
   def update
     respond_to do |format|
       if @step.update(step_params)
-        format.html { redirect_to @step.procedure, 
-          notice: 'Step was successfully updated.' }
+        format.html { redirect_to @step.procedure }
       else
         format.html { render action: 'edit' }
       end
@@ -63,8 +60,7 @@ class StepsController < ApplicationController
   def destroy
     @step.destroy
     respond_to do |format|
-      format.html { redirect_to @step.procedure,
-        notice: 'Step was successfully deleted.' }
+      format.html { redirect_to @step.procedure }
     end
   end
 

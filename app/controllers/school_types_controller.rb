@@ -21,13 +21,11 @@ class SchoolTypesController < ApplicationController
 
   def create
     @school_type = SchoolType.new(school_type_params)
-      if @school_type.save
-        flash.now[:notice] = "Agency type was successfully created."
-        @school_types = SchoolType.all     
-        render 'shared/link.js.erb' 
-      else
-        format.js { render 'shared/new.js.erb' }
-      end
+    if @school_type.save
+      @school_types = SchoolType.all     
+      render 'shared/link.js.erb' 
+    else
+      render 'shared/new.js.erb'
     end
   end
 
@@ -36,7 +34,6 @@ class SchoolTypesController < ApplicationController
       if @school_type.update(school_type_params)
         format.js { 
           @school_types = SchoolType.all     
-          flash.now[:notice] = "Agency type was successfully updated."
           render 'shared/link.js.erb' 
         }
       else
@@ -47,10 +44,10 @@ class SchoolTypesController < ApplicationController
 
   def destroy
     if @school_type.agencies.size > 0 
-      flash.now[:alert] = "There are agencies related to this, you should not delete id."
+      flash.now[:alert] = "有机构/学校使用了该类型, 不可删除."
     else
       @school_type.destroy
-      flash.now[:notice] = "the type was deleted successfully."
+      flash.now[:notice] = "删除成功."
     end
     @school_types = SchoolType.all     
     render 'shared/link.js.erb'

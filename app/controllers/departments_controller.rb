@@ -25,7 +25,7 @@ class DepartmentsController < ApplicationController
     @department = Department.new(department_params)
     @department.agency = current_user.agency
     if @department.save
-      flash.now[:notice] = 'Department was successfully created.'
+      flash.now[:notice] = '部门创建成功.'
       @departments = Department.where(agency: my_agency).order('name asc')
       render 'shared/index.js.erb'
     else
@@ -35,7 +35,7 @@ class DepartmentsController < ApplicationController
 
   def update
     if @department.update(department_params)
-      flash.now[:notice] = 'Department was successfully updated.'
+      flash.now[:notice] = '部门信息更新成功.'
       @departments = Department.where(agency: my_agency).order('name asc')
       render 'shared/index.js.erb'  
     else
@@ -45,11 +45,13 @@ class DepartmentsController < ApplicationController
 
   # 只接受ajax方式操作
   def destroy
-    if @department.sub_departments.empty?
-      @department.destroy
-      flash.now[:notice] = 'Department was successfully deleted.'
+    if @department.users.size > 0  
+      flash.now[:alert] = "该部门下面存在员工/用户, 请不要删除."
+    elsif @department.sub_departments.size > 0 
+      flash.now[:alert] = "该部门存在子部门, 请不要删除."
     else
-      flash.now[:alert] = "The department has sub departments, you just can't delete it."
+      @department.destroy
+      flash.now[:notice] = '成功删除部门.'
     end
     @departments = Department.where(agency: my_agency).order('name asc')
     render 'shared/index.js.erb'
