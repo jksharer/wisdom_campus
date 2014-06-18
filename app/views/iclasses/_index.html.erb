@@ -23,10 +23,8 @@
         <td>
           <%= render 'shared/edit_link', path: edit_iclass_path(iclass) %>
         </td>
-        <td>
-          <%= render 'shared/delete_link', path: iclass %>
-        </td>
       </tr>
     <% end %>
   </tbody>
 </table>
+<%= paginate @iclasses %>

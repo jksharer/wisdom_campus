@@ -1,0 +1,31 @@
+<div id="login">
+  <span id="app_logo">学生综合行为评价系统</span>
+  <span id="app_info">学生行为管理及评价的优秀方案</span>
+  <hr>  
+	<p id="welcome">欢迎来到学生综合行为评价系统，请输入您的用户名和密码</p>
+  <%= render 'shared/notice' %>
+  <div id="login_form">
+    <%= form_for(:session, url: sessions_path, html: { class: "form-horizontal", role: "form" }) do |f| %>
+      <div class="form-group">
+        <%= f.label :username, "用户名", class: "col-sm-2 control-label" %>
+        <div class="col-sm-8">
+          <%= f.text_field :username, class: "form-control" %>      
+        </div>
+      </div>
+      
+      <div class="form-group">
+        <%= f.label :password, "密  码", class: "col-sm-2 control-label" %>
+        <div class="col-sm-8">
+          <%= f.password_field :password, class: "form-control" %>    
+        </div>  
+      </div>
+      
+      <div class="form-group">
+        <label class="col-sm-2 control-label"></label>
+        <div class="col-sm-4">
+          <%= f.submit "登  陆", class: "btn btn-lg btn-primary" %>  
+        </div>
+      </div>
+  <% end %>  
+  </div>
+</div>

@@ -3,12 +3,12 @@ WisdomCampus::Application.routes.draw do
 
   resources :sessions, only: [:new, :create, :destroy]
   resources :departments, :roles, :users, :menus, :agencies, :announcements, :steps, :procedures, :projects
-  resources :class_roles, :students, :iclasses, :grades, :school_types, :behaviors, :behavior_types
+  resources :class_roles, :iclasses, :grades, :school_types, :behavior_types
   resources :sms, :estimate_rules, :semesters
+  resources :behaviors, :students
 
   match '/login',  to: 'sessions#new',        via: 'get'
   match '/logout', to: 'sessions#destroy',    via: 'delete'
-  match '/home',   to: 'main_pages#home',     via: 'get'
   match '/about',  to: 'main_pages#about',    via: 'get'
   match '/my',     to: 'main_pages#my',       via: 'get'
 
@@ -25,6 +25,8 @@ WisdomCampus::Application.routes.draw do
 
   match '/students_home',     to: 'students#home',                 via:   'get'
   match '/students_query',    to: 'students#query',                via:   'get'
+  match '/graduate',          to: 'grades#graduate',               via:   ['get', 'post']
+  match '/student_graduate',  to: 'students#graduate',             via:   ['get', 'post']
   match '/behavior_print',    to: 'behaviors#print',               via:   'get'
   match '/behavior_confirm',  to: 'behaviors#confirm',             via:   'get'
 
@@ -41,4 +43,6 @@ WisdomCampus::Application.routes.draw do
   match '/download_file',     to: 'students#download',             via: 'get'
 
   match '/my_school',         to: 'my_school#home',                via: 'get'
+  match '/send_message',      to: 'sms#send_sm',                   via: ['get', 'post']
+  
 end

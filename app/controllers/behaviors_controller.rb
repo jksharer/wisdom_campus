@@ -34,7 +34,6 @@ class BehaviorsController < ApplicationController
       format.js { render 'shared/new.js.erb' }
       format.html
     end
-    
   end
 
   def edit
@@ -121,20 +120,49 @@ class BehaviorsController < ApplicationController
   # 设为已确认状态
   def confirm
     @behavior.update_attribute(:confirm_state, "confirmed")
-    response = send_message(@behavior)    # 给家长发送短信
-    puts response
+    @message = generate_message(@behavior)
+
     respond_to do |format|
-      format.js {
-        flash.now[:notice] = "已确认并发送短信至家长手机, 手机号为:#{@behavior.student.phone}"
-        render 'show.js.erb'  
-      }
-      format.html { redirect_to behaviors_url }
+      if @message.save
+        @message.update_attribute(:mid, "#{my_agency.id}#{@message.id}")
+        format.js {
+          flash.now[:notice] = "已确认，正在发送短信. \n手机号码：#{@message.phone}, 短信内容：#{@message.content}"
+          @require_send = true
+          render 'show.js.erb'
+        }     
+      else
+        format.js {
+          flash.now[:notice] = "该学生信息不全，无法发送短信，请查看手机号码是否正确."
+          render 'show.js.erb' 
+        }
+      end
     end  
+  end
+
+  def send_behavior_message
+    begin
+    response = send_message(@message)
+    rescue Exception => e
+      @message.update_attribute(:status, "failue")
+      flash.now[:alert] = "短信服务器没有响应，请检查网络及咨询短信服务供应商.详细信息: #{e.message}"
+      render 'show.js.erb'
+    else
+      @sms = Sm.where(agency: my_agency).order('created_at desc').paginate(page: params[:page], per_page: 8)
+        case response
+          when Net::HTTPSuccess, Net::HTTPRedirection
+            @message.update_attribute(:status, "success")         # 如果发送成功，则更新短信信息的状态为success
+            flash[:notice] = "已确认并发送短信至家长手机, 手机号为:#{@behavior.student.phone}"
+            render 'show.js.erb' 
+          else
+            @message.update_attribute(:status, "failue")
+            flash.now[:alert] = "短信发送失败，请检查网络及短信服务是否运行正常."
+            render 'show.js.erb' 
+          end
+      end
   end
 
   # 设为无效
   def destroy
-    # @behavior.confirm_state = "canceled"
     @behavior.update_attribute(:confirm_state, "canceled")
     respond_to do |format|
       format.js {

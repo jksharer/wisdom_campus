@@ -65,13 +65,22 @@
       </td>
     </tr>    
   </table>
-  <div class="col-sm-offset-4 col-sm-6">
-    <%= link_to behavior_print_path(id: @behavior.id), class: "btn btn-large btn-default",
-        onclick: "var w = window.open(this.href); w.focus(); return false;" do %>
+  <div class="col-sm-offset-4 col-sm-8">
+    <%= link_to behavior_print_path(id: @behavior.id), class: "btn btn-large btn-default", id: "print-button",
+                onclick: "var w = window.open(this.href); w.focus(); return false;" do %>
       <span class="glyphicon glyphicon-print"></span> 打印确认单
-    <% end %>  
-    <%= link_to "<span class='glyphicon glyphicon-check'></span> 设为已确认".html_safe, 
-                behavior_confirm_path(id: @behavior.id), class: "btn btn-large btn-success", remote: true, 
-                id: "confirm-button" %>
+    <% end %>
+
+    <%= link_to behavior_confirm_path(id: @behavior.id), class: "btn btn-large btn-success", remote: true, 
+                id: "confirm-button" do %>
+      <span class='glyphicon glyphicon-check'></span> 设为已确认                
+    <% end %>
+
+    <% if @behavior.sm %>
+      <%= link_to send_message_path(id: @behavior.sm.id, from: "behavior"), class: "btn btn-large btn-default", method: :post, 
+                  remote: true, id: "send-button" do %>
+        <span class='glyphicon glyphicon-send'></span> 重新发送短信
+      <% end %>
+    <% end %>              
   </div>
 </div>

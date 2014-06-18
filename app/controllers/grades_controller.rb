@@ -1,8 +1,13 @@
 class GradesController < ApplicationController
-  before_action :set_grade, only: [:show, :edit, :update, :destroy]
+  before_action :set_grade, only: [:show, :edit, :update, :destroy, :graduate]
+  before_action :authorize
 
   def index
-    @grades = Grade.where(agency: my_agency)
+    if params[:graduated] == 'false'
+      @grades = Grade.where(agency: my_agency, graduated: false)
+    else
+      @grades = Grade.where(agency: my_agency, graduated: true)
+    end
     render 'shared/link.js.erb'
   end
 
@@ -24,7 +29,7 @@ class GradesController < ApplicationController
     respond_to do |format|
       if @grade.save
         format.js {
-          @grades = Grade.where(agency: my_agency)
+          @grades = Grade.where(agency: my_agency, graduated: false)
           flash.now[:notice] = 'Grade was successfully created.'
           render 'shared/link.js.erb'     
         }
@@ -38,7 +43,7 @@ class GradesController < ApplicationController
     respond_to do |format|
       if @grade.update(grade_params)
         format.js {
-          @grades = Grade.where(agency: my_agency)
+          @grades = Grade.where(agency: my_agency, graduated: false)
           flash.now[:notice] = 'Grade was successfully updated.'
           render 'shared/link.js.erb'     
         }  
@@ -48,12 +53,24 @@ class GradesController < ApplicationController
     end
   end
 
+  def graduate
+    @grade.update_attribute(:graduated, true)
+    @grade.iclasses.each do |iclass|
+      iclass.students.each do |student|
+        student.update_attribute(:graduated, true)
+      end
+    end
+    flash.now[:notice] = "已成功将#{@grade.name}#{@grade.total_students_count}个学生设为已毕业状态."
+    @grades = Grade.where(agency: my_agency, graduated: true)
+    render 'shared/link.js.erb'
+  end
+
   def destroy
     if @grade.iclasses.size > 0
       respond_to do |format|
         format.js {
           flash.now[:alert] = "There are classes related to the grade, you should not delete it."
-          @grades = Grade.where(agency: my_agency)
+          @grades = Grade.where(agency: my_agency, graduated: false)
           render 'shared/link.js.erb'
         }
       end      

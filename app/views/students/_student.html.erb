@@ -10,16 +10,18 @@
         <td><%= @student.name %></td>
       </tr>
       <tr>
-        <th><strong>性 别:</strong></th>
-        <td><%= @student.gender %></td>
-      </tr>
-      <tr>
         <th><strong>班 级:</strong></th>
         <td><%= "#{@student.iclass.grade.name}#{@student.iclass.name}" %></td>
       </tr>
       <tr>
-        <th><strong>角 色:</strong></th>
-        <td><%= @student.class_roles.map { |role| role.name }.join(',') %></td>
+        <th><strong>状 态:</strong></th>
+        <td>
+          <% if @student.graduated? %>
+            已毕业 | <%= link_to "设为在读", student_graduate_path(id: @student.id, graduated: false), remote:true %>
+          <% else %>
+            在读 | <%= link_to "设为已毕业", student_graduate_path(id: @student.id, graduated: true), remote: true %>
+          <% end %>
+        </td>
       </tr>
     </table>
   </div>

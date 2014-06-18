@@ -35,10 +35,16 @@ module SessionsHelper
   end
 
   def check_if_in_permissions
+    puts params[:controller]
+    puts params[:action]
   	current_user.permissions.each do |menu|
-  		if menu.url.include?(params[:controller])
-  			return
-  		end
+  		# if menu.controller == params[:controller]
+      if menu.controller.include?(params[:controller])
+        return
+      end
+      # if menu.url.include?(params[:controller])
+  		# 	return
+  		# end
   	end
   	redirect_to login_url, 
   		notice: "Sorry, the current user does not have the permission, 

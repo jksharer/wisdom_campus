@@ -1,13 +1,10 @@
 class BehaviorTypesController < ApplicationController
   before_action :set_behavior_type, only: [:show, :edit, :update, :destroy]
-  # before_action :authorize
+  before_action :authorize
 
   def index
     @behavior_types = BehaviorType.where(agency: my_agency).order('score asc')
-    respond_to do |format|
-      format.js { render 'shared/index.js.erb' }
-      format.html
-    end
+    render 'shared/index.js.erb'
   end
 
   def show
@@ -15,12 +12,11 @@ class BehaviorTypesController < ApplicationController
 
   def new
     @behavior_type = BehaviorType.new
+    render 'shared/new.js.erb'
   end
 
   def edit
-    respond_to do |format|
-      format.js { render 'new.js.erb' }
-    end
+    render 'shared/new.js.erb'
   end
 
   def create
@@ -31,12 +27,10 @@ class BehaviorTypesController < ApplicationController
         format.js {
           @behavior_types = BehaviorType.where(agency: my_agency).order('score asc')
           flash.now[:notice] = 'Behavior type was successfully created.'
-          render 'index.js.erb'      
+          render 'shared/index.js.erb'      
         }
-        format.html { redirect_to @behavior_type, notice: 'Behavior type was successfully created.' }
       else
-        format.js { render 'new.js.erb' }
-        format.html { render action: 'new' }
+        format.js { render 'shared/new.js.erb' }
       end
     end
   end
@@ -47,12 +41,10 @@ class BehaviorTypesController < ApplicationController
         format.js {
           @behavior_types = BehaviorType.where(agency: my_agency).order('score asc')
           flash.now[:notice] = 'Behavior type was successfully updated.'
-          render 'index.js.erb'        
+          render 'shared/index.js.erb'        
         }
-        format.html { redirect_to @behavior_type, notice: 'Behavior type was successfully updated.' }
       else
-        format.js { render 'new.js.erb' }
-        format.html { render action: 'edit' }
+        format.js { render 'shared/new.js.erb' }
       end
     end
   end
@@ -60,22 +52,14 @@ class BehaviorTypesController < ApplicationController
   def destroy
     if @behavior_type.behaviors.empty?
       @behavior_type.destroy
-      respond_to do |format|
-        format.js {
-          @behavior_types = BehaviorType.where(agency: my_agency).order('score asc')
-          flash.now[:notice] = 'Behavior type was successfully deleted.'
-          render 'index.js.erb'        
-        }
-      end
-    else
-      respond_to do |format|
-        format.js {
-          @behavior_types = BehaviorType.where(agency: my_agency).order('score desc')
-          flash.now[:alert] = 'Some Behaviors related to this type, you should not delete it.'
-          render 'index.js.erb'        
-        }
-      end
+      flash.now[:notice] = 'Behavior type was successfully deleted.'
+    else    
+      flash.now[:alert] = 'Some Behaviors related to this type, you should not delete it.'
     end
+    @behavior_types = BehaviorType.where(agency: my_agency).order('score desc')
+    respond_to do |format|
+      format.js { render 'shared/index.js.erb' }
+    end      
   end
 
   private

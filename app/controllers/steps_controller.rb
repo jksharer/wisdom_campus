@@ -1,6 +1,7 @@
 class StepsController < ApplicationController
   before_action :set_step, only: [ :show, :edit, :update, :destroy ]
-
+  before_action :authorize
+  
   def index
     @steps = Step.all
   end

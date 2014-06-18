@@ -1,4 +1,6 @@
+<%= render 'shared/notice_heavy' %>
 <div class="top-links">
+  <%= link_to "所有记录", sms_path, remote: true %> 
   <%= render 'shared/add_link', path: new_sm_path, name: '新短信' %>
 </div>
 <div id="sms" class="link-content">
@@ -7,10 +9,10 @@
       <tr>
         <th width="10%">流水号</th>
         <th width="10%">手机号码</th>
-        <th width="60%">短信内容</th>
+        <th width="40%">短信内容</th>
         <th width="10%">发送时间</th>
-        <th width="10%">发送状态</th>
-        <th></th>
+        <th width="10%">状态</th>
+        <th width="10%"></th>
       </tr>
     </thead>
 
@@ -20,13 +22,17 @@
           <td><%= sm.mid %></td>
           <td><%= sm.phone %></td>
           <td><%= sm.content %></td>
-          <td><%= time_format_min(sm.send_time) %></td>
+          <td><%= time_format_min(sm.send_time) if sm.send_time %></td>
           <td><%= sm.status %></td>
           <td>
-            <%= link_to 'x', sm, method: :delete, data: { confirm: 'Are you sure?' } %>
+            <% unless sm.status == "success" %>
+              <%= link_to '修改', edit_sm_path(id: sm.id), remote: true %>
+              <%= link_to '重新发送', send_message_path(id: sm.id), method: :post, remote: true %>
+            <% end %>
           </td>
         </tr>
       <% end %>
     </tbody>
   </table>  
 </div>
+<%= paginate @sms %>

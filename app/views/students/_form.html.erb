@@ -41,7 +41,7 @@
   <div class="form-group">
     <%= f.label :iclass_id, "班 级",class: "col-sm-1 control-label" %>
     <div class="col-sm-3">
-      <%= f.select(:iclass_id, options_for_select(Iclass.all.map { |c| [c.name, c.id] }, 
+      <%= f.select(:iclass_id, options_for_select(@iclasses.map { |c| [c.name, c.id] }, 
         @student.iclass_id), { prompt: "选择班级" }, { class: "form-control" }) %>
     </div>
   </div>

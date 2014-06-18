@@ -1,6 +1,7 @@
 class SchoolTypesController < ApplicationController
   before_action :set_school_type, only: [:show, :edit, :update, :destroy]
-  
+  before_action :authorize
+    
   def index
     @school_types = SchoolType.all
     render 'shared/link.js.erb'
@@ -15,21 +16,15 @@ class SchoolTypesController < ApplicationController
   end
 
   def edit
-    respond_to do |format|
-      format.js { render 'shared/new.js.erb' }
-    end
+    render 'shared/new.js.erb'
   end
 
   def create
     @school_type = SchoolType.new(school_type_params)
-
-    respond_to do |format|
       if @school_type.save
-        format.js { 
-          flash.now[:notice] = "Agency type was successfully created."
-          @school_types = SchoolType.all     
-          render 'shared/link.js.erb' 
-        }
+        flash.now[:notice] = "Agency type was successfully created."
+        @school_types = SchoolType.all     
+        render 'shared/link.js.erb' 
       else
         format.js { render 'shared/new.js.erb' }
       end
@@ -52,11 +47,7 @@ class SchoolTypesController < ApplicationController
 
   def destroy
     if @school_type.agencies.size > 0 
-      respond_to do |format|
-        format.js {
-          flash.now[:alert] = "There are agencies related to this, you should not delete id."
-        }
-      end
+      flash.now[:alert] = "There are agencies related to this, you should not delete id."
     else
       @school_type.destroy
       flash.now[:notice] = "the type was deleted successfully."

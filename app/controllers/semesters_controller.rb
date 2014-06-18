@@ -1,6 +1,7 @@
 class SemestersController < ApplicationController
   before_action :set_semester, only: [:show, :edit, :update, :destroy]
-
+  before_action :authorize
+  
   def index
     @semesters = Semester.order('updated_at desc')
     render 'shared/link.js.erb'

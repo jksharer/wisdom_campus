@@ -1,11 +1,17 @@
 class ReportsController < ApplicationController
   include ApplicationHelper
-  
+  before_action :authorize
+
   def home
   end
 
   def via_classes
-  	@iclasses = Iclass.where(agency: my_agency).order('grade_id asc')
+    grades = Grade.where(agency: my_agency, graduated: false)
+    @iclasses = []
+    grades.each do |grade|
+      @iclasses.concat(grade.iclasses)
+    end
+  	# @iclasses = Iclass.where(agency: my_agency).order('grade_id asc')
   	respond_to do |format|
   		format.js {
   			@view = 'via_classes'
@@ -18,7 +24,7 @@ class ReportsController < ApplicationController
   end
 
   def via_grades
-    @grades = Grade.order('id asc')
+    @grades = Grade.where(agency: my_agency, graduated: false)
     respond_to do |format|
       format.js {
         @view = 'via_grades'
@@ -31,7 +37,7 @@ class ReportsController < ApplicationController
   end
 
   def query
-    @result_student = Student.find_by(sid: params[:student])
+    @result_student = Student.find_by(agency: my_agency, sid: params[:student])
     if params[:query]  # 点击查找按钮         
       respond_to do |format|    
         format.js { render 'query.js.erb' }

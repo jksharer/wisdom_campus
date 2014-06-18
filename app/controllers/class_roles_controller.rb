@@ -1,6 +1,7 @@
 class ClassRolesController < ApplicationController
   before_action :set_class_role, only: [:show, :edit, :update, :destroy]
-
+  before_action :authorize
+  
   def index
     @class_roles = ClassRole.all
     render 'shared/link.js.erb'

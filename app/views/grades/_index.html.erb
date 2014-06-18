@@ -1,11 +1,16 @@
 <%= render 'shared/notice' %>
-<%= render 'shared/add_link', name: '新年级', path: new_grade_path %>
+<div class="top-links">
+  <%= link_to "在读", grades_path(graduated: false), remote: true %> |
+  <%= link_to "已毕业", grades_path(graduated: true), remote: true %>
+  <%= render 'shared/add_link', name: '新年级', path: new_grade_path %>  
+</div>
 <table class="table">
   <thead>
     <tr>
-      <th>名称</th>
-      <th>描述</th>
-      <th></th>
+      <th>年级名称</th>
+      <th>班级数量</th>
+      <th>学生数量</th>
+      <th>状态</th>
     </tr>
   </thead>
 
@@ -13,8 +18,15 @@
     <% @grades.each do |grade| %>
       <tr>
         <td><%= link_to grade.name, edit_grade_path(grade), remote: true %></td>
-        <td><%= grade.description %></td>
-        <td><%= render 'shared/delete_link', path: grade %></td>
+        <td><%= grade.iclasses.size %></td>
+        <td><%= grade.total_students_count %></td>
+        <td><%= grade.graduated?? "已毕业" : "在读" %></td>
+        <td>
+          <% unless grade.graduated %>
+            <%= link_to "设为毕业", graduate_path(id: grade.id), remote: true, 
+              data: { confirm: "确认将该年级全部学生设为已毕业状态?" } %>
+          <% end %>    
+        </td>  
       </tr>
     <% end %>
   </tbody>

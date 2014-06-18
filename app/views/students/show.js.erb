@@ -1,1 +1,5 @@
-$("div#students-content").html('<%= j render("students/show") %>')
+<% if @from == 'create' %>
+	$("div.link-content").html('<%= j render("students/show") %>')
+<% else %>
+	$("div#students-content").html('<%= j render("students/show") %>')
+<% end %>

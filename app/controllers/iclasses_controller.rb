@@ -1,8 +1,9 @@
 class IclassesController < ApplicationController
   before_action :set_iclass, only: [:show, :edit, :update, :destroy]
+  before_action :authorize
 
   def index
-    @iclasses = Iclass.where(agency: my_agency).order('grade_id asc')
+    @iclasses = Iclass.where(agency: my_agency).order('grade_id asc').paginate(page: params[:page], per_page: 10)  
     @grades = Grade.where(agency: my_agency).order('id asc')
   end
 

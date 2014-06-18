@@ -1,4 +1,14 @@
 $("div#behaviors-content").html('<%= j render("behaviors/show") %>')
 <% if @behavior.confirm_state == "confirmed" %>
 	$("#confirm-button").hide()
+	$("#print-button").hide()
+<% end %>
+$("#send-button").hide()
+<% if @behavior.sm && @behavior.sm.status == "failue" %>
+	$("#send-button").show()
+<% end %>
+<% if @require_send == true %>
+	$("#send-button").show()
+	$("#send-button").click()
+	$("#send-button").html("已确认,正在发送短信...")
 <% end %>

@@ -1,32 +1,28 @@
 <table class="table">
   <thead>
     <tr>
+      <th>班级</th>
       <th>学号</th>
       <th>姓名</th>
-      <th>违规行为</th>
-      <th>性别</th>
-      <th>班级</th>
-      <th>班级角色</th>
-      <th colspan="2"></th>
+      <th>身份证号</th>
+      <th>手机号</th>
+      <th></th>
     </tr>
   </thead>
 
   <tbody>
       <% @students.each do |student| %>
       <tr>
+        <td><%= student.iclass.name %></td>
         <td><%= link_to student.sid, student, remote: true %></td>
         <td><%= link_to student.name, student, remote: true %></td>
-        <td><%= student.behaviors.size %></td>
-        <td><%= student.gender %></td>
-        <td><%= student.iclass.name %></td>
-        <td><%= student.class_roles.map { |role| role.name }.join(',') %></td>
+        <td><%= student.id_number %></td>
+        <td><%= student.phone %></td>
         <td>
           <%= render 'shared/edit_link', path: edit_student_path(student) %>
-        </td>
-        <td>
-          <%= render 'shared/delete_link', path: student %>
         </td>
       </tr>
     <% end %> 
   </tbody>
 </table>
+<%= paginate @students %>

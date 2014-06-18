@@ -1,5 +1,6 @@
 class EstimateRulesController < ApplicationController
   before_action :set_estimate_rule, only: [:show, :edit, :update, :destroy]
+  before_action :authorize
 
   def index
     @estimate_rules = EstimateRule.where(agency: my_agency).order('updated_at desc')
