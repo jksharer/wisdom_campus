@@ -10,20 +10,18 @@ class ApplicationController < ActionController::Base
   before_action :detect_device_type
 
   def set_two_level_menus
-    #点击顶部导航栏一级菜单
+    # 点击顶部导航栏一级菜单
     if params[:parent]  
       @current_menu = Menu.find(params[:parent]) 
       @two_level_menus = current_user.sub_menus(@current_menu) 
-    #点击左侧导航二级菜单  
+    # 点击左侧导航二级菜单  
     elsif params[:menu_id]
       @current_menu = Menu.find(params[:menu_id])
       @two_level_menus = current_user.sub_menus(@current_menu.parent_menu)
-    #从其他途径访问系统  
-    else
-      # unless current_user.nil?
-      #   @current_menu = current_user.one_level_menus.select { |menu| menu.url == '/students_home'}.first
-      #   @two_level_menus = current_user.sub_menus(@current_menu)
-      # end
+    # 从其他途径访问系统  
+    elsif params[:through_controller]
+      @current_menu = Menu.all.select { |menu| menu.controller.include?(params[:controller]) && menu.parent_menu }.first
+      @two_level_menus = current_user.sub_menus(@current_menu.parent_menu)  
     end
   end
 

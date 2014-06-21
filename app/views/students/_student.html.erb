@@ -14,6 +14,14 @@
         <td><%= "#{@student.iclass.grade.name}#{@student.iclass.name}" %></td>
       </tr>
       <tr>
+        <th><strong>身份证号:</strong></th>
+        <td><%= @student.id_number %></td>
+      </tr>
+      <tr>
+        <th><strong>手机号码(家长):</strong></th>
+        <td><%= @student.phone %></td>
+      </tr>
+      <tr>
         <th><strong>状 态:</strong></th>
         <td>
           <% if @student.graduated? %>

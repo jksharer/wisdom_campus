@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140617103435) do
+ActiveRecord::Schema.define(version: 20140620132127) do
 
   create_table "agencies", force: true do |t|
     t.string   "name"
@@ -73,6 +73,20 @@ ActiveRecord::Schema.define(version: 20140617103435) do
   end
 
   add_index "behaviors", ["agency_id"], name: "index_behaviors_on_agency_id"
+
+  create_table "class_reports", force: true do |t|
+    t.integer  "iclass_id"
+    t.integer  "semester_id"
+    t.integer  "students"
+    t.integer  "behaviors"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.integer  "grade_id"
+  end
+
+  add_index "class_reports", ["grade_id"], name: "index_class_reports_on_grade_id"
+  add_index "class_reports", ["iclass_id"], name: "index_class_reports_on_iclass_id"
+  add_index "class_reports", ["semester_id"], name: "index_class_reports_on_semester_id"
 
   create_table "class_roles", force: true do |t|
     t.string   "name"

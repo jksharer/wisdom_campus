@@ -1,4 +1,5 @@
 source 'https://rubygems.org'
+# source 'https://ruby.taobao.org/'
 ruby '2.0.0'
 
 gem 'rails', '4.1.0'
@@ -24,6 +25,9 @@ gem 'carrierwave'
 gem 'simple_form'
 gem 'roo'
 gem 'gon', '5.0.4'
+# gem 'sidekiq'
+# gem 'whenever', :require => false
+gem 'rufus-scheduler'
 
 group :development, :test do
   gem 'sqlite3', '1.3.8'

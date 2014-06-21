@@ -5,6 +5,9 @@ class StudentsController < ApplicationController
 
   def home
     set_initial_data
+    @total_classes = ClassReport.where(semester: Semester.find_by(current: true)).size  
+    @total_students = ClassReport.where(semester: Semester.find_by(current: true)).
+      pluck(:students).inject(:+)
     respond_to do |format|
       format.js { render 'index.js.erb' }
       format.html 
@@ -35,21 +38,21 @@ class StudentsController < ApplicationController
       if array.first >= 0
         respond_to do |format|
           format.html {
-            redirect_to import_export_students_path, notice: "成功导入#{array.first}个学生的基础数据, 
+            redirect_to import_export_students_path(through_controller: true), notice: "成功导入#{array.first}个学生的基础数据, 
               其中新增#{array.last}个, 更新#{array.first - array.last}个."
           }
         end  
       else
         respond_to do |format|
           format.html {
-            redirect_to import_export_students_path, alert: "导入失败: 年级、班级、姓名、学号信息不能为空,请仔细检查并改正."
+            redirect_to import_export_students_path(through_controller: true), alert: "导入失败: 年级、班级、姓名、学号信息不能为空,请仔细检查并改正."
           }
         end  
       end
     else
       respond_to do |format|
         format.html {
-          redirect_to import_export_students_path, alert: "请选择文件，支持.xls、.xlsx及csv格式."
+          redirect_to import_export_students_path(through_controller: true), alert: "请选择文件，支持.xls、.xlsx及csv格式."
         }
       end
     end
@@ -114,14 +117,16 @@ class StudentsController < ApplicationController
     @student.agency = my_agency
     respond_to do |format|
       if @student.save
+        update_report(@student.iclass, Semester.find_by(current: true), "students")   # 更新报表统计中的学生数量
         flash.now[:notice] = '成功添加学生信息.'
         format.js {
           @from = 'create'
           render 'show.js.erb'
         }
-        format.html { redirect_to @student }
+        format.html { redirect_to student_path(@student, through_controller: true) }
       else
-        format.js { render 'new.js.erb' }
+        @iclasses = my_agency.iclasses
+        format.js { render 'shared/new.js.erb' }
         format.html { render action: 'new' }
       end
     end
@@ -129,13 +134,18 @@ class StudentsController < ApplicationController
 
   def update
     @student.class_role_ids = params[:class_roles]
+    # old_class_id = @student.iclass.id
     respond_to do |format|
       if @student.update(student_params)
+        # if @student.iclass != old_class   # 更改了班级，则旧班级的统计数量也需要更新
+        #   update_report(old_class, Semester.find_by(current: true), "students")
+        # end  
+        update_report(@student.iclass, Semester.find_by(current: true), "students")
         flash.now[:notice] = '学生信息更新成功.'
         format.js { render 'show.js.erb' }
-        format.html { redirect_to @student }
+        format.html { redirect_to student_path(@student, through_controller: true) }
       else
-        format.js { render 'new.js.erb' }
+        format.js { render 'shared/new.js.erb' }
         format.html { render action: 'edit' }
       end
     end
@@ -165,6 +175,6 @@ class StudentsController < ApplicationController
     end
 
     def student_params
-      params.require(:student).permit(:sid, :name, :gender, :photo, :iclass_id)
+      params.require(:student).permit(:sid, :name, :gender, :photo, :iclass_id, :id_number, :phone)
     end
 end

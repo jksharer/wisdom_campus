@@ -11,19 +11,19 @@
   </thead>
 
   <tbody>
-    <% @iclasses.each do |iclass| %>
+    <% @reports.each do |report| %>
       <tr>
-        <td><%= iclass.grade.name %></td>
-        <td><%= iclass.name %></td>
-        <td><%= iclass.header %></td>
-        <td><%= iclass.students.size %></td>
-        <td><%= behaviors_count_of_class(iclass) %></td>
+        <td><%= report.iclass.grade.name %></td>
+        <td><%= report.iclass.name %></td>
+        <td><%= report.iclass.header %></td>
+        <td><%= report.students %></td>
+        <td><%= report.behaviors %></td>
       </tr>
     <% end %>
     <tr>
       <td colspan="3" style="text-align: center;"><strong>合计:</strong></td>
-      <td><strong><%= my_agency.total_students %></strong></td>
-      <td><strong><%= behaviors_count_of_agency(my_agency) %></strong></td>
+      <td><strong><%= @total_students %></strong></td>
+      <td><strong><%= @total_behaviors %></strong></td>
     </tr>  
   </tbody>
 </table>

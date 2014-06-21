@@ -16,4 +16,5 @@ class Menu < ActiveRecord::Base
 	def has_kids?
 		self.sub_menus.count > 0
 	end
+
 end

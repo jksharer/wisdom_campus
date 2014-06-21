@@ -8,12 +8,12 @@
   <table class="table table-bordered" id="depts-table">
     <thead>
       <tr>
-        <th>部门名称</th>
-        <th>描述</th>
-        <th>所属机构</th>
-        <th>上级部门</th>
-        <th>子部门</th>
-        <th></th>
+        <th width="15%">部门名称</th>
+        <th width="20%">描述</th>
+        <th width="10%">上级部门</th>
+        <th width="25%">用户</th>
+        <th width="20%">子部门</th>
+        <th width="10%"></th>
       </tr>
     </thead>
 
@@ -22,9 +22,9 @@
         <tr>
           <td><%= link_to department.name, edit_department_path(department), :remote => true %></td>
           <td><%= department.description %></td>
-          <td><%= department.agency.name %></td>
-          <td><%= department.parent_department.nil?? "所属机构" : department.parent_department.name %></td>
-          <td><%= department.sub_departments.size %></td>
+          <td><%= department.parent_department.nil?? "" : department.parent_department.name %></td>
+          <td><%= department.users.map { |user| user.username }.join(', ') %></td>
+          <td><%= department.sub_departments.map { |dept| dept.name }.join(', ') %></td>
           <td>
             <%= link_to edit_department_path(department), remote: true do %>
               <span class="glyphicon glyphicon-edit"></span>  
@@ -36,4 +36,5 @@
       <% end %>
     </tbody>
   </table>
+  <%= paginate @departments %>  
 </div>

@@ -4,8 +4,16 @@ class MainPagesController < ApplicationController
   before_action :authorize
 
   def home
-    @current_menu = current_user.one_level_menus.first
-    @two_level_menus = current_user.sub_menus(@current_menu)
+    # 首次登陆系统进入Home界面时，对菜单进行初始化
+    unless params[:parent]
+      @current_menu = current_user.one_level_menus.first
+      @two_level_menus = current_user.sub_menus(@current_menu)  
+    end
+    reports = ClassReport.where(semester: Semester.find_by(current: true))
+    @total_classes = reports.size  
+    @total_students = reports.pluck(:students).inject(:+)
+    @total_behaviors = reports.pluck(:behaviors).inject(:+)  
+
     # 取出最新8条已审批发布的公告
     @announcements = Announcement.where(workflow_state: "accepted").order('created_at DESC').limit(8)
 

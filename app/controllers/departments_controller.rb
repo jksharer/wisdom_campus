@@ -4,7 +4,13 @@ class DepartmentsController < ApplicationController
   before_action :authorize
 
   def index
-    @departments = Department.where(agency: my_agency).order('name asc')
+    if params[:query] == "one_level"
+      @departments = Department.where(agency: my_agency, parent_department: nil).order('name asc').
+        paginate(page: params[:page], per_page: 10)
+    else
+      @departments = Department.where(agency: my_agency).order('name asc').
+        paginate(page: params[:page], per_page: 10)
+    end
     render 'shared/index.js.erb'
   end
 

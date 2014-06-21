@@ -1,7 +1,8 @@
 <div id="students-stats">
   <span class="glyphicon glyphicon-stats"></span>  
-  共<%= current_user.agency.total_students %>位学生, <%= current_user.agency.iclasses.size %>个班级.
+  共<%= @total_classes %>个班级, <%= @total_students %>位在读学生.
 </div>
+<% cache(cache_key_for_classes) do %>
 <table class="table" id="class-table">
   <thead>
     <tr>
@@ -15,16 +16,20 @@
 
   <tbody>
     <% @iclasses.each do |iclass| %>
+      <% cache(iclass) do %>
       <tr id="tr<%= iclass.id %>">
         <td><%= iclass.grade.name %></td>
         <td><%= iclass.name %></td>
         <td><%= iclass.header %></td>
+        
         <td><%= iclass.students.size %></td>
         <td>
           <%= render 'shared/edit_link', path: edit_iclass_path(iclass) %>
         </td>
       </tr>
+      <% end %>
     <% end %>
   </tbody>
 </table>
+<% end %>
 <%= paginate @iclasses %>

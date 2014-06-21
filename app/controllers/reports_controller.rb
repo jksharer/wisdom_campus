@@ -6,12 +6,11 @@ class ReportsController < ApplicationController
   end
 
   def via_classes
-    grades = Grade.where(agency: my_agency, graduated: false)
-    @iclasses = []
-    grades.each do |grade|
-      @iclasses.concat(grade.iclasses)
-    end
-  	# @iclasses = Iclass.where(agency: my_agency).order('grade_id asc')
+    @semester = Semester.find_by(current: true)
+    @reports = ClassReport.where(semester_id: @semester.id)
+    @total_classes = @reports.size  
+    @total_students = @reports.pluck(:students).inject(:+)
+    @total_behaviors = @reports.pluck(:behaviors).inject(:+)
   	respond_to do |format|
   		format.js {
   			@view = 'via_classes'
@@ -25,6 +24,11 @@ class ReportsController < ApplicationController
 
   def via_grades
     @grades = Grade.where(agency: my_agency, graduated: false)
+    @semester = Semester.find_by(current: true)
+    @reports = ClassReport.where(semester_id: @semester.id)
+    @total_classes = @reports.size  
+    @total_students = @reports.pluck(:students).inject(:+)
+    @total_behaviors = @reports.pluck(:behaviors).inject(:+)
     respond_to do |format|
       format.js {
         @view = 'via_grades'

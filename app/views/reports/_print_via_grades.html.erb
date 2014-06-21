@@ -2,9 +2,10 @@
 <table class="table table-bordered table-striped report-table" id="via-grades">
   <thead>
     <tr>
-      <th width="20%">年级</th>
-      <th width="40%">学生数量</th>
-      <th width="40%">本学期累计违规</th>
+      <th width="25%">年级</th>
+      <th width="25%">班级数量</th>
+      <th width="25%">学生数量</th>
+      <th width="25%">本学期累计违规</th>
     </tr>
   </thead>
 
@@ -12,14 +13,16 @@
     <% @grades.each do |grade| %>
       <tr>
         <td><%= grade.name %></td>
-        <td><%= grade.total_students_count %></td>
-        <td><%= behaviors_count_of_grade(grade) %></td>
+        <td><%= grade.iclasses.size %></td>
+        <td><%= total_students_of_grade(grade, @semester) %></td>
+        <td><%= total_behaviors_of_grade(grade, @semester) %></td>
       </tr>
     <% end %>
     <tr>
       <td style="text-align: center;"><strong>合计:</strong></td>
-      <td><strong><%= my_agency.total_students %></strong></td>
-      <td><strong><%= behaviors_count_of_agency(my_agency) %></strong></td>
+      <td><strong><%= @total_classes %></strong></td>
+      <td><strong><%= @total_students %></strong></td>
+      <td><strong><%= @total_behaviors %></strong></td>
     </tr>
   </tbody>
 </table>
