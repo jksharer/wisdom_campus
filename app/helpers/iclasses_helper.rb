@@ -8,10 +8,17 @@ module IclassesHelper
 		return total
 	end
 
+	# 生成缓存key
 	def cache_key_for_classes
 		count = Iclass.count
 		max_updated_at = Iclass.maximum(:updated_at).try(:utc).try(:to_s, :number)
-		"classes/all-#{count}-#{max_updated_at}"
+		max_updated_at_students = Student.maximum(:updated_at).try(:utc).try(:to_s, :number)
+		"classes/#{params[:page]}-#{count}-#{max_updated_at}-#{max_updated_at_students}"
+	end
+
+	def cache_key_for_class(iclass)
+		updated_at = iclass.updated_at.try(:utc).try(:to_s, :number)
+		"class/#{updated_at}"
 	end
 
 end

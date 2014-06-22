@@ -55,7 +55,7 @@
           <td><%= transfer_confirm_state(behavior.confirm_state) %></td>
           <td><%= behavior.sm.nil?? "未发送" : behavior.sm.status %></td>
           <td>
-            <% if behavior.confirmed? %>
+            <% if behavior.confirmed? || behavior.canceled? %>
               <%= link_to '详细', behavior, remote: true %>
             <% else %>
               <%= link_to edit_behavior_path(behavior), remote: true do %>

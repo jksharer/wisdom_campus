@@ -7,7 +7,8 @@
   <div class="form-group">
     <%= f.label :student_id, "学 号",class: "col-sm-1 control-label" %>
     <div class="col-sm-4">
-      <%= f.text_field :student_id, value: @behavior.student.nil?? "" : @behavior.student.sid, class: "form-control" %>  
+      <%= f.text_field :student_id, value: @behavior.student.nil?? "" : @behavior.student.sid, 
+        class: "form-control", id: "sid-field" %>  
     </div>
     <div class="col-sm-1">
       <%= f.submit "查 找", name: "query", class: "btn btn-large btn-primary" %>  

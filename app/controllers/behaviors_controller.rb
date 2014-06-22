@@ -3,6 +3,12 @@ class BehaviorsController < ApplicationController
 
   before_action :set_behavior, only: [:show, :edit, :print, :confirm, :update, :destroy]
   before_action :authorize
+  after_action :update_behaviors_report, only: [:confirm, :destroy]
+
+  # 更新相应班级的行为数量统计数据
+  def update_behaviors_report
+    update_report(@behavior.student.iclass, Semester.find_by(current: true), "behaviors")
+  end
 
   def index
     if params[:time]
@@ -37,7 +43,6 @@ class BehaviorsController < ApplicationController
   end
 
   def edit
-    render 'shared/new.js.erb'
   end
 
   def print
@@ -121,7 +126,6 @@ class BehaviorsController < ApplicationController
   def confirm
     @behavior.update_attribute(:confirm_state, "confirmed")
     @message = generate_message(@behavior)
-
     respond_to do |format|
       if @message.save
         @message.update_attribute(:mid, "#{my_agency.id}#{@message.id}")
@@ -166,6 +170,7 @@ class BehaviorsController < ApplicationController
     @behavior.update_attribute(:confirm_state, "canceled")
     respond_to do |format|
       format.js {
+        flash.now[:notice] = '该行为记录已设为无效状态.'
         render 'show.js.erb'  
       }
       format.html { redirect_to behaviors_url }

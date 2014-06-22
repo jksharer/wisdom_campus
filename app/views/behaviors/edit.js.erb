@@ -1,0 +1,3 @@
+$("div.link-content").html('<%= j render("#{controller.controller_name}/form") %>')
+// 编辑行为记录时，不允许修改学生
+$("#sid-field").prop('disabled', true)

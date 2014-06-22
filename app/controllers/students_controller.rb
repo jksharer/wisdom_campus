@@ -1,7 +1,15 @@
 class StudentsController < ApplicationController
-  include SessionsHelper
+  include ApplicationHelper
+  
   before_action :set_student, only: [:show, :edit, :update, :destroy, :graduate]
   before_action :authorize
+  after_action :update_all_report, only: [:import]
+  after_action :update_students_report, only: [:create, :graduate, :destroy]
+
+  # 更新相应班级的学生数量统计数据
+  def update_students_report
+    update_report(@student.iclass, Semester.find_by(current: true), "students")
+  end
 
   def home
     set_initial_data
@@ -34,25 +42,28 @@ class StudentsController < ApplicationController
     if params[:file]
       @agency = my_agency
       array = Student.import(params[:file], @agency)
-      # @count = Student.import(params[:file], @agency).first
       if array.first >= 0
+        # 导入成功后更新所有报表统计数据
+        # update_all_report      
         respond_to do |format|
           format.html {
-            redirect_to import_export_students_path(through_controller: true), notice: "成功导入#{array.first}个学生的基础数据, 
-              其中新增#{array.last}个, 更新#{array.first - array.last}个."
+            redirect_to import_export_students_path(through_controller: true), 
+              notice: "成功导入#{array.first}个学生的基础数据, 其中新增#{array.last}个, 更新#{array.first - array.last}个."
           }
         end  
       else
         respond_to do |format|
           format.html {
-            redirect_to import_export_students_path(through_controller: true), alert: "导入失败: 年级、班级、姓名、学号信息不能为空,请仔细检查并改正."
+            redirect_to import_export_students_path(through_controller: true), 
+              alert: "导入失败: 年级、班级、姓名、学号信息不能为空,请仔细检查并改正."
           }
         end  
       end
     else
       respond_to do |format|
         format.html {
-          redirect_to import_export_students_path(through_controller: true), alert: "请选择文件，支持.xls、.xlsx及csv格式."
+          redirect_to import_export_students_path(through_controller: true), 
+            alert: "请选择文件，支持.xls、.xlsx及csv格式."
         }
       end
     end
@@ -117,7 +128,6 @@ class StudentsController < ApplicationController
     @student.agency = my_agency
     respond_to do |format|
       if @student.save
-        update_report(@student.iclass, Semester.find_by(current: true), "students")   # 更新报表统计中的学生数量
         flash.now[:notice] = '成功添加学生信息.'
         format.js {
           @from = 'create'
@@ -134,13 +144,19 @@ class StudentsController < ApplicationController
 
   def update
     @student.class_role_ids = params[:class_roles]
-    # old_class_id = @student.iclass.id
+    class_ids = []
+    if student_params[:iclass_id] != @student.iclass.id
+      class_ids << student_params[:iclass_id]
+      class_ids << @student.iclass.id
+    end
     respond_to do |format|
       if @student.update(student_params)
-        # if @student.iclass != old_class   # 更改了班级，则旧班级的统计数量也需要更新
-        #   update_report(old_class, Semester.find_by(current: true), "students")
-        # end  
-        update_report(@student.iclass, Semester.find_by(current: true), "students")
+        # 更改了班级，则新旧班级的统计数据都需要更新 
+        unless class_ids.empty?
+          class_ids.each do |id|
+            update_report(Iclass.find(id), Semester.find_by(current: true), "students")  
+          end
+        end
         flash.now[:notice] = '学生信息更新成功.'
         format.js { render 'show.js.erb' }
         format.html { redirect_to student_path(@student, through_controller: true) }
@@ -162,7 +178,7 @@ class StudentsController < ApplicationController
   end
 
   def destroy
-    flash.now[:notice] = 'Student was successfully deleted.'
+    flash.now[:notice] = '请不要删除学生，您可以将该学生设为已毕业(离校)状态.'
     set_initial_data
     @students = Student.where(iclass_id: params[:iclass_id]).order('sid asc').
       paginate(page: params[:page], per_page: 12)    

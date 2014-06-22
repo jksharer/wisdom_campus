@@ -1,12 +1,21 @@
 $("div#behaviors-content").html('<%= j render("behaviors/show") %>')
+
+// 如果已确认，则隐藏打印和确认按钮
 <% if @behavior.confirm_state == "confirmed" %>
 	$("#confirm-button").hide()
 	$("#print-button").hide()
+<% elsif @behavior.confirm_state == "canceled" %>
+	$("#confirm-button").hide()
 <% end %>
+// 默认隐藏发送短信按钮
 $("#send-button").hide()
+
+// 如果短信已经生成且状态为发送失败, 则显示发送短信按钮
 <% if @behavior.sm && @behavior.sm.status == "failue" %>
 	$("#send-button").show()
 <% end %>
+
+// 如果需要发送短信, 则自动点击发送按钮
 <% if @require_send == true %>
 	$("#send-button").show()
 	$("#send-button").click()

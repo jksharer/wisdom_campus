@@ -27,7 +27,7 @@
           <% if @student.graduated? %>
             已毕业 | <%= link_to "设为在读", student_graduate_path(id: @student.id, graduated: false), remote:true %>
           <% else %>
-            在读 | <%= link_to "设为已毕业", student_graduate_path(id: @student.id, graduated: true), remote: true %>
+            在读 | <%= link_to "设为已毕业/退学", student_graduate_path(id: @student.id, graduated: true), remote: true %>
           <% end %>
         </td>
       </tr>

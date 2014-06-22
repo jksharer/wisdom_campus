@@ -19,7 +19,12 @@
         <td><%= student.id_number %></td>
         <td><%= student.phone %></td>
         <td>
-          <%= render 'shared/edit_link', path: edit_student_path(student) %>
+          <% if student.graduated? %>
+            <strong>已毕业</strong>
+          <% end %>
+          <%= link_to edit_student_path(student), remote: true do %>
+            <span class="glyphicon glyphicon-edit"></span> 
+          <% end %>
         </td>
       </tr>
     <% end %> 

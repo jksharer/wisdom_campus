@@ -263,7 +263,7 @@ ActiveRecord::Schema.define(version: 20140620132127) do
   create_table "students", force: true do |t|
     t.string   "sid"
     t.string   "name"
-    t.integer  "gender",        limit: 255, default: 0
+    t.integer  "gender", default: 0
     t.string   "photo"
     t.integer  "iclass_id"
     t.datetime "created_at"
