@@ -35,11 +35,12 @@ class SmsController < ApplicationController
         render 'shared/new.js.erb'
       end
     else
+      puts "response: #{response.body}"
       puts response.code
       puts response.message
       @sms = Sm.where(agency: my_agency).order('created_at desc').paginate(page: params[:page], per_page: 8)
-      case response
-        when Net::HTTPSuccess, Net::HTTPRedirection
+      case response.body  
+        when "success"  
           @sm.update_attribute(:status, "success")         # 如果发送成功，则更新短信信息的状态为success
           flash.now[:notice] = "短信发送成功."
           if params[:from] == "behavior"
@@ -50,7 +51,7 @@ class SmsController < ApplicationController
           end
         else
           @sm.update_attribute(:status, "failue")
-          flash.now[:alert] = "短信发送失败，请检查手机号码和网络是否正常."
+          flash.now[:alert] = "短信发送失败, 请检查手机号码, 网络和IP地址是否正常. "
           if params[:from] == "behavior"
             @behavior = @sm.behavior
             render 'behaviors/show.js.erb'

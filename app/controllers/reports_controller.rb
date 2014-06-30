@@ -58,7 +58,7 @@ class ReportsController < ApplicationController
         @total = 0
         @behaviors.map { |b| @total += b.score }
         @final_score = full_score + @total
-        @rule = EstimateRule.where(agency: my_agency).where("lower < ?", @final_score).where("higher > ?", @final_score).first
+        @rule = EstimateRule.where(agency: my_agency).where("lower <= ?", @final_score).where("higher >= ?", @final_score).first
         respond_to do |format|    
           format.js { 
             @view = 'estimate_report'
@@ -80,7 +80,8 @@ class ReportsController < ApplicationController
     @total = 0
     @behaviors.map { |b| @total += b.score }
     @final_score = full_score + @total
-    @rule = EstimateRule.where(agency: my_agency).where("lower < ?", @final_score).where("higher > ?", @final_score).first
+    puts "score: #{@final_score}"
+    @rule = EstimateRule.where(agency: my_agency).where("lower <= ?", @final_score).where("higher >= ?", @final_score).first
     respond_to do |format|
       format.html {
         render '_print_estimate', layout: 'print'

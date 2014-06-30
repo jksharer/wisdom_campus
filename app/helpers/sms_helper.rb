@@ -7,13 +7,7 @@ module SmsHelper
     message.update_attribute(:send_time, params[:mttime])
     uri = URI("http://211.142.19.253:8090/httpmt")
     response = Net::HTTP.post_form(uri, params)
-		return response
-    
-    # puts uri.request_uri
-    # puts params
-		# puts response.code
-		# puts response.message
-		# puts response.value
+		response
 	end
 
 	# 根据行为信息生成短信对象

@@ -78,7 +78,7 @@ module ReportsHelper
 			total += Behavior.where(student_id: student.id, confirm_state: 2,   
 				created_at: semester.start_date..semester.end_date).size
 		end
-		puts total
+		puts "#{iclass.name}: #{total}"
 		return total
 	end
 
