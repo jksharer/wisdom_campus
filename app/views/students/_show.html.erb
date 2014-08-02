@@ -1,7 +1,7 @@
 <%= render 'shared/notice' %>
 <div class="top-links">
 	<% if @from.nil? %>
-  	<%= link_to '返 回', students_path(iclass_id: @student.iclass_id), remote: true %>  |
+		<%= render 'shared/back_link', path: students_path(iclass_id: @student.iclass_id)%> |
   	<%= link_to '编 辑', edit_student_path(@student), remote: true %> 
   <% end %>	
 </div>

@@ -5,7 +5,7 @@ module SmsHelper
 	def send_message(message)
 		params = cmcc_params(message)
     message.update_attribute(:send_time, params[:mttime])
-    uri = URI("http://211.142.19.253:8090/httpmt")
+    uri = URI("http://172.16.0.6:8090/httpmt")
     response = Net::HTTP.post_form(uri, params)
 		response
 	end

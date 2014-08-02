@@ -36,9 +36,14 @@ class BehaviorsController < ApplicationController
   def new
     @behavior = Behavior.new
     @current_time = Time.now
-    respond_to do |format|    
-      format.js { render 'shared/new.js.erb' }
-      format.html
+    if params[:student_id]
+      @behavior.student = Student.find(params[:student_id])
+
+    else
+      respond_to do |format|    
+        format.js { render 'new.js.erb' }
+        format.html
+      end
     end
   end
 
@@ -76,7 +81,7 @@ class BehaviorsController < ApplicationController
             format.html { redirect_to @behavior }
           else
             format.js {
-              render 'shared/new.js.erb'
+              render 'new.js.erb'
             }
             format.html { render action: 'new' }
           end
@@ -113,7 +118,7 @@ class BehaviorsController < ApplicationController
             format.html { redirect_to @behavior }
           else
             format.js {
-              render 'shared/new.js.erb'
+              render 'new.js.erb'
             }
             format.html { render action: 'new' }
           end

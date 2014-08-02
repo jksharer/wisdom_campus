@@ -1,4 +1,4 @@
-$("div#behaviors-content").html('<%= j render("behaviors/show") %>')
+$("div#content").html('<%= j render("behaviors/show") %>')
 
 // 如果已确认，则隐藏打印和确认按钮
 <% if @behavior.confirm_state == "confirmed" %>

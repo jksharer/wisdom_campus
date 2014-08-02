@@ -31,13 +31,15 @@
 
     <tr>
       <th rowspan="<%= @behaviors.size %>" vertical-align:"middle"><strong>详细记录:</strong></th>
-      <td><%= generate_behavior_content(@behaviors.first) %></td>  
+      <td><%= @behaviors.first.nil?? "无记录" : generate_behavior_content(@behaviors.first) %></td>  
     </tr>
-    <% @behaviors[1..(@behaviors.size-1)].each do |behavior| %>
-      <tr>
-        <td>
-          <%= generate_behavior_content(behavior) %>
-        </td>
-      </tr>     
-      <% end %>
+    <% if @behaviors.size > 2 %>
+      <% @behaviors[1..(@behaviors.size-1)].each do |behavior| %>
+        <tr>
+          <td>
+            <%= generate_behavior_content(behavior) %>
+          </td>
+        </tr>     
+        <% end %>
+    <% end %>
   </table>
