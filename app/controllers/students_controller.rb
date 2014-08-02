@@ -4,7 +4,7 @@ class StudentsController < ApplicationController
   before_action :set_student, only: [:show, :edit, :update, :destroy, :graduate]
   before_action :authorize
   after_action :update_all_report, only: [:import]
-  after_action :update_students_report, only: [:create, :graduate, :destroy]
+  after_action :update_students_report, only: [:create, :update, :graduate, :destroy]
 
   # 更新相应班级的学生数量统计数据
   def update_students_report

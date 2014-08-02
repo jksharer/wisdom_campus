@@ -27,6 +27,7 @@ class IclassesController < ApplicationController
     respond_to do |format|
       if @iclass.save
         format.js {
+          # 添加class report
           set_initial_data
           flash.now[:notice] = '班级创建成功.'
           render 'index.js.erb'     
@@ -41,6 +42,9 @@ class IclassesController < ApplicationController
     respond_to do |format|
       if @iclass.update(iclass_params)
         format.js {
+          # 更新class report
+          report = ClassReport.find_by(iclass: @iclass, semester: Semester.find_by(current: true))
+          report.grade = @iclass.grade
           set_initial_data
           flash.now[:notice] = '班级信息更新成功.'
           render 'index.js.erb'     
