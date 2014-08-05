@@ -32,7 +32,8 @@ class DepartmentsController < ApplicationController
     @department.agency = current_user.agency
     if @department.save
       flash.now[:notice] = '部门创建成功.'
-      @departments = Department.where(agency: my_agency).order('name asc')
+      @departments = Department.where(agency: my_agency).order('name asc').
+        paginate(page: params[:page], per_page: 10)
       render 'shared/index.js.erb'
     else
       render 'shared/new.js.erb'
@@ -42,7 +43,8 @@ class DepartmentsController < ApplicationController
   def update
     if @department.update(department_params)
       flash.now[:notice] = '部门信息更新成功.'
-      @departments = Department.where(agency: my_agency).order('name asc')
+      @departments = Department.where(agency: my_agency).order('name asc').
+        paginate(page: params[:page], per_page: 10)
       render 'shared/index.js.erb'  
     else
       render 'shared/new.js.erb'
@@ -59,7 +61,8 @@ class DepartmentsController < ApplicationController
       @department.destroy
       flash.now[:notice] = '成功删除部门.'
     end
-    @departments = Department.where(agency: my_agency).order('name asc')
+    @departments = Department.where(agency: my_agency).order('name asc').
+        paginate(page: params[:page], per_page: 10)
     render 'shared/index.js.erb'
     
   end
