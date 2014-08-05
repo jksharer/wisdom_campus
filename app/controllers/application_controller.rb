@@ -3,11 +3,11 @@ class ApplicationController < ActionController::Base
 
   # Prevent CSRF attacks by raising an exception.
   # For APIs, you may want to use :null_session instead.
-  protect_from_forgery with: :exception
+  # protect_from_forgery with: :exception
 
   # before_action :authorize
   before_action :set_two_level_menus
-  before_action :detect_device_type
+  # before_action :detect_device_type
 
   def set_two_level_menus
     # 点击顶部导航栏一级菜单

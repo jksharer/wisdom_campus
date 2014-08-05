@@ -4,9 +4,11 @@
 <div id="agency-info">
 	<span class="glyphicon glyphicon-flag"></span>
 	<strong><%= current_user.agency.name %></strong>
+	<strong>&nbsp;&nbsp;&nbsp;<%= @current_semester.name %></strong>
 	<span class="right-button">
-		<%= "#{current_user.username}, #{current_user.department.nil?? "" : current_user.department.name}, 
-			#{current_user.roles.map { |role| role.name }.join(',')}" %>
+		<%= "#{current_user.username}, 
+				#{current_user.roles.map { |role| role.name }.join(',')},
+				#{current_user.department.nil?? "未分配部门" : current_user.department.name} " %>
 	</span>
 </div>
 <div id="students-info">
@@ -16,21 +18,21 @@
 	</span>
 
 	<span>
-		本学期共发生<strong><%= Behavior.select(:student_id).distinct.size %></strong>人次, <strong><%= @total_behaviors %></strong>起违反校园秩序的行为。
+		本学期共发生<strong><%= @student_times %></strong>人次, <strong><%= @total_behaviors %></strong>起违反校园秩序的行为。
 	</span>
 	<table class="table table-bordered">
 		<thead>
 			<tr>
-				<% BehaviorType.all.each do |type| %>
-					<th><%= type.name %></th>	
+				<% @type_counts.each do |item| %>
+					<th><%= item[0] %></th>	
 				<% end %>
 			</tr>	
 		</thead>
 		<tbody>
 			<tr>
-			<% BehaviorType.all.each do |type| %>
-				<td><%= Behavior.where(agency: my_agency, behavior_type: type).size %></td>
-			<% end %>
+				<% @type_counts.each do |item| %>
+					<td><%= item[1] %></td>
+				<% end %>
 			</tr>	
 		</tbody>
 	</table>

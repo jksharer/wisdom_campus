@@ -16,6 +16,32 @@ module ReportsHelper
 		ClassReport.where(grade: grade, semester: semester).pluck(:behaviors).inject(:+)
 	end	
 
+	# 新建学期，或将某学期设为“当前学期”后，对该学期的报表进行初始化
+	def initialize_reports(semester)
+		grades = Grade.where(agency: Agency.find(1), graduated: false)
+		classes = []
+		grades.each do |grade|
+			classes.concat(grade.iclasses)
+		end
+		puts "#{semester.id}"
+		classes.each do |iclass|
+			report = ClassReport.find_by(iclass: iclass, semester: semester)
+			if report
+				puts "update class report: #{iclass.name}"
+				report.update_attributes(grade_id: iclass.grade.id, 
+																 students: Student.where(iclass: iclass, graduated: false).size, 
+																behaviors: behaviors_of_class(iclass, semester))
+			else
+				puts "create class report: #{iclass.name}"
+				ClassReport.create(grade_id: iclass.grade.id, 
+													iclass_id: iclass.id, 
+												semester_id: semester.id, 
+													 students: Student.where(iclass: iclass, graduated: false).size, 
+													behaviors: behaviors_of_class(iclass, semester))
+			end
+		end
+	end
+
 	# 更新class_report报表中班级的学生数量和行为数量, 参数scope指定更新的属性
 	# 在下列事件发生后调用该方法: 
 	# 增加、删除学生、学生调换班级
@@ -28,7 +54,8 @@ module ReportsHelper
 			when "students"
 				report.update_attribute(:students, Student.where(iclass: iclass, graduated: false).size)
 			when "behaviors"
-				report.update_attribute(:behaviors, behaviors_of_class(iclass, semester))			when "grade"
+				report.update_attribute(:behaviors, behaviors_of_class(iclass, semester))			
+			when "grade"
 				report.update_attribute(:grade_id, iclass.grade.id)
 			when "all"
 				report.update_attributes(grade_id: iclass.grade.id, 
@@ -52,6 +79,7 @@ module ReportsHelper
 			classes.concat(grade.iclasses)
 		end
 		semester = Semester.find_by(current: true)
+		puts "#{semester.id}"
 		classes.each do |iclass|
 			report = ClassReport.find_by(iclass: iclass, semester: semester)
 			if report
@@ -80,6 +108,11 @@ module ReportsHelper
 		end
 		puts "#{iclass.name}: #{total}"
 		return total
+	end
+
+	def hinted_text_field_tag(name, value = nil, hint = "Click and enter text", options={})
+  	value = value.nil? ? hint : value
+  	text_field_tag name, value, {:onclick => "if($(this).value == '#{hint}'){$(this).value = ''}", :onblur => "if($(this).value == ''){$(this).value = '#{hint}'}" }.update(options.stringify_keys)
 	end
 
 end

@@ -27,7 +27,7 @@ module SessionsHelper
     # 检查是否登陆
     if current_user.nil?
     # unless User.find_by(id: session[:user_id])
-      redirect_to login_url, notice: 'Please log in.'
+      redirect_to login_url(params), notice: '请登陆系统.'
       return
     end
     # 检查该操作是否在该用户的功能权限范围之内
@@ -47,8 +47,7 @@ module SessionsHelper
   		# end
   	end
   	redirect_to login_url, 
-  		notice: "Sorry, the current user does not have the permission, 
-  							please use other user to access."	
+  		notice: "Sorry, 当前用户无操作该功能的权限, 请使用其他用户登陆."	
     return
   end
 end

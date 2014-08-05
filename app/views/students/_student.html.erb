@@ -33,6 +33,7 @@
       </tr>
     </table>
     <%= link_to "添加行为记录", new_behavior_path(student_id: @student.id), remote: true, class: 'btn btn-primary' %>
+    <%= link_to "查看行为评价报告", reports_path(student_id: @student.id), remote: true, class: 'btn btn-primary' %>
   </div>
 
   <div id="photo" class="col-sm-3">

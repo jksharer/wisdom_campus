@@ -1,5 +1,26 @@
-<%= render 'shared/back_link', path: reports_path %> |
-<%= render 'shared/print_link', path: via_classes_path %> 
+<script type="text/javascript">
+	$(document).ready(function() {
+		$("#semester-select").change(function() {
+			$("#submit-button").click();
+		});
+	});
+</script>
+<div class="row">
+	<div class="col-sm-2">
+		<%= render 'shared/back_link', path: reports_path %> |
+		<%= render 'shared/print_link', path: via_classes_path %> 			
+	</div>
+	<div id="query-semester-form">
+		<%= form_tag({controller: "reports", action: "via_classes"}, method: 'get', remote: true) do %>
+			<div class="col-md-offset-8 col-md-2 col-sm-offset-6 col-sm-4">
+				<%= select_tag(:semester, options_for_select(Semester.order('start_date asc').map { |s| [s.name, s.id] }, @semester.id),{class: 'form-control', id: 'semester-select'}) %>	
+			</div>
+			<div>
+				<%= submit_tag "查询报表", name: "submit", id: "submit-button", class: "btn btn-small btn-default", style: "width: 0px;height: 0px;border: none;padding:0px;" %>	
+			</div>
+	<% end %>	
+	</div>
+</div>
 <div id="via-classes-report">
 	<%= render 'print_via_classes' %>	
 </div>

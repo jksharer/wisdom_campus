@@ -26,4 +26,16 @@ module BehaviorsHelper
 							end
 		return state
 	end
+
+	def transfer_sm_state(send_state)
+		state = case send_state
+		when "success"
+			"发送成功"
+		when "failue"
+			"发送失败"
+		else
+			"未知"	
+		end
+		return state
+	end
 end

@@ -4,10 +4,18 @@ class BehaviorsController < ApplicationController
   before_action :set_behavior, only: [:show, :edit, :print, :confirm, :update, :destroy]
   before_action :authorize
   after_action :update_behaviors_report, only: [:confirm, :destroy]
+  before_action :set_side_menus
 
   # 更新相应班级的行为数量统计数据
   def update_behaviors_report
     update_report(@behavior.student.iclass, Semester.find_by(current: true), "behaviors")
+  end
+
+  def set_side_menus
+    if params[:menu]  
+      @current_menu = Menu.find(params[:menu]) 
+      @two_level_menus = current_user.sub_menus(@current_menu)   
+    end
   end
 
   def index
@@ -36,14 +44,24 @@ class BehaviorsController < ApplicationController
   def new
     @behavior = Behavior.new
     @current_time = Time.now
-    if params[:student_id]
+    # 根据学生id查找学生
+    if params[:student_id]   
       @behavior.student = Student.find(params[:student_id])
-
-    else
-      respond_to do |format|    
-        format.js { render 'new.js.erb' }
-        format.html
+    end
+    # 从一卡通系统获取学生学号
+    if params[:student_sid]
+      student = Student.find_by(sid: params[:student_sid])
+      if student.nil?
+        flash[:alert] = "系统中无该学生信息，请联系管理员添加或重新录入."
+        redirect_to new_behavior_path(menu: 26)
+        return
+      else
+        @behavior.student = student
       end
+    end
+    respond_to do |format|    
+      format.js 
+      format.html
     end
   end
 

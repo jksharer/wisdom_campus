@@ -3,10 +3,27 @@ class ReportsController < ApplicationController
   before_action :authorize
 
   def home
+    if params[:student_id]
+      @student = Student.find(params[:student_id])
+    end
+  end
+
+  def update_reports
+    if params[:semester]
+      semester = Semester.find(params[:semester])
+    else
+      semester = Semester.find_by(current: true)
+    end
+    initialize_reports(semester) if semester
+    flash.now[:notice] = "该学期报表数据更新完成."
   end
 
   def via_classes
-    @semester = Semester.find_by(current: true)
+    if params[:semester]
+      @semester = Semester.find(params[:semester])
+    else
+      @semester = Semester.find_by(current: true)
+    end
     @reports = ClassReport.where(semester_id: @semester.id)
     @total_classes = @reports.size  
     @total_students = @reports.pluck(:students).inject(:+)
@@ -23,8 +40,12 @@ class ReportsController < ApplicationController
   end
 
   def via_grades
+    if params[:semester]
+      @semester = Semester.find(params[:semester])
+    else
+      @semester = Semester.find_by(current: true)
+    end
     @grades = Grade.where(agency: my_agency, graduated: false)
-    @semester = Semester.find_by(current: true)
     @reports = ClassReport.where(semester_id: @semester.id)
     @total_classes = @reports.size  
     @total_students = @reports.pluck(:students).inject(:+)

@@ -14,14 +14,21 @@
 
   <tbody>
     <% @semesters.each do |semester| %>
-      <tr>
+      <% if semester.current? %>
+        <tr class='current'>
+      <% else %>
+        <tr>
+      <% end %>
         <td><%= semester.school_year %></td>
         <td><%= semester.name %></td>
         <td><%= semester.start_date %></td>
         <td><%= semester.end_date %></td>
-        <td><%= semester.current %></td>
+        <td><%= semester.current?? "当前学期" : "非当前学期" %></td>
         <td><%= render 'shared/edit_link', path: edit_semester_path(semester) %></td>
       </tr>
     <% end %>
   </tbody>
 </table>
+<p>注：1. 同时有且只能有一个学期处于“当前学期”状态. </p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;2. 当您将某个学期设为“当前学期”后，系统会自动将其他所有学期设为“非当前学期”.
+</p>

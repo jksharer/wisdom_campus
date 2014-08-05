@@ -1,54 +1,65 @@
+<!-- 页面加载完毕后自动点击查找按钮 -->
+<script type="text/javascript">
+  $(document).ready(function() {
+    $('#query-button').click();
+  });
+</script>
 <%= link_to behaviors_path, remote: true do %>
-  <span class="glyphicon glyphicon-arrow-left"></span> 返 回
+  <span class="glyphicon glyphicon-arrow-left"></span> 所有记录
 <% end %>
-<%= form_for(@behavior, remote: true, html: { class: "form-horizontal", role: "form" }) do |f| %>
-  <%= render 'shared/error_messages', object: f.object %>
+<div class="row">
+  <div class="col-md-1 col-sm-2" ></div>
+  <div class="col-md-11 col-sm-10">
+    <%= form_for(@behavior, remote: true, html: { class: "form-horizontal", role: "form" }) do |f| %>
+      <%= render 'shared/error_messages', object: f.object %>
 
-  <div class="form-group">
-    <%= f.label :student_id, "学 号",class: "col-sm-1 control-label" %>
-    <div class="col-sm-4">
-      <%= f.text_field :student_id, value: @behavior.student.nil?? "" : @behavior.student.sid, 
-        class: "form-control", id: "sid-field" %>  
-    </div>
-    <div class="col-sm-1">
-      <%= f.submit "查 找", name: "query", class: "btn btn-large btn-primary" %>  
-    </div>
-  </div>
-  
-  <label class="col-sm-offset-1 col-sm-11" id="student-info"></label>
+      <div class="form-group">
+        <%= f.label :student_id, "学 号",class: "col-sm-1 control-label" %>
+        <div class="col-sm-4">
+          <%= f.text_field :student_id, value: @behavior.student.nil?? "" : @behavior.student.sid, 
+            class: "form-control", id: "sid-field" %>  
+        </div>
+        <div class="col-sm-2">
+          <%= f.submit "查找学生", name: "query", class: "btn btn-large btn-primary", id: "query-button" %>  
+        </div>
+      </div>
+      
+      <label class="col-sm-offset-1 col-sm-11" id="student-info"></label>
 
-  <div class="form-group">
-    <%= f.label :behavior_type_id, "行为类型",class: "col-sm-1 control-label" %>
-    <div class="col-sm-8 radio-boxes">
-      <% BehaviorType.where(agency: my_agency).each do |type| %>
-        <%= f.radio_button(:behavior_type_id, type.id) %>  
-        <%= f.label(:behavior_type_id, type.name) %>
-      <% end %>
-    </div>
-  </div>  
+      <div class="form-group">
+        <%= f.label :behavior_type_id, "行为类型",class: "col-sm-1 control-label" %>
+        <div class="col-sm-8 radio-boxes">
+          <% BehaviorType.where(agency: my_agency).each do |type| %>
+            <%= f.radio_button(:behavior_type_id, type.id) %>  
+            <%= f.label(:behavior_type_id, type.name) %>
+          <% end %>
+        </div>
+      </div>  
 
-  <div class="form-group">
-    <%= f.label :time, "发生时间", class: "col-sm-1 control-label" %>
-    <div class="col-sm-4">
-      <%= f.text_field :time, value: time_format_min(Time.now), class: "form-control" %>  
-    </div>
-    
-    <%= f.label :address, "地 点", class: "col-sm-1 control-label" %>
-    <div class="col-sm-4">
-      <%= f.text_field :address, value: "学校正门口", class: "form-control" %>  
-    </div>
-  </div>
-  
-  <div class="form-group">
-    <%= f.label :description, "过程描述", class: "col-sm-1 control-label" %>
-    <div class="col-sm-9">
-      <%= f.text_area :description, class: "form-control", rows: 3 %>  
-    </div>
-  </div>
+      <div class="form-group">
+        <%= f.label :time, "发生时间", class: "col-sm-1 control-label" %>
+        <div class="col-sm-4">
+          <%= f.text_field :time, value: time_format_min(Time.now), class: "form-control" %>  
+        </div>
+        
+        <%= f.label :address, "地 点", class: "col-sm-1 control-label" %>
+        <div class="col-sm-4">
+          <%= f.text_field :address, value: "学校正门口", class: "form-control" %>  
+        </div>
+      </div>
+      
+      <div class="form-group">
+        <%= f.label :description, "过程描述", class: "col-sm-1 control-label" %>
+        <div class="col-sm-9">
+          <%= f.text_area :description, class: "form-control", rows: 3 %>  
+        </div>
+      </div>
 
-  <div class="form-group">
-    <div class="col-sm-offset-1 col-sm-2">
-      <%= f.submit "保 存", name:"submit", class: "btn btn-large btn-primary" %>  
-    </div>
+      <div class="form-group">
+        <div class="col-sm-offset-1 col-sm-2">
+          <%= f.submit "保 存", name:"submit", class: "btn btn-large btn-primary" %>  
+        </div>
+      </div>
+    <% end %>
   </div>
-<% end %>
+</div>

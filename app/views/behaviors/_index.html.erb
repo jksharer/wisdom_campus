@@ -53,7 +53,7 @@
           <td><%= link_to behavior.description.truncate(15), behavior, remote: true %></td>
           <td><%= behavior.score %></td>
           <td><%= transfer_confirm_state(behavior.confirm_state) %></td>
-          <td><%= behavior.sm.nil?? "未发送" : behavior.sm.status %></td>
+          <td><%= behavior.sm.nil?? "未发送" : transfer_sm_state(behavior.sm.status) %></td>
           <td>
             <% if behavior.confirmed? || behavior.canceled? %>
               <%= link_to '详细', behavior, remote: true %>
