@@ -31,7 +31,7 @@
 
   <div class="form-group">
     <%= f.label :roles_of_user, "用户角色:", class: "col-sm-2 control-label" %>
-    <div class="all_roles col-sm-8">
+    <div class="all_roles col-sm-8 box">
       <% Role.all.each do |role| %>
         <%= check_box_tag "roles_of_user[]", role.id, 
             @user.roles.include?(role) %>

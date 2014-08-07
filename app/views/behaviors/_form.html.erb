@@ -28,7 +28,7 @@
 
       <div class="form-group">
         <%= f.label :behavior_type_id, "行为类型",class: "col-sm-1 control-label" %>
-        <div class="col-sm-8 radio-boxes">
+        <div class="col-sm-8 box">
           <% BehaviorType.where(agency: my_agency).each do |type| %>
             <%= f.radio_button(:behavior_type_id, type.id) %>  
             <%= f.label(:behavior_type_id, type.name) %>
