@@ -12,7 +12,7 @@ class EstimateRulesController < ApplicationController
 
   def new
     @estimate_rule = EstimateRule.new
-    
+    render 'shared/new.js.erb'
   end
 
   def edit

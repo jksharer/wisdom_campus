@@ -61,7 +61,9 @@ class BehaviorsController < ApplicationController
     end
     respond_to do |format|    
       format.js 
-      format.html
+      format.html {
+        render layout: 'new_tab'
+      }
     end
   end
 

@@ -8,9 +8,11 @@
 	  <%= csrf_meta_tags %>
 	</head>
 	<body>
-		<div class="container <%= controller.controller_name %>">
-			<%= render 'shared/notice' %>
-			<%= yield %>	
-		</div>	
+		<div class="container">
+			<div id="content">
+				<%= render 'shared/notice' %>
+				<%= yield %>		
+			</div>
+		</div>
 	</body>
 </html>	
