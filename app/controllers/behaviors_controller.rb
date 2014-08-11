@@ -53,7 +53,7 @@ class BehaviorsController < ApplicationController
       student = Student.find_by(sid: params[:student_sid])
       if student.nil?
         flash[:alert] = "系统中无该学生信息，请联系管理员添加或重新录入."
-        redirect_to new_behavior_path(menu: 26)
+        redirect_to new_behavior_path(sid: params[:student_sid])
         return
       else
         @behavior.student = student
