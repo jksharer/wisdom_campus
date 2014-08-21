@@ -9,7 +9,7 @@
     <span class="glyphicon glyphicon-arrow-left"></span> 所有记录
   <% end %>    
 </div>
-<div class="row">
+<div class="row" id="behavior-form">
   <%= form_for(@behavior, remote: true, html: { class: "form-horizontal", role: "form" }) do |f| %>
     <%= render 'shared/error_messages', object: f.object %>
 

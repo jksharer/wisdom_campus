@@ -25,7 +25,10 @@
   <%= link_to "最近一月", behaviors_path(time: "30"), remote: true %> |
   <%= link_to "更多查询", behaviors_path, remote: true %> |
   <a href="/behaviors?time=<%= @scope %>"><span class="glyphicon glyphicon-export"></span> 导出到Excel</a>
-  <%= render 'shared/add_link', path: new_behavior_path, name: '添加记录' %>
+  <%= link_to new_behavior_path, remote: true, class: "btn btn-large btn-default right-button", 
+    id: 'new-behavior-button' do %>
+    <span class="glyphicon glyphicon-plus-sign"></span> 添加记录
+  <% end %>
 </div>
 <div id="behaviors-content" class="link-content">
   <table class="datatable">

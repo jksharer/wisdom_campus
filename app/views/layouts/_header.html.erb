@@ -1,13 +1,13 @@
 <nav class="navbar navbar-default" role="navigation">
   <div class="navbar-header">
-    <%= link_to "Wisdom Campus", root_path, class: "navbar-brand", id: "logo" %>
+    <%= image_tag("logo.png", size: "210x50", id: "logo") %>
   </div>
 
   <div class="collapse navbar-collapse" id="navbar-collapse-1">
     <ul class="nav navbar-nav">
       <% current_user.one_level_menus.each do |parent| %>             
         <li>
-          <%= link_to "#{parent.url}?parent=#{parent.id}", remote: true do %>
+          <%= link_to "#{parent.url}?parent=#{parent.id}", remote: true, class: "one-level-link" do %>
             <span class="glyphicon glyphicon-<%= parent.icon %>"></span> <%= parent.name %>
           <% end %>
         </li>
@@ -15,11 +15,9 @@
     </ul>
 
     <ul class="nav navbar-nav navbar-right">
-      <li><%= link_to "欢迎您, #{current_user.username}", my_path, remote: true %></li>  
       <li>
-          
-      </li>
-
+        <%= link_to "欢迎您, #{current_user.username}", my_path, remote: true, class: "one-level-link" %>
+      </li>  
       <li class="dropdown">
         <a href="#" class="dropdown-toggle" data-toggle="dropdown">
           <span class="glyphicon glyphicon-question-sign"></span>
