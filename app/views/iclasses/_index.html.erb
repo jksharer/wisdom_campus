@@ -8,8 +8,9 @@
       <th>年级</th>
       <th>班级名称</th>
       <th>班主任</th>
-      <th>学生</th>
-      <th colspan="1"></th>
+      <th>联系方式</th>
+      <th>学生数量</th>
+      <th></th>
     </tr>
   </thead>
 
@@ -19,7 +20,7 @@
         <td><%= iclass.grade.name %></td>
         <td><%= iclass.name %></td>
         <td><%= iclass.header %></td>
-        
+        <td><%= iclass.phone %></td>
         <td><%= Student.where(iclass_id: iclass.id, graduated: false).size %></td>
         <td>
           <%= render 'shared/edit_link', path: edit_iclass_path(iclass) %>

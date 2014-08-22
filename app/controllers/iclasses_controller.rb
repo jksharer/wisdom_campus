@@ -81,6 +81,6 @@ class IclassesController < ApplicationController
     end
 
     def iclass_params
-      params.require(:iclass).permit(:name, :grade_id, :header)
+      params.require(:iclass).permit(:name, :grade_id, :header, :phone)
     end
 end

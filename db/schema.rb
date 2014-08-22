@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140620132127) do
+ActiveRecord::Schema.define(version: 20140821112207) do
 
   create_table "agencies", force: true do |t|
     t.string   "name"
@@ -144,6 +144,7 @@ ActiveRecord::Schema.define(version: 20140620132127) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.integer  "agency_id"
+    t.string   "phone"
   end
 
   add_index "iclasses", ["agency_id"], name: "index_iclasses_on_agency_id"
@@ -263,7 +264,7 @@ ActiveRecord::Schema.define(version: 20140620132127) do
   create_table "students", force: true do |t|
     t.string   "sid"
     t.string   "name"
-    t.integer  "gender", default: 0
+    t.integer  "gender",        limit: 255, default: 0
     t.string   "photo"
     t.integer  "iclass_id"
     t.datetime "created_at"
