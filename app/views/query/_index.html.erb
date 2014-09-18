@@ -1,0 +1,33 @@
+<script type="text/javascript">
+	$(document).ready(function() {
+		$("#show_link").hide();
+		$("#hide_link").click(function() {
+			$("#query-form").hide();
+			$("#show_link").show();
+			$("#hide_link").hide();
+			return false;
+		});
+		$("#show_link").click(function() {
+			$("#query-form").show();
+			$("#show_link").hide();
+			$("#hide_link").show();
+			return false;
+		});
+	});
+</script>
+<div class="top-links">
+	<%= link_to "按班级查询", query_switch_path(switch: "class"), remote: true %>	|
+	<%= link_to "按年级查询", query_switch_path(switch: "grade"), remote: true %>	|
+	<a href="#" id="hide_link">
+		<span class="glyphicon glyphicon-resize-small"></span>隐藏查询框
+	</a>
+</div>
+<a href="#" id="show_link">
+	<span class="glyphicon glyphicon-resize-full"></span>显示查询框
+</a>
+<div id="query-form">
+	<%= render 'form_class' %>
+</div>
+<div id="query-results">
+	
+</div>

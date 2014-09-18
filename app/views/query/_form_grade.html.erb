@@ -1,0 +1,44 @@
+<%= form_tag({controller: "query", action: "query_via_grade"}, method: "get", remote: true) do %>
+	  <div class="form-group row">
+      <%= label_tag :start_date, "开始时间", class: "col-sm-1 control-label" %>
+      <div class="col-sm-2">
+        <%= date_field_tag(:start_date, Date.today, { class: "form-control" }) %>
+      </div>
+      <%= label_tag :end_date, "结束时间", class: "col-sm-1 control-label" %>
+      <div class="col-sm-2">
+        <%= date_field_tag(:end_date, Date.today, { class: "form-control" }) %>  
+      </div>
+      <%= label_tag :confirm_state, "状态", class: "col-sm-1 control-label" %>
+      <div class="col-sm-2">
+	      <%= select_tag(:confirm_state, options_for_select(
+	      	[["已确认", 2], ["未确认", 0], ["已取消", 3]], 2),
+	        { class: "form-control" }) %>
+	    </div>
+    </div>
+    
+    <div class="form-group row">
+    	<%= label_tag :grade, "年级", class: "col-sm-1 control-label" %>
+		  <div class="col-sm-2">
+		    <%= select_tag(:grade, options_for_select([["所有年级", "all_grades"]] + 
+		    	Grade.where(graduated: false, agency: my_agency).map { |grade| [grade.name, grade.id] }, "所有年级"),
+		      { class: "form-control" }) %>
+		  </div>
+		  <%= label_tag :behavior_type, "行为类型", class: "col-sm-1 control-label" %>
+      <div class="col-sm-2">
+        <%= select_tag(:behavior_type, options_for_select([["所有类型", "all_types"]] + 
+	      	BehaviorType.all.map { |type| [type.name, type.id] }, "所有类型"),
+	        { class: "form-control" }) %>  
+      </div>
+      
+	  	<%= label_tag :address, "发生地点", class: "col-sm-1 control-label" %>
+      <div class="col-sm-2">
+          <%= select_tag(:address, options_for_select(["所有地点", "学校前门", "校内", "学校后门"].map { |address| [address, address] }, "所有地点"), { class: "form-control imput-sm"}) %>
+      </div>
+	  </div>
+
+	  <div class="form-group row">
+		  <div class="col-sm-offset-1 col-sm-2">
+		    <%= submit_tag "查询", name: "submit", id: "submit-button", class: "btn btn-primary" %>
+		  </div>
+	  </div>
+	<% end %>

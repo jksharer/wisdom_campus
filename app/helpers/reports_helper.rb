@@ -98,6 +98,10 @@ module ReportsHelper
 		end
 	end
 
+	# 检查class reports数据是否正确，如果存在不合法的数据则进行删除
+	def check_class_reports
+	end
+
 	# 计算某个班级在某个学期的总违反行为数量
 	def behaviors_of_class(iclass, semester)
 		total = 0

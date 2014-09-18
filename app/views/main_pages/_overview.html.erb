@@ -4,7 +4,9 @@
 <div id="agency-info">
 	<span class="glyphicon glyphicon-flag"></span>
 	<strong><%= current_user.agency.name %></strong>
-	<strong>&nbsp;&nbsp;&nbsp;<%= @current_semester.name %></strong>
+	<span>&nbsp;&nbsp;&nbsp;<%= @current_semester.name %>
+		(<%= @current_semester.start_date %>至<%= @current_semester.end_date %>)
+	</span>
 	<span class="right-button">
 		<%= "#{current_user.username}, 
 				#{current_user.roles.map { |role| role.name }.join(',')},

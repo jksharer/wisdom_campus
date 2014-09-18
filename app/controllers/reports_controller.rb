@@ -90,9 +90,9 @@ class ReportsController < ApplicationController
           }
         end    
       end
-    end 
+    end  
   end
-
+ 
   def print_estimate
     @result_student = Student.find(params[:student_id])
     @semester = Semester.find(params[:semester_id])

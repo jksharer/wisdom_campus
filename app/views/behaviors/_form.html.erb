@@ -42,9 +42,12 @@
         <%= f.text_field :time, value: time_format_min(Time.now), class: "form-control" %>  
       </div>
       
-      <%= f.label :address, "地 点", class: "col-sm-1 control-label" %>
-      <div class="col-sm-4">
-        <%= f.text_field :address, value: "学校正门口", class: "form-control" %>  
+      <%= f.label :address, "发生地点", class: "col-sm-1 control-label" %>
+      <div class="col-sm-4 box">
+          <% ["学校前门", "校内", "学校后门"].each do |address| %>  
+            <%= f.radio_button(:address, address) %>
+            <%= f.label(:address, address) %>
+          <% end %>
       </div>
     </div>
     

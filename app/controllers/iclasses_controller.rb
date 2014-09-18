@@ -1,4 +1,5 @@
 class IclassesController < ApplicationController
+  include ApplicationHelper
   before_action :set_iclass, only: [:show, :edit, :update, :destroy]
   before_action :authorize
 
@@ -46,8 +47,10 @@ class IclassesController < ApplicationController
           report = ClassReport.find_by(iclass: @iclass, semester: Semester.find_by(current: true))
           report.grade = @iclass.grade
           set_initial_data
+          @total_classes = ClassReport.where(semester: Semester.find_by(current: true)).size  
+          @total_students = ClassReport.where(semester: Semester.find_by(current: true)).pluck(:students).inject(:+)
           flash.now[:notice] = '班级信息更新成功.'
-          render 'index.js.erb'     
+          render 'students/index.js.erb'     
         }
       else
         format.js { render 'shared/new.js.erb' }

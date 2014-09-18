@@ -44,5 +44,11 @@ WisdomCampus::Application.routes.draw do
 
   match '/my_school',         to: 'my_school#home',                via: 'get'
   match '/send_message',      to: 'sms#send_sm',                   via: ['get', 'post']
-  
+
+  match '/query_index',       to: 'query#index',                   via: 'get'
+  match '/query_query',       to: 'query#query',                   via: 'get'
+  match '/query_via_class',   to: 'query#query_via_class',         via: 'get'
+  match '/query_via_grade',   to: 'query#query_via_grade',         via: 'get'
+  match '/query_to_excel',    to: 'query#query_to_excel',          via: 'get'
+  match '/query_switch',      to: 'query#switch',                  via: 'get'
 end

@@ -82,7 +82,7 @@ module ApplicationHelper
 	end
 
 	def time_format_min(time)
-		time.strftime("%Y-%m-%d %H:%M")
+		time.strftime("%Y-%m-%d %H:%M") unless time.nil?
 	end
 
 	#根据对象的工作流的状态，返回相应的中文状态名称

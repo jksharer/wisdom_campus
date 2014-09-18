@@ -1,0 +1,42 @@
+<% if @behaviors.nil? || @behaviors.size == 0 %>
+  <p>无相关记录, 请重新输入查询条件.</p>
+<% else %>
+  <span class="glyphicon glyphicon-stats"></span>
+  <strong>共计<%= @behaviors.size %>条记录, 
+    <%= @behaviors.select(:student_id).distinct.size %>人次.
+  </strong>
+  <!-- <span style="float:right;">
+    <%= link_to query_via_class_path(@params) do %>  
+      <span class="glyphicon glyphicon-export"></span> 导出到Excel
+    <% end %>   
+  </span> -->
+  <table class="table table-bordered">
+    <thead>
+      <tr>
+        <th>班级</th>
+        <th>学生</th>
+        <th>行为类型</th>
+        <th>发生时间</th>
+        <th>地点</th>
+        <th>扣/加分</th>
+        <th>状态</th>
+        <th>短信发送</th>
+      </tr>
+    </thead>
+
+    <tbody>
+      <% @behaviors.each do |behavior| %>
+        <tr>
+          <td><%= behavior.student.iclass.name %></td>
+          <td><%= behavior.student.name %></td>
+          <td><%= behavior.behavior_type.name %></td>
+          <td><%= time_format_min(behavior.time) %></td>
+          <td><%= behavior.address %></td>
+          <td><%= behavior.score %></td>
+          <td><%= transfer_confirm_state(behavior.confirm_state) %></td>
+          <td><%= behavior.sm.nil?? "未发送" : transfer_sm_state(behavior.sm.status) %></td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+<% end %>

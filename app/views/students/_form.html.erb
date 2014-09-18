@@ -52,6 +52,7 @@
     <%= f.label :photo, "照 片", class: "col-sm-1 control-label" %>
     <div class="col-sm-3">
       <%= image_tag(@student.photo_url, size: "80x100") if @student.photo? %>
+      <%= image_tag("students/#{@student.iclass.name}/#{@student.name}.jpg", size: "80x100") %>
       <%= f.file_field :photo, class: "form-control" %>
       <%= f.hidden_field :photo_cache %>
     </div>
