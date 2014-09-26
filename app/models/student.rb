@@ -35,11 +35,12 @@ class Student < ActiveRecord::Base
       if Iclass.find_by(agency: agency, name: row[2]).nil?
         Iclass.create(name: row[2], grade: Grade.find_by(agency: agency, name: row[1]), agency: agency)
       end
+      student_sid = row[4].to_s
       student.attributes = {
         agency: agency,
         iclass: Iclass.find_by(agency: agency, name: row[2]),
         name: row[3],
-        sid: row[4],
+        sid: student_sid.include?(".")? student_sid.slice(0, student_sid.index(".")) : student_sid,
         id_number: row[5],
         phone: row[6],
         card_type: row[7],
