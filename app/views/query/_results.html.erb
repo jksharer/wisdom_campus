@@ -5,6 +5,9 @@
   <strong>共计<%= @behaviors.size %>条记录, 
     <%= @behaviors.select(:student_id).distinct.size %>人次.
   </strong>
+  <%= link_to query_via_class_path(params) do %>  
+    <span class="glyphicon glyphicon-export"></span> 导出到Excel
+  <% end %>
   <!-- <span style="float:right;">
     <%= link_to query_via_class_path(@params) do %>  
       <span class="glyphicon glyphicon-export"></span> 导出到Excel
