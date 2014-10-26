@@ -2854,8 +2854,13 @@ textarea,
 
 
  */
+div#behavior-form {
+  margin-left: 10%; }
+
+div#query-result {
+  margin-top: -1em; }
+
 label#student-info {
-  margin-top: -1em;
   margin-bottom: 0.5em;
   color: green;
   font-size: 16px; }
@@ -7943,6 +7948,9 @@ hr {
 
 div.top-links {
   margin-bottom: 1.5em; }
+
+.box {
+  margin-top: 8px; }
 div#students-stats {
   margin-top: 1em;
   margin-bottom: 0; }
@@ -7959,6 +7967,8 @@ div#navbar #logo {
     color: white;
     background: none;
     text-decoration: none; }
+div#navbar .one-level-link {
+  font-size: 14px; }
 div#navbar a.dropdown-toggle {
   font-size: 18px; }
   div#navbar a.dropdown-toggle:link, div#navbar a.dropdown-toggle:active, div#navbar a.dropdown-toggle:visited {
@@ -7990,7 +8000,8 @@ div.container {
         background: #006600; }
   div.container div#content {
     padding-top: 10px;
-    overflow-y: auto; }
+    overflow-y: auto;
+    overflow-x: hidden; }
 .main_pages {
   margin-top: 1em; }
   .main_pages .pagination {
@@ -8060,6 +8071,10 @@ div#query-form {
 
 div#student-info {
   margin-top: 1em; }
+
+div#query-semester-form {
+  line-height: 13px;
+  font-size: 12px; }
 .all_menus {
   margin: 5px 10px 20px 0; }
 
@@ -8067,6 +8082,9 @@ div#student-info {
   margin: 10px 20px; }
   .sub_menus label {
     margin-right: 10px; }
+.current {
+  background-color: #006600;
+  color: white; }
 div#login_page {
   margin: 10% 30%; }
 
@@ -8081,6 +8099,9 @@ div#login_page {
   margin-top: 2em;
   margin-bottom: 2em;
   text-align: center; }
+div#students-content {
+  margin-left: -20px; }
+
 div#photo {
   padding: 0; }
   div#photo image {
@@ -8095,6 +8116,10 @@ div#import-info {
 
 div#export-form {
   margin-top: 5em; }
+
+#classes li {
+  border: none;
+  text-align: center; }
 .all_roles {
   margin-bottom: 10px; }
   .all_roles label {

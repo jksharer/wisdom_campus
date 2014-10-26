@@ -17,6 +17,7 @@
 /tmp
 
 #Ignore other unneeded files
+/public/students
 database.yml
 /doc
 *.swp

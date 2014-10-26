@@ -38,10 +38,15 @@
 
   <div id="photo" class="col-sm-3">
     <% if @student.photo? %>
-      <%= image_tag(@student.photo_url, size: "220x280") %>
+      <%= image_tag(@student.photo_url, size: "300x420") %>
     <% else %>  
-      <span>未上传该学生照片！</span>
+      <% if File.exist?(Rails.root + "public/students/#{@student.iclass.name.slice(0,4)}/#{@student.id_number}.jpg") %>
+        <%= image_tag("/students/#{@student.iclass.name.slice(0,4)}/#{@student.id_number}.jpg", size: "300x420") %>
+      <% elsif File.exist?(Rails.root + "public/students/#{@student.iclass.name.slice(0,4)}/#{@student.sid}.jpg") %>
+          <%= image_tag("/students/#{@student.iclass.name.slice(0,4)}/#{@student.sid}.jpg", size: "300x420") %>
+      <% else %>
+        <span>未上传照片！</span>
+      <% end %>
     <% end %>
-    <%= image_tag("/students/#{@student.iclass.name.slice(0,4)}/#{@student.name}.jpg", size: "80x100") %>
   </div>
 </div>

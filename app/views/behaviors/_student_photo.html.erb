@@ -1,0 +1,11 @@
+<% if @result_student.photo? %>
+  <%= image_tag(@result_student.photo_url, size: "120x160") %>
+<% else %>  
+	<% if File.exist?(Rails.root + "public/students/#{@result_student.iclass.name.slice(0,4)}/#{@result_student.id_number}.jpg") %>
+		<%= image_tag("/students/#{@result_student.iclass.name.slice(0,4)}/#{@result_student.id_number}.jpg", size: "120x160") %>
+	<% elsif File.exist?(Rails.root + "public/students/#{@result_student.iclass.name.slice(0,4)}/#{@result_student.sid}.jpg") %>
+			<%= image_tag("/students/#{@result_student.iclass.name.slice(0,4)}/#{@result_student.sid}.jpg", size: "120x160") %>
+	<% else %>
+		<span>未上传照片！</span>
+	<% end %>
+<% end %>
