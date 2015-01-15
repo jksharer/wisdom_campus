@@ -24,7 +24,7 @@ class ReportsController < ApplicationController
     else
       @semester = Semester.find_by(current: true)
     end
-    @reports = ClassReport.where(semester_id: @semester.id)
+    @reports = ClassReport.where(semester_id: @semester.id).order('iclass_id asc')
     @total_classes = @reports.size  
     @total_students = @reports.pluck(:students).inject(:+)
     @total_behaviors = @reports.pluck(:behaviors).inject(:+)
