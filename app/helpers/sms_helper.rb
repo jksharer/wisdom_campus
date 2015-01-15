@@ -1,12 +1,26 @@
 module SmsHelper
 	require "net/http"
+	require 'savon'
 
 	# 发送违反秩序信息的短信，以违反秩序行为对象作为参数
 	def send_message(message)
 		params = cmcc_params(message)
     message.update_attribute(:send_time, params[:mttime])
-    uri = URI("http://172.16.0.6:8090/httpmt")
-    response = Net::HTTP.post_form(uri, params)
+    
+    # HTTP
+    # uri = URI("http://172.16.0.6:8090/httpmt")
+    # response = Net::HTTP.post_form(uri, params)
+
+    # SOAP
+    client = Savon.client(wsdl: 'http://172.16.0.6:8090/services/esmsservice?wsdl')
+    client.operations
+    response = client.call(:sendSmsAsNormal, 
+    												message: { phone: params[:phone],
+    																	 msgcont: params[:msgcontent], 
+    																	 spnumber: params[:cpoid], 
+    																	 mttime: params[:mttime], 
+    																	 cpid: params[:username],      
+    																	 cppwd: params[:pwd] })
 		response
 	end
 

@@ -28,6 +28,7 @@ gem 'gon', '5.0.4'
 # gem 'sidekiq'
 # gem 'whenever', :require => false
 gem 'rufus-scheduler'
+gem 'savon', '2.8.0'
 
 group :development, :test do
   gem 'sqlite3', '1.3.8'
